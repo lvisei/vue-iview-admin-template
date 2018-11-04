@@ -38,6 +38,10 @@ npm run lint
 
 * 待续
 
+## Env
+* last 2 versions
+* ie > 10
+
 ## License
 
 [MIT](https://github.com/liuvigongzuoshi/vue-iview-admin-template/blob/master/LICENSE)
