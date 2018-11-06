@@ -2,13 +2,13 @@
 
 ## Categories
 - [Documentation](#documentation)
-  - [Categories](#categories)
-  - [Introduction](#introduction)
-    - [Kills](#kills)
-    - [File structure](#file-structure)
-  - [Layout](#layout)
-  - [Router](#router)
-  - [Code Standards](#code-standards)
+    - [Categories](#categories)
+    - [Introduction](#introduction)
+        - [Kills](#kills)
+        - [File structure](#file-structure)
+    - [Layout](#layout)
+    - [Router](#router)
+    - [Code Standards](#code-standards)
 
 ## Introduction
 
@@ -56,7 +56,6 @@
 ├─src
 │    ├─api           # Api请求
 │    ├─assets        # 静态资源
-│    │  └─img        # 图片资源
 │    ├─components    # 全局公用组件
 │    ├─config       # 项目请求URL
 │    ├─router       # 路由配置
