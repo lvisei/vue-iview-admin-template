@@ -2,7 +2,11 @@
 
 > 基于第三方组件 iView 实现 Ant Design 设计规范的 vue 2.0 后台管理系统模板
 
-**Live demo:**  [https://github.com/liuvigongzuoshi/vue-iview-admin-template](https://github.com/liuvigongzuoshi/vue-iview-admin-template)
+[![vue](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
+[![iview](https://img.shields.io/badge/iview-3.1.4-brightgreen.svg)](https://github.com/iview/iview)
+![DUB](https://img.shields.io/dub/l/vibe-d.svg)
+
+**Live demo:** [https://github.com/liuvigongzuoshi/vue-iview-admin-template](https://github.com/liuvigongzuoshi/vue-iview-admin-template)
 
 ## Usage
 
@@ -28,15 +32,12 @@ npm run lint
 
 ## Demo
 
-* 待续
+- 待续
 
 ## Links
 
-* 待续
-
-## Documentation 
-
-* 待续
+- [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
+- 待续
 
 ## License
 
