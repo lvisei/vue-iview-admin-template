@@ -21,6 +21,8 @@ cd my-project
 │    ├─assets/            # 静态资源文件目录
 │    ├─components/        # 全局公用组件目录
 │    ├─config/            # 项目URL配置目录
+│    ├─layouts/           # 布局目录
+│    ├─lib/               # 静态数据目录
 │    ├─router/            # 路由配置目录
 │    ├─store/             # Vuex配置目录
 │    ├─styles/            # 项目样式目录
@@ -51,7 +53,7 @@ cd my-project
 ├─vue.config.js           # 项目打包配置文件
 ```
 
-## Kills
+## Stacks
 
 * CSS
   * less

@@ -1,0 +1,49 @@
+{
+  "name": "vue-iview-admin-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "dev": "npm run serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "modern": "vue-cli-service build --modern --report",
+    "inspect": "vue-cli-service inspect"
+  },
+  "dependencies": {
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.1.1",
+    "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-service": "^3.1.1",
+    "@vue/eslint-config-prettier": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "lint-staged": "^7.2.2",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}

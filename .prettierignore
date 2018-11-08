@@ -1,0 +1,6 @@
+.eslintrc.js
+*.config.js
+# *.md
+# **/*.svg
+# **/*.html
+# package.json
