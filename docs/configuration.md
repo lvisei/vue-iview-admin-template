@@ -166,3 +166,6 @@
     * [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
     * 更多 Standards 参考[ Vue 官方的特有代码的风格指南](https://cn.vuejs.org/v2/style-guide/)。
 
+## Editor
+* [Prettier Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：使用[Prettie](https://prettier.io/)格式化插件，支持JavaScript、TypeScript、Vue等文件的格式化。
+* [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)：为Vue框架提供语法高亮、代码片段、Emmet、格式化、代码风格检查、智能提示、调试帮助等。文档: [vetur](https://vuejs.github.io/vetur/setup.html#extensions)。
