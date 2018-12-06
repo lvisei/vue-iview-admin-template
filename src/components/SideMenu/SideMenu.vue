@@ -1,6 +1,8 @@
 <template>
   <div class="side-menu">
+    <!-- logo -->
     <slot></slot>
+    <!-- unfolded  menu -->
     <i-menu
       ref="menu"
       v-show="!collapsed"
@@ -34,6 +36,7 @@
         </template>
       </template>
     </i-menu>
+    <!-- folded menu -->
     <div class="menu-collapsed" v-show="collapsed" :list="menuList">
       <template v-for="(item, index) in menuList">
         <collapsed-menu
@@ -88,7 +91,8 @@ export default {
     },
 
     collapsed: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
 
     theme: {
@@ -112,8 +116,7 @@ export default {
     },
 
     activeName: {
-      type: String,
-      default: ''
+      type: String
     },
 
     openNames: {

@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import utils from './utils'
 import iView from 'iview'
-import Mock from './mock'
+// import Mock from './mock'
 import request from './utils/request'
 
 /* Import styles */

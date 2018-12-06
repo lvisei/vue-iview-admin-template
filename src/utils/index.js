@@ -15,7 +15,7 @@ const hasChild = list => {
 const getMenuList = list => {
   let res = []
   list.forEach(item => {
-    if (item.meta) {
+    if (item.meta && !item.hidden) {
       let obj = {
         name: item.name,
         icon: item.meta.icon || '',
@@ -43,6 +43,9 @@ const getBreadCrumbList = routeMetched => {
       name: item.meta.title || '首页',
       router: { name: item.name }
     }
+  })
+  res.filter(item => {
+    return !item.hidden
   })
   return res
 }

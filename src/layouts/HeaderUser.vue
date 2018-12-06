@@ -10,7 +10,7 @@
         </i-dropdown-item>
         <i-dropdown-item name="setting">
           <i-icon class="icon" size="16" type="ios-settings-outline"/>
-          <span>设置</span>
+          <span>个人设置</span>
         </i-dropdown-item>
         <i-dropdown-item name="logout" divided>
           <i-icon class="icon" size="16" type="ios-power-outline"/>
@@ -43,10 +43,10 @@ export default {
     handleClick(name) {
       switch (name) {
         case 'user':
-          this.$router.push({ name: 'AdminLog' })
+          this.$router.push({ name: 'UserCenter' })
           break
         case 'setting':
-          this.$router.push({ name: 'AdminCenter' })
+          this.$router.push({ name: 'UserSet' })
           break
         case 'logout':
           this.logOut().then(res => {

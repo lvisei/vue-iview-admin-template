@@ -17,14 +17,14 @@ const hasPermission = (auths, permissionAuths) => {
 router.beforeEach(async (to, from, next) => {
   Vue.prototype.$Loading.start()
   let token = getToken()
-  let isToLogin = to.name === 'login'
+  let isToLogin = to.name === 'Login'
   let auths = store.state.user.auths.length
   let hasUserInfo = auths !== 0
 
   if (token) {
     if (isToLogin) {
       // 已登录且要跳转的页面是登录页 跳转到home页
-      next({ path: '/' })
+      next({ name: 'MainView' })
       Vue.prototype.$Loading.finish()
     } else {
       if (hasUserInfo) {
@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
         } else {
           // 获取用户信息失败
           removeToken()
-          next({ path: '/login' })
+          next({ name: 'Login' })
         }
       }
     }
@@ -51,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else {
       // 未登录且要跳转的页面不是登录页 跳转到登录页
-      next({ path: '/login' })
+      next({ name: 'Login' })
       Vue.prototype.$Loading.finish()
     }
   }
