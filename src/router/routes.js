@@ -1,7 +1,7 @@
-import Login from '@/pages/login/Login'
+import Login from '@/pages/login'
 import MainView from '@/layouts/MainView'
-import Dashboard from '@/pages/dashboard/Dashboard'
-import ParentView from '@/components/ParentView/ParentView'
+import RouteView from '@/layouts/RouteView'
+import Dashboard from '@/pages/dashboard'
 
 /**
  * configurable parameters under the routing '/'
@@ -37,20 +37,21 @@ const routes = [
       {
         path: 'user-page',
         name: 'UserPage',
-        component: ParentView,
-        meta: { title: '个人页', icon: 'ios-speedometer-outline' },
+        component: RouteView,
+        meta: { title: '个人页', icon: 'md-person' },
         children: [
           {
             path: 'user-center',
             name: 'UserCenter',
-            component: Dashboard,
-            meta: { title: '个人中心', icon: 'ios-speedometer-outline' }
+            component: () =>
+              import(/* webpackChunkName: "UserCenter" */ '@/pages/user-page/user-center'),
+            meta: { title: '个人中心', icon: 'logo-octocat' }
           },
           {
             path: 'user-set',
             name: 'UserSet',
-            component: Dashboard,
-            meta: { title: '个人设置', icon: 'ios-speedometer-outline' }
+            component: () => import(/* webpackChunkName: "UserSet" */ '@/pages/user-page/user-set'),
+            meta: { title: '个人设置', icon: 'ios-settings' }
           }
         ]
       }

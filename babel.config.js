@@ -3,7 +3,7 @@ module.exports = {
     [
       "@vue/app",
       {
-        debug: true
+        debug: false
       }
     ]
   ],

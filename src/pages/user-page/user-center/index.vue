@@ -1,10 +1,10 @@
 <template>
-	<router-view />
+  <i-card class="user-center">UserCenter</i-card>
 </template>
 
 <script>
 export default {
-  name: 'ParentView',
+  name: 'UserCenter',
 
   components: {},
 

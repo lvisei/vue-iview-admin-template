@@ -11,15 +11,15 @@ const router = new Router({
 })
 
 const hasPermission = (auths, permissionAuths) => {
-  return permissionAuths ? permissionAuths.includes(auths) : 1
+  return permissionAuths ? permissionAuths.includes(auths[0]) : 1
 }
 
 router.beforeEach(async (to, from, next) => {
   Vue.prototype.$Loading.start()
   let token = getToken()
   let isToLogin = to.name === 'Login'
-  let auths = store.state.user.auths.length
-  let hasUserInfo = auths !== 0
+  let auths = store.state.user.auths
+  let hasUserInfo = auths.length !== 0
 
   if (token) {
     if (isToLogin) {
