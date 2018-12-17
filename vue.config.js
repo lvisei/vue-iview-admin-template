@@ -1,10 +1,10 @@
 module.exports = {
   baseUrl: "./",
   devServer: {
-    port: 8000,
+    port: 9000,
     open: true
   },
-  lintOnSave: false,
+  lintOnSave: true,
   css: {
     loaderOptions: {
       less: {

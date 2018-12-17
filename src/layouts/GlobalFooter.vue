@@ -1,8 +1,10 @@
 <template>
-  <div class="global-footer__copyright">Vue IView Admin Template © 2018 LIUVIGONGZUOSHI</div>
+  <div class="global-footer__copyright">{{copyright}}</div>
 </template>
 
 <script>
+import { copyright } from '@/config'
+
 export default {
   name: 'GlobalFooter',
 
@@ -11,7 +13,9 @@ export default {
   props: [],
 
   data() {
-    return {}
+    return {
+      copyright: copyright
+    }
   },
 
   computed: {},

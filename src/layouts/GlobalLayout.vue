@@ -19,7 +19,7 @@
         <div class="logo">
           <router-link to="/">
             <img class="logo__img" src="./../assets/images/logo.png">
-            <h1 v-show="!isCollapsed" class="logo__title">Vue IView Admin</h1>
+            <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
       </side-menu>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { shortSiteName } from '@/config'
 import SideMenu from '@/components/SideMenu'
 import GlobalHeader from './GlobalHeader'
 import GlobalFooter from './GlobalFooter'
@@ -63,7 +64,8 @@ export default {
   data() {
     return {
       isCollapsed: false,
-      menuList: []
+      menuList: [],
+      shortSiteName: shortSiteName
     }
   },
 

@@ -2,5 +2,6 @@
   - [快速上手](getting-started.md)
 - 定制化
   - [配置项](configuration.md)
+  - [开发](development.md)
 - 指南
   - [部署](deploy.md)

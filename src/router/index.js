@@ -6,8 +6,11 @@ import { getToken, removeToken } from '@/utils/auth'
 
 Vue.use(Router)
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 const router = new Router({
-  routes: routes
+  routes: routes,
+  mode: isDevelopment ? 'hash' : 'history'
 })
 
 const hasPermission = (auths, permissionAuths) => {

@@ -35,6 +35,28 @@ const routes = [
         meta: { title: '仪表盘', icon: 'ios-speedometer-outline', auths: ['super_admin', 'admin'] }
       },
       {
+        path: 'list-page',
+        name: 'ListPage',
+        component: RouteView,
+        meta: { title: '列表页', icon: 'md-grid' },
+        children: [
+          {
+            path: 'query-list',
+            name: 'QueryList',
+            component: () =>
+              import(/* webpackChunkName: "QueryList" */ '@/pages/list-page/query-list'),
+            meta: { title: '查询表格', icon: 'md-list' }
+          },
+          {
+            path: 'standard-list',
+            name: 'StandardList',
+            component: () =>
+              import(/* webpackChunkName: "StandardList" */ '@/pages/list-page/standard-list'),
+            meta: { title: '标准列表', icon: 'md-podium' }
+          }
+        ]
+      },
+      {
         path: 'user-page',
         name: 'UserPage',
         component: RouteView,

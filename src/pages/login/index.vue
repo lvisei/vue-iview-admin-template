@@ -3,7 +3,7 @@
     <div class="login-content">
       <div class="login-header">
         <img src="./../../assets/images/logo.png" alt="logo" class="logo">
-        <span class="title">Vue IView Admin Template</span>
+        <span class="title">{{ siteName }}</span>
       </div>
       <i-card class="login-main" title="账户密码登录" :bordered="false">
         <login-form :loading="loading" @on-success-valid="handleSubmit"></login-form>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { siteName } from '@/config'
 import { mapActions } from 'vuex'
 import GlobalFooter from '@/layouts/GlobalFooter'
 import LoginForm from '@/components/LoginForm/loginForm.vue'
@@ -34,7 +35,8 @@ export default {
 
   data() {
     return {
-      loading: false
+      loading: false,
+      siteName: siteName
     }
   },
 

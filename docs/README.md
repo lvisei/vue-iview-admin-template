@@ -1,10 +1,20 @@
+<p align="center">
+  <a href="https://github.com/liuvigongzuoshi/vue-iview-admin-template">
+    <img alt="vue-iview-admin-template" width="200" src="./_media/logo.png">
+  </a>
+</p>
+
+<div align="center">
+
 # vue-iview-admin-template
 
-> 基于第三方组件 iView 实现 Ant Design 设计规范的 vue 2.0 后台管理系统模板
+基于第三方组件 iView 实现 Ant Design 设计规范的 vue 2.0 后台管理系统模板
 
 [![vue](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
 [![iview](https://img.shields.io/badge/iview-3.1.4-brightgreen.svg)](https://github.com/iview/iview)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
+
+</div>
 
 **Live demo:** [https://github.com/liuvigongzuoshi/vue-iview-admin-template](https://github.com/liuvigongzuoshi/vue-iview-admin-template)
 

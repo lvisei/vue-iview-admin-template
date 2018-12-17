@@ -1,9 +1,12 @@
-export const ROOT_URL = 'http://47.92.150.231:8080/tapper/'
-export const ROOT_URL_LOCA = 'http://localhost:8080/tapper/'
+export const ROOT_URL = process.env.VUE_APP_BASE_API
 
-export default {
+export const siteName = 'Vue IView Admin Template'
+export const shortSiteName = 'Vue IView Admin'
+export const copyright = 'Vue IView Admin Template © 2018 LIUVIGONGZUOSHI'
+
+/* export default {
   BASE_URL: {
-    DEV: 'http://47.92.150.231:8080/tapper/',
-    PROD: 'http://localhost:8080/tapper/'
+    DEV: '',
+    PROD: ''
   }
-}
+} */
