@@ -14,7 +14,7 @@ const router = new Router({
 })
 
 const hasPermission = (auths, permissionAuths) => {
-  return permissionAuths ? permissionAuths.includes(auths[0]) : 1
+  return permissionAuths ? permissionAuths.some(item => auths.includes(item)) : 1
 }
 
 router.beforeEach(async (to, from, next) => {
