@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/liuvigongzuoshi/vue-iview-admin-template">
-    <img alt="vue-iview-admin-template" width="200" src="./docs/_media/logo.png">
+    <img alt="vue-iview-admin-template" width="200" src="./_media/logo.png">
   </a>
 </p>
 
