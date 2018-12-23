@@ -1,5 +1,5 @@
 <template>
-  <i-card class="user-center">UserCenter</i-card>
+  <i-card class="user-center" shadow>UserCenter</i-card>
 </template>
 
 <script>

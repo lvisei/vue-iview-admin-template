@@ -1,5 +1,5 @@
 <template>
-  <i-card class="standard-list">StandardList</i-card>
+  <i-card class="standard-list" shadow>StandardList</i-card>
 </template>
 
 <script>

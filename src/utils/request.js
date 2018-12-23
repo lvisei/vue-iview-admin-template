@@ -4,6 +4,7 @@ import store from '@/store'
 import { Message } from 'iview'
 import { getToken, removeToken } from '@/utils/auth'
 
+const repeatMsg = 'REPEATREQUEST'
 const { CancelToken } = axios
 let cancelRequest = new Map()
 
@@ -18,10 +19,26 @@ const tip = msg => {
   })
 }
 
+/**
+ * Serialization parameter
+ * @param  {Object}    params
+ * @return {encode}    encodeURI
+ */
+
+function paramsSerializer(params) {
+  let result = []
+  for (let i in params) {
+    let isObject = params.hasOwnProperty(i) && typeof params[i] !== 'string'
+    isObject ? result.push(`${i}=${JSON.stringify(params[i])}`) : result.push(`${i}=${params[i]}`)
+  }
+  return encodeURI(result.join('&'))
+}
+
 // create an axios instance
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 10000
+  timeout: 10000,
+  paramsSerializer: paramsSerializer
 })
 
 /**
@@ -32,9 +49,9 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // do something before request is sent
-    let urlParams = config.url
+    let urlParams = config.url + JSON.stringify(config.params)
     if (cancelRequest.has(urlParams)) {
-      cancelRequest.get(urlParams)('Repeat Request')
+      cancelRequest.get(urlParams)(repeatMsg)
     }
     config.cancelToken = new CancelToken(cancel => {
       cancelRequest.set(urlParams, cancel)
@@ -48,6 +65,7 @@ request.interceptors.request.use(
   },
   error => {
     // Do something with request error
+    // eslint-disable-next-line
     console.log(error)
     Promise.reject(error)
   }
@@ -76,15 +94,18 @@ request.interceptors.response.use(
     }
   },
   error => {
-    const { res } = error
+    const { res, message } = error
     if (res) {
       // The request has been issued, but not in the range of 2 xx
       tip(`Status:${res.status},Message: ${res.data.message}`)
       return Promise.reject(res)
+    } else if (message === repeatMsg) {
+      tip('repeat message')
     } else {
       // To deal with broken network
       tip('Broken Network')
     }
+    // eslint-disable-next-line
     console.log(`err:${error}`)
   }
 )

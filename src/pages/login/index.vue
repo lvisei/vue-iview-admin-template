@@ -1,11 +1,11 @@
 <template>
-  <i-layout class="login-wrapper">
+  <i-layout class="login-wrapper" ref="bg">
     <div class="login-content">
       <div class="login-header">
         <img src="./../../assets/images/logo.png" alt="logo" class="logo">
         <span class="title">{{ siteName }}</span>
       </div>
-      <i-card class="login-main" title="账户密码登录" :bordered="false">
+      <i-card class="login-main" title="账户密码登录" shadow>
         <login-form :loading="loading" @on-success-valid="handleSubmit"></login-form>
         <p class="mark">
           <span>用户名：admin</span>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import CanvasNest from 'canvas-nest.js'
 import { siteName } from '@/config'
 import { mapActions } from 'vuex'
 import GlobalFooter from '@/layouts/GlobalFooter'
@@ -36,8 +37,24 @@ export default {
   data() {
     return {
       loading: false,
-      siteName: siteName
+      siteName: siteName,
+      canvasNest: null,
+      canvasNestConfig: {
+        color: '255, 0, 0',
+        pointColor: '246, 228, 188',
+        count: 120,
+        zIndex: 0,
+        opacity: 0.4
+      }
     }
+  },
+
+  mounted() {
+    this.canvasNest = new CanvasNest(this.$refs.bg.$el, this.canvasNestConfig)
+  },
+
+  beforeDestroy() {
+    this.canvasNest.destroy()
   },
 
   methods: {
@@ -76,6 +93,7 @@ export default {
   }
 
   &-content {
+    z-index: 1;
     flex: 1;
     padding-top: 150px;
   }
@@ -105,6 +123,10 @@ export default {
       font-size: 16px;
       text-align: center;
       padding: 20px 0;
+
+      p {
+        color: #666;
+      }
     }
 
     .ivu-card-body {

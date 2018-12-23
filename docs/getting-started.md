@@ -73,6 +73,8 @@ cd my-project
   - lodash
   - js-cookie
   - countup
+  - canvas-nest.js
+  - jsencrypt
 
 - Frame
 
