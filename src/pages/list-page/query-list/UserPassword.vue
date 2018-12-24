@@ -1,8 +1,8 @@
 <template>
   <i-modal
     class="lp-user-password"
-    :title="`修改登陆名${userName}的密码`"
-    :value="passwordPane"
+    :title="`修改登陆名${name}的密码`"
+    :value="modalVisible"
     @on-cancel="onCancel"
   >
     <i-form
@@ -24,7 +24,7 @@
     </i-form>
     <div slot="footer">
       <i-button type="text" @click="onCancel">取消</i-button>
-      <i-button type="primary" @click="onOk" :loading="passwordSubmit">提交</i-button>
+      <i-button type="primary" @click="onOk" :loading="loading">提交</i-button>
     </div>
   </i-modal>
 </template>
@@ -38,12 +38,12 @@ export default {
   filters: {},
 
   props: {
-    userName: String,
-    passwordPane: {
+    name: String,
+    modalVisible: {
       type: Boolean,
       default: false
     },
-    passwordSubmit: {
+    loading: {
       type: Boolean,
       default: false
     }
@@ -96,8 +96,14 @@ export default {
   computed: {},
 
   watch: {
-    passwordPane(val) {
-      if (!val) {
+    modalVisible(val) {
+      if (!val && !this.loading) {
+        this.$refs.form.resetFields()
+      }
+    },
+
+    loading(val) {
+      if (!val && !this.modalVisible) {
         this.$refs.form.resetFields()
       }
     }
@@ -133,7 +139,7 @@ export default {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.$emit('on-edit-submit', {
-            username: this.userName,
+            username: this.name,
             oldPassword: this.formData.passwdOld,
             newPassword: this.formData.passwdCheck
           })
@@ -142,7 +148,7 @@ export default {
     },
 
     onCancel() {
-      this.$emit('on-cancel')
+      this.$emit('update:modalVisible', false)
     }
   }
 }

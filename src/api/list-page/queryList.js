@@ -12,10 +12,10 @@ export const updateUserApi = params => {
   return request.post('user/update', params)
 }
 
-export const disbleUserApi = ({ param }) => {
-  return request.post('user/disable', { param })
+export const disbleUserApi = param => {
+  return request.post('user/disable', param)
 }
 
-export const deleteUserApi = ({ param }) => {
-  return request.post('user/delete', { param })
+export const deleteUserApi = param => {
+  return request.post('user/delete', param)
 }

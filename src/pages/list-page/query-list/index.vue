@@ -27,7 +27,7 @@
       </i-form-item>
     </i-form>
     <div class="query-list__batch">
-      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPane = true">添加用户</i-button>
+      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPaneVisible = true">添加用户</i-button>
       <i-button
         class="batch-btn"
         type="primary"
@@ -64,34 +64,31 @@
       :page-size="pageSize"
       @on-change="onPageChange"
     />
-    <!-- <UserAdd
-      :add-pane="addPane"
-      :add-submit="addSubmit"
+    <UserAdd
+      :modal-visible.sync="addPaneVisible"
+      :loading="addSubmitLoading"
       @on-add-submit="onAddSubmit"
-      @on-cancel="addPane = false"
-    />-->
-    <!-- <UserEdit
-      :edit-pane="editPane"
-      :user="currentRowData"
-      :edit-submit="editSubmit"
+    />
+    <UserEdit
+      :modal-visible.sync="editPaneVisible"
+      :user="editorUserData"
+      :loading="editSubmitLoading"
       @on-edit-submit="onEditSubmit"
-      @on-cancel="editPane = false"
-    />-->
-    <!-- <UserPassword
-      :password-pane="passwordPane"
-      :user-name="currentRowData.username"
-      :password-submit="passwordSubmit"
+    />
+    <UserPassword
+      :modal-visible.sync="passwordPaneVisible"
+      :name="passwordUsernameData"
+      :loading="passwordSubmitLoading"
       @on-edit-submit="onPasswordSubmit"
-      @on-cancel="passwordPane = false"
-    />-->
+    />
   </i-card>
 </template>
 
 <script>
 import tableMixin from './tableMixin'
-// import UserAdd from './UserAdd'
-// import UserEdit from './UserEdit'
-// import UserPassword from './UserPassword'
+import UserAdd from './UserAdd'
+import UserEdit from './UserEdit'
+import UserPassword from './UserPassword'
 import {
   getUserListApi,
   addUserApi,
@@ -106,9 +103,9 @@ export default {
   mixins: [tableMixin],
 
   components: {
-    // UserAdd,
-    // UserEdit,
-    // UserPassword
+    UserAdd,
+    UserEdit,
+    UserPassword
   },
 
   filters: {},
@@ -131,13 +128,14 @@ export default {
       totalCount: 0,
       tableData: [],
       tableSelection: [],
-      addPane: false,
-      addSubmit: false,
-      editPane: false,
-      editSubmit: false,
-      passwordPane: false,
-      passwordSubmit: false,
-      currentRowData: { username: '' }
+      addPaneVisible: false,
+      addSubmitLoading: false,
+      editPaneVisible: false,
+      editSubmitLoading: false,
+      editorUserData: {},
+      passwordPaneVisible: false,
+      passwordSubmitLoading: false,
+      passwordUsernameData: ''
     }
   },
 
@@ -195,9 +193,7 @@ export default {
     },
 
     exportExcel() {
-      if (this.tableLoading) {
-        return false
-      }
+      if (this.tableLoading) return false
       this.$refs.table.exportCsv({
         filename: `用户信息.csv`,
         original: false
@@ -205,45 +201,45 @@ export default {
     },
 
     onAddSubmit(userInfo) {
-      this.addSubmit = true
+      this.addSubmitLoading = true
       addUserApi(userInfo).then(res => {
         if (res.data) {
-          this.addPane = false
+          this.addPaneVisible = false
           this.$Message.success('添加用户成功~')
           this.upTableData()
         } else {
           this.$Message.error(res.message)
         }
-        this.addSubmit = false
+        this.addSubmitLoading = false
       })
     },
 
     editUser(row) {
-      this.currentRowData = row
-      this.editPane = true
+      this.editorUserData = row
+      this.editPaneVisible = true
     },
 
     onEditSubmit(newUserInfo) {
-      this.editSubmit = true
+      this.editSubmitLoading = true
       updateUserApi(newUserInfo).then(res => {
         if (res.data) {
-          this.editPane = false
+          this.editPaneVisible = false
           this.$Message.success('修改用户信息成功~')
           this.upTableData()
         } else {
           this.$Message.error(res.message)
         }
-        this.editSubmit = false
+        this.editSubmitLoading = false
       })
     },
 
     changeUserPassword(row) {
-      this.currentRowData = row
-      this.passwordPane = true
+      this.passwordUsernameData = row.username
+      this.passwordPaneVisible = true
     },
 
     onPasswordSubmit({ username, oldPassword, newPassword }) {
-      this.passwordSubmit = true
+      this.passwordSubmitLoading = true
       updateUserApi({
         username,
         passwordold: oldPassword,
@@ -251,11 +247,11 @@ export default {
       }).then(res => {
         if (res.data) {
           this.$Message.success('修改密码成功~')
-          this.passwordPane = false
+          this.passwordPaneVisible = false
         } else {
           this.$Message.error(res.message)
         }
-        this.passwordSubmit = false
+        this.passwordSubmitLoading = false
       })
     },
 
@@ -263,7 +259,7 @@ export default {
       this.$Modal.confirm({
         title: `确定禁用用户${usernames}`,
         onOk: () => {
-          disbleUserApi({ param: [...usernames] }).then(res => {
+          disbleUserApi({ usernames: [...usernames] }).then(res => {
             if (res.data) {
               this.canBatch = false
               this.$Message.success('禁用用户成功~')
@@ -280,7 +276,7 @@ export default {
       this.$Modal.confirm({
         title: `确定删除用户${usernames}`,
         onOk: () => {
-          deleteUserApi({ param: [...usernames] }).then(res => {
+          deleteUserApi({ usernames: [...usernames] }).then(res => {
             if (res.data) {
               this.canBatch = false
               this.$Message.success('删除用户成功~')
@@ -330,7 +326,7 @@ export default {
 <style lang="less">
 .query-list {
   &__search {
-    padding-top: 10px;
+    padding-top: 20px;
   }
 
   &__table {

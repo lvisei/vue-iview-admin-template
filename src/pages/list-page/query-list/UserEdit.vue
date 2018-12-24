@@ -1,7 +1,7 @@
 <template>
   <i-modal
     class="lp-user-edit"
-    :value="editPane"
+    :value="modalVisible"
     width="800"
     :title="`编辑用户:${user.username}`"
     @on-cancel="onCancel"
@@ -38,8 +38,8 @@
       </i-form-item>
       <i-form-item label="性别" prop="sex">
         <i-radio-group v-model="formData.sex">
-          <i-radio label="1">男</i-radio>
-          <i-radio label="2">女</i-radio>
+          <i-radio :label="1">男</i-radio>
+          <i-radio :label="2">女</i-radio>
         </i-radio-group>
       </i-form-item>
       <i-form-item label="电话" prop="phone">
@@ -47,8 +47,8 @@
       </i-form-item>
       <i-form-item label="用户状态" prop="state">
         <i-radio-group v-model="formData.state">
-          <i-radio label="0">可以</i-radio>
-          <i-radio label="1">禁用</i-radio>
+          <i-radio :label="0">可以</i-radio>
+          <i-radio :label="1">禁用</i-radio>
         </i-radio-group>
       </i-form-item>
       <i-form-item label="邮箱" prop="email">
@@ -57,7 +57,7 @@
     </i-form>
     <div slot="footer">
       <i-button type="text" @click="onCancel">取消</i-button>
-      <i-button type="primary" @click="onOk" :loading="editSubmit">提交</i-button>
+      <i-button type="primary" @click="onOk" :loading="loading">提交</i-button>
     </div>
   </i-modal>
 </template>
@@ -73,13 +73,13 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => ({})
+      required: true
     },
-    editPane: {
+    modalVisible: {
       type: Boolean,
       default: false
     },
-    editSubmit: {
+    loading: {
       type: Boolean,
       default: false
     }
@@ -114,18 +114,14 @@ export default {
 
   computed: {
     formData() {
-      let areacode = this.user.areacode
-      let age = this.user.age
-      age = age ? Number(this.user.age) : null
-      areacode = areacode ? this.$myUtils.dealAreaCode(areacode) : []
       return {
         name: this.user.name,
         username: this.user.username,
         department: this.user.department,
-        age: age,
+        age: this.user.age || null,
         email: this.user.email,
         phone: this.user.phone,
-        areacode: areacode,
+        areacode: this.user.areacode || [],
         areaname: this.user.areaname,
         sex: this.user.sex,
         state: this.user.state
@@ -133,9 +129,7 @@ export default {
     }
   },
 
-  watch: {
-    editPane(val) {}
-  },
+  watch: {},
 
   created() {},
 
@@ -213,7 +207,7 @@ export default {
     },
 
     onCancel() {
-      this.$emit('on-cancel')
+      this.$emit('update:modalVisible', false)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <i-modal class="lp-user-add" :value="addPane" width="800" title="添加用户" @on-cancel="onCancel">
+  <i-modal class="lp-user-add" :value="modalVisible" width="800" title="添加用户" @on-cancel="onCancel">
     <i-form
       ref="form"
       :model="formData"
@@ -62,7 +62,7 @@
     </i-form>
     <div slot="footer">
       <i-button type="text" @click="onCancel">取消</i-button>
-      <i-button type="primary" @click="onOk" :loading="addSubmit">提交</i-button>
+      <i-button type="primary" @click="onOk" :loading="loading">提交</i-button>
     </div>
   </i-modal>
 </template>
@@ -76,11 +76,11 @@ export default {
   filters: {},
 
   props: {
-    addPane: {
+    modalVisible: {
       type: Boolean,
       default: false
     },
-    addSubmit: {
+    loading: {
       type: Boolean,
       default: false
     }
@@ -152,8 +152,14 @@ export default {
   computed: {},
 
   watch: {
-    addPane(val) {
-      if (!val) {
+    modalVisible(val) {
+      if (!val && !this.loading) {
+        this.$refs.form.resetFields()
+      }
+    },
+
+    loading(val) {
+      if (!val && !this.modalVisible) {
         this.$refs.form.resetFields()
       }
     }
@@ -249,7 +255,7 @@ export default {
     },
 
     onCancel() {
-      this.$emit('on-cancel')
+      this.$emit('update:modalVisible', false)
     }
   }
 }
