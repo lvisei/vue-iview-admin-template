@@ -12,6 +12,7 @@
 
 [![vue](https://img.shields.io/badge/vue-2.5.17-brightgreen.svg)](https://github.com/vuejs/vue)
 [![iview](https://img.shields.io/badge/iview-3.1.4-brightgreen.svg)](https://github.com/iview/iview)
+[![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
 
 </div>
