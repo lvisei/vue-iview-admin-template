@@ -47,6 +47,7 @@ npm run lint
 
 ## Links
 
+- [Live demo](http://vue-iview-admin-temp.yinwubang.top)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
 - 待续
 
