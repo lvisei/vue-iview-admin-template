@@ -17,7 +17,7 @@
 
 </div>
 
-**Live demo:** [https://github.com/liuvigongzuoshi/vue-iview-admin-template](https://github.com/liuvigongzuoshi/vue-iview-admin-template)
+**Live demo:** [http://vue-iview-admin-temp.yinwubang.top](http://vue-iview-admin-temp.yinwubang.top)
 
 ## Usage
 
