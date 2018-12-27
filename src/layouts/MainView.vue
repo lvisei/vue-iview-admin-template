@@ -50,10 +50,10 @@ export default {
 
   methods: {
     watchRoute(newRoute) {
-      const {
-        name,
-        meta: { title }
-      } = newRoute
+      // const {
+      //   name,
+      //   meta: { title }
+      // } = newRoute
       this.breadCrumbList = this.$utils.getBreadCrumbList(newRoute.matched)
     }
   }

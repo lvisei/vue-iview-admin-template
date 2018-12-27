@@ -149,6 +149,7 @@ export default {
           }
           this.editSubmit = true
           this.editPane = false
+          this.$emit('on-submit', params)
           this.$Message.success('信息更新成功~')
           this.editSubmit = false
         }

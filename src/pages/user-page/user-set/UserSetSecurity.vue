@@ -115,6 +115,7 @@ export default {
             password: this.formData.passwdCheck
           }
           this.passwordSubmit = true
+          this.$emit('on-submit', params)
           this.$refs.form.resetFields()
           this.passwordSubmit = false
         }
