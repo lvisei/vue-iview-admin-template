@@ -55,7 +55,6 @@ export default {
         meta: { title }
       } = newRoute
       this.breadCrumbList = this.$utils.getBreadCrumbList(newRoute.matched)
-      // console.log(this.breadCrumbList)
     }
   }
 }

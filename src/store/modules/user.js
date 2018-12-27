@@ -36,7 +36,7 @@ const actions = {
       commit('SET_TOKEN', token)
       return token
     } catch (err) {
-      console.log(err)
+      console.log(err) // eslint-disable-line
       return err
     }
   },
@@ -53,7 +53,7 @@ const actions = {
       commit('SET_AVATAR', avatar)
       return data
     } catch (err) {
-      console.log(err)
+      console.log(err) // eslint-disable-line
       return err
     }
   },
@@ -69,7 +69,7 @@ const actions = {
       removeToken()
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err) // eslint-disable-line
       return err
     }
   }

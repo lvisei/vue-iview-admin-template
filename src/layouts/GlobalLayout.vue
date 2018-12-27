@@ -76,7 +76,6 @@ export default {
   created() {
     let list = this.$router.options.routes.find(item => item.path === '/').children
     this.menuList = this.$utils.getMenuList(list)
-    // console.log(this.menuList)
   },
 
   mounted() {},

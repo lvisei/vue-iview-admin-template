@@ -4,7 +4,7 @@
     <i-form
       class="query-list__search"
       ref="searchForm"
-      label-position="left"
+      label-position="right"
       :model="searchValue"
       :rules="searchRule"
       @keydown.enter.native="handleSearch"
@@ -315,7 +315,7 @@ export default {
         let { userList, count } = response.data
         return { userList, count }
       } catch (err) {
-        console.log(err)
+        console.log(err) // eslint-disable-line
         return err
       }
     }

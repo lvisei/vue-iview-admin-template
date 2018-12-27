@@ -1,34 +1,50 @@
 <template>
-  <div class="analysis-wrapper">
-    <i-row :gutter="40">
-      <i-col
-        class="infor-item"
-        :xs="12"
-        :md="8"
-        :lg="4"
-        v-for="(item, index) in inforCardData"
-        :key="index"
-      >
-        <info-card shadow :color="item.color" :icon="item.icon" :icon-size="36">
-          <count-to :end="item.count"/>
-          <p>{{ item.title }}</p>
-        </info-card>
+  <div class="dashboard">
+    <PanelGroup :panel-data="panelData"/>
+    <i-row class="dashboard__multi-chart" :gutter="32">
+      <i-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <RaddarChart/>
+        </div>
+      </i-col>
+      <i-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <PieChart/>
+        </div>
+      </i-col>
+      <i-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <BarChart/>
+        </div>
       </i-col>
     </i-row>
+    <i-card class="dashboard__line-chart" shadow>
+      <LineChart :chart-data="lineChartData"/>
+    </i-card>
   </div>
 </template>
 
 <script>
-import CountTo from '@/components/CountTo/CountTo'
-import InfoCard from '@/components/InfoCard/InfoCard'
+import echarts from 'echarts/lib/echarts'
+import chartTheme from '@/themes/chart-theme'
+import PanelGroup from './PanelGroup'
+import LineChart from './LineChart'
+import RaddarChart from './RaddarChart'
+import PieChart from './PieChart'
+import BarChart from './BarChart'
 import { getSysLogCountApi } from '@/api/dashboard'
 
+echarts.registerTheme('chartTheme', chartTheme)
+
 export default {
-  name: 'Analysis',
+  name: 'Dashboard',
 
   components: {
-    CountTo,
-    InfoCard
+    PanelGroup,
+    LineChart,
+    RaddarChart,
+    PieChart,
+    BarChart
   },
 
   filters: {},
@@ -37,14 +53,16 @@ export default {
 
   data() {
     return {
-      inforCardData: [
-        { title: '今日访问量', icon: 'md-stats', count: 0, color: '#2d8cf0' },
-        { title: '本月访问量', icon: 'md-stats', count: 0, color: '#ff9900' },
-        { title: '今年访问量', icon: 'md-stats', count: 0, color: '#ed3f14' },
-        { title: '在线人数', icon: 'md-people', count: 0, color: '#facc14' },
-        { title: '日均访问人次', icon: 'md-globe', count: 0, color: '#9A66E4' },
-        { title: '月均访问人次', icon: 'md-globe', count: 0, color: '#19bef0' }
-      ]
+      panelData: [
+        { title: 'Online', icon: 'md-globe', count: 0, color: '#2d8cf0' },
+        { title: 'New Visits', icon: 'md-people', count: 0, color: '#9A66E4' },
+        { title: 'Total User', icon: 'md-stats', count: 0, color: '#19bef0' },
+        { title: 'Messages', icon: 'md-text', count: 0, color: '#facc14' }
+      ],
+      lineChartData: {
+        expectedData: [140, 192, 120, 144, 160, 130, 140],
+        actualData: [40, 160, 151, 106, 145, 150, 130]
+      }
     }
   },
 
@@ -54,9 +72,9 @@ export default {
 
   created() {
     getSysLogCountApi().then(res => {
-      let { todayCount, monthCount, yearCount, online, dayrate, monthrate } = res.data
-      let inforCount = [todayCount, monthCount, yearCount, online, dayrate, monthrate]
-      this.inforCardData = this.inforCardData.map((item, index) => {
+      let { online, newVisits, totalUser, messages } = res.data
+      let inforCount = [online, newVisits, totalUser, messages]
+      this.panelData = this.panelData.map((item, index) => {
         return { ...item, count: inforCount[index] }
       })
     })
@@ -79,18 +97,19 @@ export default {
 </script>
 
 <style lang="less">
-.analysis-wrapper {
-  .infor-item {
-    height: 120px;
-    padding-bottom: 10px;
-  }
-
-  .analysis-sys-chart-wrapper {
-    margin-top: 10px;
-  }
-
-  .analysis-region-wrapper {
+.dashboard {
+  &__line-chart {
     margin-top: 20px;
+  }
+
+  &__multi-chart {
+    margin-top: 20px;
+
+    .chart-wrapper {
+      background: #fff;
+      padding: 16px 16px 0;
+      margin-bottom: 10px;
+    }
   }
 }
 </style>
