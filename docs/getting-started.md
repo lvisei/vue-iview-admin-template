@@ -79,18 +79,18 @@ cd my-project
 - Frame
 
   - Vue
-  - Vue-Router @3.0+
+  - Vue-Router
   - Vuex
 
 - Project Automation
-  - webpack @4.0+
-  - vue-loader @15.0+
+  - webpack @4+
+  - vue-loader
   - babel @7.0+
   - eslint
   - prettier
   - postcss
     - autoprefixer
-  - vue-cli @3.0+
+  - vue-cli @3+
   - mockjs
   - lint-staged
 

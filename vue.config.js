@@ -1,5 +1,4 @@
 module.exports = {
-  baseUrl: "./",
   devServer: {
     port: 9000,
     open: true

@@ -54,7 +54,7 @@ export default {
               this.$Message.success({
                 content: '退出登陆成功~',
                 onClose: () => {
-                  this.$router.push({ name: 'login' })
+                  this.$router.push({ name: 'Login' })
                 }
               })
             }
