@@ -17,7 +17,7 @@
 
 </div>
 
-**Live demo:** [http://vue-iview-admin-temp.yinwubang.top](http://vue-iview-admin-temp.yinwubang.top)
+**Live demo:** [https://vue-iview-admin-temp.yinwubang.top](https://vue-iview-admin-temp.yinwubang.top)
 
 ## Usage
 
@@ -47,7 +47,7 @@ npm run lint
 
 ## Links
 
-- [Live demo](http://vue-iview-admin-temp.yinwubang.top)
+- [Live demo](https://vue-iview-admin-temp.yinwubang.top)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
 - 待续
 

@@ -52,7 +52,7 @@ server
 	}
 ```
 
-重启 Web server，访问 [http://vue-iview-admin-temp.yinwubang.top](http://vue-iview-admin-temp.yinwubang.top) 。
+重启 Web server，访问 [https://vue-iview-admin-temp.yinwubang.top](https://vue-iview-admin-temp.yinwubang.top) 。
 
 ```bash
 nginx -s reload
