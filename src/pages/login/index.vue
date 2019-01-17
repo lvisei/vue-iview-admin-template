@@ -42,7 +42,7 @@ export default {
       canvasNestConfig: {
         color: '255, 0, 0',
         pointColor: '246, 228, 188',
-        count: 120,
+        count: 220,
         zIndex: 0,
         opacity: 0.4
       }

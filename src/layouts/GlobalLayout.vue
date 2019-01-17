@@ -93,13 +93,13 @@ export default {
       this.isCollapsed = !this.isCollapsed
     },
 
-    turnToPage(route) {
-      let isLink = name.indexOf('href_') !== -1
+    turnToPage(routeName) {
+      let isLink = routeName.indexOf('isTurnByHref_') !== -1
       if (isLink) {
-        window.open(name.split('_')[1])
+        window.open(routeName.split('_')[1])
         return
       }
-      this.$router.push({ name: route })
+      this.$router.push({ name: routeName })
     }
   }
 }

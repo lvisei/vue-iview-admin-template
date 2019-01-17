@@ -76,6 +76,37 @@ const routes = [
             meta: { title: '个人设置', icon: 'ios-settings' }
           }
         ]
+      },
+      {
+        path: 'components-demo',
+        name: 'ComponentsDemo',
+        component: RouteView,
+        meta: { title: '组件实例', icon: 'ios-grid' },
+        children: [
+          {
+            path: 'back-to-top',
+            name: 'BackToTop',
+            component: () =>
+              import(/* webpackChunkName: "back-to-top" */ '@/pages/components-demo/back-to-top'),
+            meta: { title: '返回顶部' }
+          },
+          {
+            path: 'count-to',
+            name: 'CountTo',
+            component: () =>
+              import(/* webpackChunkName: "CountTo" */ '@/pages/components-demo/count-to'),
+            meta: { title: 'CountTo' }
+          }
+        ]
+      },
+      {
+        name: 'Documentation',
+        path: '/external-link',
+        meta: {
+          title: '文档',
+          icon: 'md-open',
+          href: 'https://liuvigongzuoshi.github.io/vue-iview-admin-template/'
+        }
       }
     ]
   }
