@@ -10,7 +10,7 @@
       style="height: 120px;padding-bottom: 10px;"
     >
       <info-card shadow :color="item.color" :icon="item.icon" :icon-size="36">
-        <count-to :end="item.count"/>
+        <count-to :end="item.count" />
         <p>{{ item.title }}</p>
       </info-card>
     </i-col>

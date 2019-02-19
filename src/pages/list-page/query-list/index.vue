@@ -1,6 +1,6 @@
 <template>
   <i-card class="query-list" shadow>
-    <i-spin size="large" fix v-if="spinShow"/>
+    <i-spin size="large" fix v-if="spinShow" />
     <i-form
       class="query-list__search"
       ref="searchForm"
@@ -11,13 +11,13 @@
       inline
     >
       <i-form-item label="用户名：" :label-width="70" prop="userName">
-        <i-input type="text" v-model="searchValue.userName" placeholder="请输入关键字"/>
+        <i-input type="text" v-model="searchValue.userName" placeholder="请输入关键字" />
       </i-form-item>
       <i-form-item label="部门：" :label-width="80" prop="department">
-        <i-input type="text" v-model="searchValue.department" placeholder="请输入关键字"/>
+        <i-input type="text" v-model="searchValue.department" placeholder="请输入关键字" />
       </i-form-item>
       <i-form-item label="地址：" :label-width="70" prop="areaname">
-        <i-input type="text" v-model="searchValue.areaname" placeholder="请输入关键字"/>
+        <i-input type="text" v-model="searchValue.areaname" placeholder="请输入关键字" />
       </i-form-item>
       <i-form-item class="search-btn" :label-width="20">
         <i-button @click="handleSearch" type="primary">查询</i-button>
@@ -27,27 +27,28 @@
       </i-form-item>
     </i-form>
     <div class="query-list__batch">
-      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPaneVisible = true">添加用户</i-button>
+      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPaneVisible = true"
+        >添加用户</i-button
+      >
       <i-button
         class="batch-btn"
         type="primary"
         icon="md-trash"
         :disabled="!canBatch"
         @click="onBatch('remove')"
-      >批量删除</i-button>
+        >批量删除</i-button
+      >
       <i-button
         class="batch-btn"
         type="primary"
         icon="md-remove-circle"
         :disabled="!canBatch"
         @click="onBatch('disble')"
-      >批量禁用</i-button>
-      <i-button
-        class="export-btn"
-        type="primary"
-        icon="md-cloud-download"
-        @click="exportExcel"
-      >导出为CSV</i-button>
+        >批量禁用</i-button
+      >
+      <i-button class="export-btn" type="primary" icon="md-cloud-download" @click="exportExcel"
+        >导出为CSV</i-button
+      >
     </div>
     <i-table
       ref="table"
@@ -188,8 +189,8 @@ export default {
       type === 'remove'
         ? this.removeUser(usernames)
         : type === 'disble'
-          ? this.disbleUser(usernames)
-          : false
+        ? this.disbleUser(usernames)
+        : false
     },
 
     exportExcel() {

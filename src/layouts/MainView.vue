@@ -1,7 +1,7 @@
 <template>
   <global-layout>
-    <bread-crumb class="bread" :bread-crumb-list="breadCrumbList"/>
-    <router-view/>
+    <bread-crumb class="bread" :bread-crumb-list="breadCrumbList" />
+    <router-view />
   </global-layout>
 </template>
 

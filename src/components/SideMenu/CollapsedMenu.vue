@@ -10,11 +10,11 @@
       class="drop-menu-a"
       type="text"
       @mouseover="handleMousemove($event, children)"
-      :style="{textAlign: !hideTitle ? 'left' : ''}"
+      :style="{ textAlign: !hideTitle ? 'left' : '' }"
     >
-      <i-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon"/>
+      <i-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon" />
       <span class="menu-title" v-if="!hideTitle">{{ parentItem.title }}</span>
-      <i-icon style="float: right;" v-if="!hideTitle" type="ios-arrow-forward" :size="16"/>
+      <i-icon style="float: right;" v-if="!hideTitle" type="ios-arrow-forward" :size="16" />
     </a>
     <i-dropdown-menu ref="dropdown" slot="list">
       <template v-for="(child, index) in children">
@@ -25,7 +25,7 @@
           :key="index"
         ></collapsed-menu>
         <i-dropdown-item v-else :key="index" :name="child.name">
-          <i-icon :size="iconSize" :type="child.icon"/>
+          <i-icon :size="iconSize" :type="child.icon" />
           <span class="menu-title">{{ child.title }}</span>
         </i-dropdown-item>
       </template>

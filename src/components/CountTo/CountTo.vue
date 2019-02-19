@@ -1,15 +1,16 @@
 <template>
   <div class="count-to">
-    <slot name="left"/>
+    <slot name="left" />
     <p class="content-outer">
       <span
         :class="['count-text', countClass]"
-        :style="{fontSize: countSize + 'px'}"
+        :style="{ fontSize: countSize + 'px' }"
         :id="counterId"
-      >{{ init }}</span>
+        >{{ init }}</span
+      >
       <i :class="['unit-text', unitClass]">{{ unitText }}</i>
     </p>
-    <slot name="right"/>
+    <slot name="right" />
   </div>
 </template>
 

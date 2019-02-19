@@ -1,11 +1,11 @@
 <template>
   <i-card class="user-set" shadow>
-    <i-menu active-name="basic" @on-select="name => currentTab = name">
+    <i-menu active-name="basic" @on-select="name => (currentTab = name)">
       <i-menu-item name="basic">基本设置</i-menu-item>
       <i-menu-item name="security">安全设置</i-menu-item>
     </i-menu>
-    <UserSetBasic class="tab" v-if="currentTab === 'basic'"/>
-    <UserSetSecurity class="tab" v-else/>
+    <UserSetBasic class="tab" v-if="currentTab === 'basic'" />
+    <UserSetSecurity class="tab" v-else />
   </i-card>
 </template>
 

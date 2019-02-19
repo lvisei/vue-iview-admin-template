@@ -7,8 +7,8 @@
       size="24"
     />
     <div class="custom-content-con">
-      <header-user/>
-      <fullscreen v-model="isFullscreen"/>
+      <header-user />
+      <fullscreen v-model="isFullscreen" />
     </div>
   </div>
 </template>

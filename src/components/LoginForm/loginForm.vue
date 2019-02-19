@@ -9,14 +9,14 @@
     <i-form-item prop="username">
       <i-input v-model="form.username" placeholder="请输入用户名">
         <span slot="prefix">
-          <i-icon :size="16" type="ios-person"/>
+          <i-icon :size="16" type="ios-person" />
         </span>
       </i-input>
     </i-form-item>
     <i-form-item prop="password">
       <i-input type="password" v-model="form.password" placeholder="请输入密码">
         <span slot="prefix">
-          <i-icon :size="14" type="md-lock"/>
+          <i-icon :size="14" type="md-lock" />
         </span>
       </i-input>
     </i-form-item>

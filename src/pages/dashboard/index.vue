@@ -1,25 +1,25 @@
 <template>
   <div class="dashboard">
-    <PanelGroup :panel-data="panelData"/>
+    <PanelGroup :panel-data="panelData" />
     <i-row class="dashboard__multi-chart" :gutter="32">
       <i-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <RaddarChart/>
+          <RaddarChart />
         </div>
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <PieChart/>
+          <PieChart />
         </div>
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <BarChart/>
+          <BarChart />
         </div>
       </i-col>
     </i-row>
     <i-card class="dashboard__line-chart" shadow>
-      <LineChart :chart-data="lineChartData"/>
+      <LineChart :chart-data="lineChartData" />
     </i-card>
   </div>
 </template>

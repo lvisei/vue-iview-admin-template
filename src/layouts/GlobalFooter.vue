@@ -1,5 +1,5 @@
 <template>
-  <div class="global-footer__copyright">{{copyright}}</div>
+  <div class="global-footer__copyright">{{ copyright }}</div>
 </template>
 
 <script>

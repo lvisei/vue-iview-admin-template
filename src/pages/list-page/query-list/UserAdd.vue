@@ -1,5 +1,11 @@
 <template>
-  <i-modal class="lp-user-add" :value="modalVisible" width="800" title="添加用户" @on-cancel="onCancel">
+  <i-modal
+    class="lp-user-add"
+    :value="modalVisible"
+    width="800"
+    title="添加用户"
+    @on-cancel="onCancel"
+  >
     <i-form
       ref="form"
       :model="formData"
@@ -33,7 +39,7 @@
         <i-input v-model="formData.email" placeholder="请输入邮箱"></i-input>
       </i-form-item>
       <i-form-item label="年龄" prop="age">
-        <i-input-number v-model="formData.age"/>
+        <i-input-number v-model="formData.age" />
       </i-form-item>
 
       <i-form-item label="电话" prop="phone">
@@ -57,7 +63,11 @@
       </i-form-item>
 
       <i-form-item label="确认密码" prop="passwdCheck">
-        <i-input type="password" v-model="formData.passwdCheck" placeholder="请再次输入新密码"></i-input>
+        <i-input
+          type="password"
+          v-model="formData.passwdCheck"
+          placeholder="请再次输入新密码"
+        ></i-input>
       </i-form-item>
     </i-form>
     <div slot="footer">

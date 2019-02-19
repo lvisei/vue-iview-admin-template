@@ -1,10 +1,10 @@
 <template>
   <i-card class="info-card" :padding="0">
     <div class="info-card__content-con">
-      <div class="left-area" :style="{background: color, width: leftWidth}">
-        <i-icon class="icon" :type="icon" :size="iconSize" color="#fff"/>
+      <div class="left-area" :style="{ background: color, width: leftWidth }">
+        <i-icon class="icon" :type="icon" :size="iconSize" color="#fff" />
       </div>
-      <div class="right-area" :style="{width: rightWidth}">
+      <div class="right-area" :style="{ width: rightWidth }">
         <div>
           <slot></slot>
         </div>

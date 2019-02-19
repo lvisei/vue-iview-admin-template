@@ -17,7 +17,11 @@
       </i-form-item>
 
       <i-form-item label="省市" prop="areaValue">
-        <i-cascader :data="areaData" v-model="formData.areaValue" :load-data="loadData"></i-cascader>
+        <i-cascader
+          :data="areaData"
+          v-model="formData.areaValue"
+          :load-data="loadData"
+        ></i-cascader>
       </i-form-item>
 
       <i-form-item label="电话" prop="phone">

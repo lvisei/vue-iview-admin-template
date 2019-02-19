@@ -15,7 +15,11 @@
         <i-input type="password" v-model="formData.passwd" placeholder="请输入新密码"></i-input>
       </i-form-item>
       <i-form-item label="确认密码" prop="passwdCheck">
-        <i-input type="password" v-model="formData.passwdCheck" placeholder="请再次输入新密码"></i-input>
+        <i-input
+          type="password"
+          v-model="formData.passwdCheck"
+          placeholder="请再次输入新密码"
+        ></i-input>
       </i-form-item>
     </i-form>
     <i-button type="primary" @click="onOk" :loading="passwordSubmit">更改密码</i-button>

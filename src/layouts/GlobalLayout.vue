@@ -18,25 +18,31 @@
       >
         <div class="logo">
           <router-link to="/">
-            <img class="logo__img" src="./../assets/images/logo.png">
+            <img class="logo__img" src="./../assets/images/logo.png" />
             <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
       </side-menu>
     </i-sider>
     <i-layout
-      :class="['global-layout__containers', this.isCollapsed ? 'global-layout__containers--expand-width' : '']"
+      :class="[
+        'global-layout__containers',
+        this.isCollapsed ? 'global-layout__containers--expand-width' : ''
+      ]"
     >
       <i-header
-        :class="['global-layout__header', this.isCollapsed ? 'global-layout__header--expand-width' : '']"
+        :class="[
+          'global-layout__header',
+          this.isCollapsed ? 'global-layout__header--expand-width' : ''
+        ]"
       >
-        <global-header :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse"/>
+        <global-header :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
       </i-header>
       <i-content class="global-layout__content">
         <slot></slot>
       </i-content>
       <i-footer class="global-layout__footer">
-        <global-footer/>
+        <global-footer />
       </i-footer>
     </i-layout>
   </i-layout>

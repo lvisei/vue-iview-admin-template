@@ -17,7 +17,7 @@
       <template v-for="(item, index) in menuList">
         <template v-if="item.children && item.children.length === 1">
           <i-menu-item :name="getRouteNameOrHref(item.children[0])" :key="index">
-            <i-icon :size="rootIconSize" :type="item.children[0].icon || ''"/>
+            <i-icon :size="rootIconSize" :type="item.children[0].icon || ''" />
             <span>{{ item.children[0].title }}</span>
           </i-menu-item>
         </template>
@@ -30,7 +30,7 @@
             :root-icon-size="rootIconSize"
           />
           <i-menu-item v-else :name="getRouteNameOrHref(item)" :key="index">
-            <i-icon :size="rootIconSize" :type="item.icon || ''"/>
+            <i-icon :size="rootIconSize" :type="item.icon || ''" />
             <span>{{ item.title }}</span>
           </i-menu-item>
         </template>
@@ -52,7 +52,7 @@
         <i-tooltip
           transfer
           v-else
-          :content="(item.title) || (item.children && item.children[0] && item.children[0].title)"
+          :content="item.title || (item.children && item.children[0] && item.children[0].title)"
           placement="right"
           :key="index"
         >

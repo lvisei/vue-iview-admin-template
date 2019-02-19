@@ -1,19 +1,19 @@
 <template>
   <div class="header-user">
     <i-dropdown @on-click="handleClick">
-      <i-avatar :src="avatar"/>
-      <span class="text">{{name}}</span>
+      <i-avatar :src="avatar" />
+      <span class="text">{{ name }}</span>
       <i-dropdown-menu slot="list">
         <i-dropdown-item name="user">
-          <i-icon class="icon" size="16" type="ios-person-outline"/>
+          <i-icon class="icon" size="16" type="ios-person-outline" />
           <span>个人中心</span>
         </i-dropdown-item>
         <i-dropdown-item name="setting">
-          <i-icon class="icon" size="16" type="ios-settings-outline"/>
+          <i-icon class="icon" size="16" type="ios-settings-outline" />
           <span>个人设置</span>
         </i-dropdown-item>
         <i-dropdown-item name="logout" divided>
-          <i-icon class="icon" size="16" type="ios-power-outline"/>
+          <i-icon class="icon" size="16" type="ios-power-outline" />
           <span>退出登录</span>
         </i-dropdown-item>
       </i-dropdown-menu>

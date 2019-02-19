@@ -2,7 +2,7 @@
   <i-layout class="login-wrapper" ref="bg">
     <div class="login-content">
       <div class="login-header">
-        <img src="./../../assets/images/logo.png" alt="logo" class="logo">
+        <img src="./../../assets/images/logo.png" alt="logo" class="logo" />
         <span class="title">{{ siteName }}</span>
       </div>
       <i-card class="login-main" title="账户密码登录" shadow>
@@ -14,7 +14,7 @@
       </i-card>
     </div>
     <i-footer class="global-layout__footer">
-      <global-footer/>
+      <global-footer />
     </i-footer>
   </i-layout>
 </template>
