@@ -60,6 +60,7 @@
   - [使用 BEM 命名规范来组织 CSS 代码](https://zhuanlan.zhihu.com/p/46073785)。
   - [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
   - 更多 Standards 参考[ Vue 官方的特有代码的风格指南](https://cn.vuejs.org/v2/style-guide/)。
+  - [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)
 
 ## Editor
 
