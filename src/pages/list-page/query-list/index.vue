@@ -27,28 +27,30 @@
       </i-form-item>
     </i-form>
     <div class="query-list__batch">
-      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPaneVisible = true"
-        >添加用户</i-button
-      >
+      <i-button class="batch-btn" type="primary" icon="md-add" @click="addPaneVisible = true">
+        添加用户
+      </i-button>
       <i-button
         class="batch-btn"
         type="primary"
         icon="md-trash"
         :disabled="!canBatch"
         @click="onBatch('remove')"
-        >批量删除</i-button
       >
+        批量删除
+      </i-button>
       <i-button
         class="batch-btn"
         type="primary"
         icon="md-remove-circle"
         :disabled="!canBatch"
         @click="onBatch('disble')"
-        >批量禁用</i-button
       >
-      <i-button class="export-btn" type="primary" icon="md-cloud-download" @click="exportExcel"
-        >导出为CSV</i-button
-      >
+        批量禁用
+      </i-button>
+      <i-button class="export-btn" type="primary" icon="md-cloud-download" @click="exportExcel">
+        导出为CSV
+      </i-button>
     </div>
     <i-table
       ref="table"

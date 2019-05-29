@@ -6,8 +6,9 @@
         :class="['count-text', countClass]"
         :style="{ fontSize: countSize + 'px' }"
         :id="counterId"
-        >{{ init }}</span
       >
+        {{ init }}
+      </span>
       <i :class="['unit-text', unitClass]">{{ unitText }}</i>
     </p>
     <slot name="right" />
