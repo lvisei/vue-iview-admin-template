@@ -5,7 +5,7 @@
         <!-- TODO: -->
         <!-- <span class="layer-tree__switcher layer-tree__switcher-level-root layer-tree__switcher-open"></span> -->
         <span>
-          <slot name="header-title" :title="this.data.title">{{ this.data.title }}</slot>
+          <slot name="header-title" :title="data.title">{{ data.title }}</slot>
         </span>
       </div>
       <div class="layer-tree__header-tool">
@@ -14,7 +14,7 @@
       </div>
     </div>
     <ul class="layer-tree__body">
-      <li class="layer-tree__item" v-for="(layer, index) in this.data.children" :key="index">
+      <li class="layer-tree__item" v-for="(layer, index) in data.children" :key="index">
         <div class="layer-tree__item-caption">
           <!-- TODO: -->
           <!-- <span
