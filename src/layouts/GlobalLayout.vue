@@ -161,7 +161,7 @@ export default {
     top: 0;
     right: 0;
     width: calc(100% - 256px);
-    z-index: 9;
+    z-index: 1024;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     transition: width 0.2s ease-in-out;
 

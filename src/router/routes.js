@@ -57,27 +57,6 @@ const routes = [
         ]
       },
       {
-        path: 'user-page',
-        name: 'UserPage',
-        component: RouteView,
-        meta: { title: '个人页', icon: 'md-person' },
-        children: [
-          {
-            path: 'user-center',
-            name: 'UserCenter',
-            component: () =>
-              import(/* webpackChunkName: "UserCenter" */ '@/pages/user-page/user-center'),
-            meta: { title: '个人中心', icon: 'logo-octocat' }
-          },
-          {
-            path: 'user-set',
-            name: 'UserSet',
-            component: () => import(/* webpackChunkName: "UserSet" */ '@/pages/user-page/user-set'),
-            meta: { title: '个人设置', icon: 'ios-settings' }
-          }
-        ]
-      },
-      {
         path: 'components-demo',
         name: 'ComponentsDemo',
         component: RouteView,
@@ -96,6 +75,42 @@ const routes = [
             component: () =>
               import(/* webpackChunkName: "CountTo" */ '@/pages/components-demo/count-to'),
             meta: { title: 'CountTo' }
+          }
+        ]
+      },
+      {
+        path: 'maps-page',
+        name: 'MapsPage',
+        component: RouteView,
+        meta: { title: '地图', icon: 'md-map' },
+        children: [
+          {
+            path: 'leaflet-maps',
+            name: 'LeafletMaps',
+            component: () =>
+              import(/* webpackChunkName: "LeafletMaps" */ '@/pages/maps/leaflet-maps'),
+            meta: { title: 'leaflet-maps', icon: 'md-map' }
+          }
+        ]
+      },
+      {
+        path: 'user-page',
+        name: 'UserPage',
+        component: RouteView,
+        meta: { title: '个人页', icon: 'md-person' },
+        children: [
+          {
+            path: 'user-center',
+            name: 'UserCenter',
+            component: () =>
+              import(/* webpackChunkName: "UserCenter" */ '@/pages/user-page/user-center'),
+            meta: { title: '个人中心', icon: 'logo-octocat' }
+          },
+          {
+            path: 'user-set',
+            name: 'UserSet',
+            component: () => import(/* webpackChunkName: "UserSet" */ '@/pages/user-page/user-set'),
+            meta: { title: '个人设置', icon: 'ios-settings' }
           }
         ]
       },
