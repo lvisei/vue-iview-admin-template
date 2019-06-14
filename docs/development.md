@@ -18,7 +18,8 @@
   - Vue 组件中 `<template> Html` 过长，换行展示。
   - Vue 组件中不要直接操作异步请求，把所有的异步请求方法封装成一个独立 js 文件，或者放到 Vuex 中。
 - 事件相关
-  - 使用 `on-` 为前缀，比如 `on-change`。
+  - 组件事件监听器，使用 `on-` 为前缀，比如 `on-change`。
+  - 组件绑定点击事件，使用 `hand-` 为前缀，比如 `hand-btn`。
   - Vue 中监听的 `Dom` 事件记得垃圾回收。
 - CSS 相关
   - 使用 [BEM](https://github.com/inuitcss/inuitcss) 命名规范来组织 CSS 代码，谨慎使用 `scoped` 。
