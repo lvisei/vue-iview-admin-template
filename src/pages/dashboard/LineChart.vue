@@ -1,8 +1,14 @@
 <template>
-  <div :class="className" :style="{ height: height, width: width }" />
+  <v-chart
+    :options="chartOptions"
+    ref="map"
+    :style="{ height: height, width: width }"
+    :autoresize="autoResize"
+  />
 </template>
 
 <script>
+import VCharts from 'vue-echarts'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/component/tooltip'
@@ -10,6 +16,10 @@ import 'echarts/lib/component/legend'
 
 export default {
   name: 'LineChart',
+
+  components: {
+    'v-chart': VCharts
+  },
 
   props: {
     className: {
@@ -35,62 +45,25 @@ export default {
   },
 
   data() {
-    return {
-      chart: null,
-      sidebarElm: null
+    return {}
+  },
+
+  computed: {
+    chartOptions() {
+      const chartData = this.chartData
+      return chartData ? this.getOptions(chartData) : null
     }
   },
 
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val)
-      }
-    }
-  },
+  watch: {},
 
-  mounted() {
-    this.initChart()
-    if (this.autoResize) {
-      this.__resizeHandler = this.$utils.debounce(() => {
-        if (this.chart) {
-          this.chart.resize()
-        }
-      }, 100)
-      this.$utils.onEvent(window, 'resize', this.__resizeHandler)
-    }
+  mounted() {},
 
-    // 监听侧边栏的变化
-    this.sidebarElm = document.getElementsByClassName('global-layout__sider')[0]
-    this.sidebarElm &&
-      this.$utils.onEvent(this.sidebarElm, 'transitionend', this.sidebarResizeHandler)
-  },
-
-  beforeDestroy() {
-    if (!this.chart) {
-      return
-    }
-    if (this.autoResize) {
-      this.$utils.offEvent(window, 'resize', this.__resizeHandler)
-    }
-
-    this.sidebarElm &&
-      this.$utils.offEvent(this.sidebarElm, 'transitionend', this.sidebarResizeHandler)
-
-    this.chart.dispose()
-    this.chart = null
-  },
+  beforeDestroy() {},
 
   methods: {
-    sidebarResizeHandler(e) {
-      if (e.propertyName === 'width') {
-        this.__resizeHandler()
-      }
-    },
-
-    setOptions({ expectedData, actualData } = {}) {
-      this.chart.setOption({
+    getOptions({ expectedData, actualData } = {}) {
+      const chartOptions = {
         xAxis: {
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           boundaryGap: false,
@@ -159,12 +132,8 @@ export default {
             animationEasing: 'quadraticOut'
           }
         ]
-      })
-    },
-
-    initChart() {
-      this.chart = echarts.init(this.$el, 'chartTheme')
-      this.setOptions(this.chartData)
+      }
+      return chartOptions
     }
   }
 }

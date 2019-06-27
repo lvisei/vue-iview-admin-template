@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import utils from './utils'
 import iView from 'iview'
+import SvgIcon from '@/components/SvgIcon'
 // import Mock from './mock'
 import request from './utils/request'
 
@@ -11,11 +12,12 @@ import request from './utils/request'
 
 import '@/themes/common.less'
 import '@/themes/my-theme.less'
-import '@/assets/icons/iconfont.css'
+import '@/assets/icons'
 
 /* Register component */
 
 Vue.use(iView)
+Vue.component('svg-icon', SvgIcon)
 
 /* Use plugins */
 

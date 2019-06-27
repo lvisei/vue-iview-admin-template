@@ -1,11 +1,6 @@
 <template>
   <div class="global-header">
-    <i-icon
-      @click.native="toggleCollapse"
-      :class="rotateIcon"
-      custom="iconfont icon-menu-fold"
-      size="24"
-    />
+    <svg-icon icon-class="menu-fold" :class-name="rotateIcon" @click.native="toggleCollapse" />
     <div class="custom-content-con">
       <header-user />
       <fullscreen v-model="isFullscreen" />
@@ -40,7 +35,7 @@ export default {
 
   computed: {
     rotateIcon() {
-      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
+      return this.isCollapsed ? 'menu-icon rotate-icon' : 'menu-icon'
     }
   },
 
@@ -64,6 +59,7 @@ export default {
     transition: all 0.3s;
     margin-right: 30px;
     cursor: pointer;
+    font-size: 20px;
 
     &:hover {
       color: #1890ff;
