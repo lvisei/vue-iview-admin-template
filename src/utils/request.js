@@ -28,7 +28,7 @@ const tip = msg => {
 function paramsSerializer(params) {
   let result = []
   for (let i in params) {
-    let isObject = params.hasOwnProperty(i) && typeof params[i] !== 'string'
+    let isObject = Object.prototype.hasOwnProperty.call(params, i) && typeof params[i] !== 'string'
     isObject ? result.push(`${i}=${JSON.stringify(params[i])}`) : result.push(`${i}=${params[i]}`)
   }
   return encodeURI(result.join('&'))
