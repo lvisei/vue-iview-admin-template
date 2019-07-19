@@ -40,11 +40,11 @@ export default {
       siteName: siteName,
       canvasNest: null,
       canvasNestConfig: {
-        color: '255, 0, 0',
+        color: '44, 140, 240',
         pointColor: '246, 228, 188',
         count: 220,
         zIndex: 0,
-        opacity: 0.4
+        opacity: 0.8
       }
     }
   },
