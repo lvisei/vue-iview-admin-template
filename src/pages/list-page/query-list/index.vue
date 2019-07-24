@@ -293,7 +293,7 @@ export default {
     },
 
     upTableData() {
-      this.tableLoading = true
+      this.tableLoading = !this.spinShow
       return this.getUserList(this.userListParams()).then(({ userList, count }) => {
         this.tableData = userList
         this.totalCount = count
