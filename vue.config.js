@@ -19,28 +19,28 @@ module.exports = {
   transpileDependencies: ['vue-echarts', 'resize-detector'],
   chainWebpack: config => {
     config.module
-            .rule('svg')
-            .exclude.add(resolve('src/assets/icons/svg'))
-            .end()
+      .rule('svg')
+      .exclude.add(resolve('src/assets/icons/svg'))
+      .end()
 
     config.module
-            .rule('icons')
-            .test(/\.svg$/)
-            .include.add(resolve('src/assets/icons/svg'))
-            .end()
-            .use('svg-sprite-loader')
-            .loader('svg-sprite-loader')
-            .options({
-                symbolId: 'icon-[name]'
-            })
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/assets/icons/svg'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
 
     config.module
       .rule('vue')
       .test(/\.vue$/)
       .use('iview-loader')
-        .loader('iview-loader')
-        .options({
-          prefix: true
-        })
+      .loader('iview-loader')
+      .options({
+        prefix: true
+      })
   }
-};
+}
