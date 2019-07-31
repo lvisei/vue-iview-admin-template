@@ -1,19 +1,40 @@
 <template>
-  <i-card class="back-to-top" shadow>BackToTop</i-card>
+  <i-card class="back-to-top" shadow>
+    <BackToTop
+      :custom-style="myBackToTopStyle"
+      :visibility-height="300"
+      :back-position="0"
+      transition-name="fade"
+    />
+  </i-card>
 </template>
 
 <script>
-export default {
-  name: 'BackToTop',
+import BackToTop from '@/components/BackToTop'
 
-  components: {},
+export default {
+  name: 'BackToTopDemo',
+
+  components: {
+    BackToTop
+  },
 
   filters: {},
 
   props: {},
 
   data() {
-    return {}
+    return {
+      myBackToTopStyle: {
+        right: '50px',
+        bottom: '100px',
+        width: '40px',
+        height: '40px',
+        borderRadius: '4px',
+        lineHeight: '45px', // 请保持与高度一致以垂直居中
+        background: '#e7eaf1' // 按钮的背景颜色
+      }
+    }
   },
 
   computed: {},
@@ -36,4 +57,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.back-to-top {
+  height: 2100px;
+}
+</style>

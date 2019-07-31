@@ -9,7 +9,7 @@
     "build:r": "vue-cli-service build --report",
     "lint": "vue-cli-service lint",
     "modern": "vue-cli-service build --modern --report",
-    "inspect": "vue-cli-service inspect"
+    "inspect": "vue-cli-service inspect --mode=production"
   },
   "dependencies": {
     "axios": "^0.19.0",
