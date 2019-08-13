@@ -10,14 +10,16 @@
 
 基于第三方组件 iView 参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
 
-[![vue](https://img.shields.io/badge/vue-2.6.6-brightgreen.svg)](https://github.com/vuejs/vue)
-[![iview](https://img.shields.io/badge/iview-3.2.2-brightgreen.svg)](https://github.com/iview/iview)
+[![vue](https://img.shields.io/badge/vue-2.6.10-brightgreen.svg)](https://github.com/vuejs/vue)
+[![iview](https://img.shields.io/badge/iview-3.4.2-brightgreen.svg)](https://github.com/iview/iview)
 [![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
 
 </div>
 
-**Live demo:** [https://vue-iview-admin-temp.ywbang.top](https://vue-iview-admin-temp.ywbang.top)
+**Live demo one:** [https://vue-iview-admin-temp.ywbang.top](https://vue-iview-admin-temp.ywbang.top) 
+
+**Live demo two:** [https://vue-iview-admin-template.ywbang.top](https://vue-iview-admin-template.ywbang.top)
 
 ## Usage
 
@@ -47,7 +49,8 @@ npm run lint
 
 ## Links
 
-- [Live demo](https://vue-iview-admin-temp.ywbang.top)
+- [Live demo one](https://vue-iview-admin-temp.ywbang.top)
+- [Live demo two](https://vue-iview-admin-template.ywbang.top)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
 - 待续
 
