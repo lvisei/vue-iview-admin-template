@@ -1,22 +1,23 @@
 <template>
   <i-card class="back-to-top" shadow>
-    <BackToTop
+    BackToTop
+    <!-- <BackToTop
       :custom-style="myBackToTopStyle"
       :visibility-height="300"
       :back-position="0"
       transition-name="fade"
-    />
+    /> -->
   </i-card>
 </template>
 
 <script>
-import BackToTop from '@/components/BackToTop'
+// import BackToTop from '@/components/BackToTop'
 
 export default {
   name: 'BackToTopDemo',
 
   components: {
-    BackToTop
+    // BackToTop
   },
 
   filters: {},
@@ -57,8 +58,4 @@ export default {
 }
 </script>
 
-<style>
-.back-to-top {
-  height: 2100px;
-}
-</style>
+<style></style>
