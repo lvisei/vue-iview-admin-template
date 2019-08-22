@@ -27,9 +27,7 @@ export default {
   },
 
   data() {
-    return {
-      chart: null
-    }
+    return {}
   },
 
   mounted() {
