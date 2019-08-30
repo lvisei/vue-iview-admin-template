@@ -1,7 +1,3 @@
-<template>
-  <router-view />
-</template>
-
 <script>
 export default {
   name: 'RouteView',
@@ -32,7 +28,15 @@ export default {
 
   destroyed() {},
 
-  methods: {}
+  methods: {},
+
+  render(createElement) {
+    return this.$route.meta.keepAlive
+      ? createElement('router-view')
+      : createElement('router-view', {
+          props: this.$route.meta.reRender ? { key: this.$route.fullPath } : {}
+        })
+  }
 }
 </script>
 
