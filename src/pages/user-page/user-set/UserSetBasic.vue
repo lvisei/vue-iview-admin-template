@@ -1,47 +1,61 @@
 <template>
-  <div class="us-basic">
-    <div class="us-basic__title">基本设置</div>
+  <div class="user-set-basic">
+    <div class="user-set-basic__title">基本设置</div>
     <i-form
-      class="us-basic__form"
+      class="user-set-basic__form"
       ref="form"
       :model="formData"
       :rules="ruleValidate"
       @keydown.enter.native="onOk"
     >
-      <i-form-item label="中文名" prop="name">
-        <i-input v-model="formData.name" placeholder="请输入中文名"></i-input>
-      </i-form-item>
+      <i-row>
+        <i-col :xs="24" :sm="24" :md="24" :lg="12" style="padding-right: 24px;">
+          <i-form-item label="中文名" prop="name">
+            <i-input v-model="formData.name" placeholder="请输入中文名"></i-input>
+          </i-form-item>
 
-      <i-form-item label="部门" prop="department">
-        <i-input v-model="formData.department"></i-input>
-      </i-form-item>
+          <i-form-item label="部门" prop="department">
+            <i-input v-model="formData.department"></i-input>
+          </i-form-item>
 
-      <i-form-item label="省市" prop="areaValue">
-        <i-cascader
-          :data="areaData"
-          v-model="formData.areaValue"
-          :load-data="loadData"
-        ></i-cascader>
-      </i-form-item>
+          <i-form-item label="省市" prop="areaValue">
+            <i-cascader
+              :data="areaData"
+              v-model="formData.areaValue"
+              :load-data="loadData"
+            ></i-cascader>
+          </i-form-item>
 
-      <i-form-item label="电话" prop="phone">
-        <i-input v-model="formData.phone" placeholder="请输入电话号码"></i-input>
-      </i-form-item>
+          <i-form-item label="电话" prop="phone">
+            <i-input v-model="formData.phone" placeholder="请输入电话号码"></i-input>
+          </i-form-item>
 
-      <i-form-item label="邮箱" prop="email">
-        <i-input v-model="formData.email" placeholder="请输入邮箱"></i-input>
-      </i-form-item>
+          <i-form-item label="邮箱" prop="email">
+            <i-input v-model="formData.email" placeholder="请输入邮箱"></i-input>
+          </i-form-item>
 
-      <i-form-item label="年龄" prop="age">
-        <i-input-number v-model="formData.age"></i-input-number>
-      </i-form-item>
+          <i-form-item label="年龄" prop="age">
+            <i-input-number v-model="formData.age"></i-input-number>
+          </i-form-item>
 
-      <i-form-item label="性别" prop="sex">
-        <i-radio-group v-model="formData.sex">
-          <i-radio label="1">男</i-radio>
-          <i-radio label="2">女</i-radio>
-        </i-radio-group>
-      </i-form-item>
+          <i-form-item label="性别" prop="sex">
+            <i-radio-group v-model="formData.sex">
+              <i-radio label="1">男</i-radio>
+              <i-radio label="2">女</i-radio>
+            </i-radio-group>
+          </i-form-item>
+        </i-col>
+        <i-col :xs="24" :sm="24" :md="24" :lg="12" style="padding-left: 24px; padding-right: 24px;">
+          <i-form-item label="头像" prop="avatar" style="float: none;">
+            <div class="user-set-basic__user-seter-avatar">
+              <i-avatar shape="square" :src="formData.avatar" />
+              <i-upload action="" :before-upload="handleAvatarUpload">
+                <i-button icon="md-arrow-up">更改头像</i-button>
+              </i-upload>
+            </div>
+          </i-form-item>
+        </i-col>
+      </i-row>
     </i-form>
 
     <i-button type="primary" @click="onOk" :loading="editSubmit">更新基本信息</i-button>
@@ -88,7 +102,8 @@ export default {
         email: 'antdesign@alipay.com',
         phone: '268222222',
         areaValue: ['hangzhou', 'ali'],
-        sex: 1
+        sex: 1,
+        avatar: 'https://dummyimage.com/200x200/admin'
       }
     }
   },
@@ -110,6 +125,10 @@ export default {
   destroyed() {},
 
   methods: {
+    handleAvatarUpload() {
+      return false
+    },
+
     loadData(item, callback) {
       item.loading = true
       setTimeout(() => {
@@ -142,7 +161,7 @@ export default {
         }
         item.loading = false
         callback()
-      }, 1000)
+      }, 500)
     },
 
     onOk() {
@@ -164,7 +183,7 @@ export default {
 </script>
 
 <style lang="less">
-.us-basic {
+.user-set-basic {
   &__title {
     font-size: 20px;
     color: rgba(0, 0, 0, 0.85);
@@ -174,7 +193,8 @@ export default {
   }
 
   &__form {
-    width: 350px;
+    width: 100%;
+
     .ivu-form-item-label {
       color: rgba(0, 0, 0, 0.85);
       font-size: 14px;
@@ -182,6 +202,17 @@ export default {
       &::before {
         content: '';
       }
+    }
+  }
+
+  &__user-seter-avatar {
+    width: 100%;
+    display: inline-block;
+
+    .ivu-avatar {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
     }
   }
 }

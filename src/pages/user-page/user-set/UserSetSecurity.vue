@@ -1,8 +1,8 @@
 <template>
-  <div class="us-security">
-    <div class="us-security__title">安全设置</div>
+  <div class="user-set-security">
+    <div class="user-set-security__title">安全设置</div>
     <i-form
-      class="us-security__form"
+      class="user-set-security__form"
       ref="form"
       :model="formData"
       :rules="ruleFrom"
@@ -130,7 +130,7 @@ export default {
 </script>
 
 <style lang="less">
-.us-security {
+.user-set-security {
   &__title {
     font-size: 20px;
     color: rgba(0, 0, 0, 0.85);
