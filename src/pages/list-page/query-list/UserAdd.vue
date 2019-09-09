@@ -15,14 +15,14 @@
       inline
     >
       <i-form-item label="登录名" prop="username">
-        <i-input v-model="formData.username"></i-input>
+        <i-input v-model.trim="formData.username"></i-input>
       </i-form-item>
       <i-form-item label="用户名" prop="name">
-        <i-input v-model="formData.name" placeholder="请输入用户名"></i-input>
+        <i-input v-model.trim="formData.name" placeholder="请输入用户名"></i-input>
       </i-form-item>
 
       <i-form-item label="部门" prop="department">
-        <i-input v-model="formData.department"></i-input>
+        <i-input v-model.trim="formData.department"></i-input>
       </i-form-item>
       <i-form-item label="地区" prop="areacode">
         <i-cascader
@@ -36,14 +36,14 @@
       </i-form-item>
 
       <i-form-item label="邮箱" prop="email">
-        <i-input v-model="formData.email" placeholder="请输入邮箱"></i-input>
+        <i-input type="email" v-model.trim="formData.email" placeholder="请输入邮箱"></i-input>
       </i-form-item>
       <i-form-item label="年龄" prop="age">
         <i-input-number v-model="formData.age" />
       </i-form-item>
 
       <i-form-item label="电话" prop="phone">
-        <i-input v-model="formData.phone" placeholder="请输入电话号码"></i-input>
+        <i-input type="tel" v-model.trim="formData.phone" placeholder="请输入电话号码"></i-input>
       </i-form-item>
       <i-form-item label="性别" prop="sex">
         <i-radio-group v-model="formData.sex">
