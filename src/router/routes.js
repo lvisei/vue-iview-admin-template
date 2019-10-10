@@ -75,6 +75,12 @@ const routes = [
             component: () =>
               import(/* webpackChunkName: "CountTo" */ '@/pages/components-demo/count-to'),
             meta: { title: 'CountTo' }
+          },
+          {
+            path: 'bpmn',
+            name: 'Bpmn',
+            component: () => import(/* webpackChunkName: "Bpmn" */ '@/pages/components-demo/bpmn'),
+            meta: { title: 'Bpmn' }
           }
         ]
       },

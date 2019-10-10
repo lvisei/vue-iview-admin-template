@@ -1,11 +1,11 @@
 module.exports = {
   presets: [
     [
-      "@vue/app",
+      '@vue/app',
       {
         debug: false
       }
     ]
   ],
   plugins: []
-};
+}

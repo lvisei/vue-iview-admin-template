@@ -11,7 +11,7 @@
 基于第三方组件 iView 参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
 
 [![vue](https://img.shields.io/badge/vue-2.6.10-brightgreen.svg)](https://github.com/vuejs/vue)
-[![iview](https://img.shields.io/badge/iview-3.5.0-brightgreen.svg)](https://github.com/iview/iview)
+[![iview](https://img.shields.io/badge/iview-3.5.1-brightgreen.svg)](https://github.com/iview/iview)
 [![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
 
