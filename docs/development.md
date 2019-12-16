@@ -22,7 +22,7 @@
   - 组件绑定点击事件，使用 `hand-` 为前缀，比如 `hand-btn`。
   - Vue 中监听的 `Dom` 事件记得垃圾回收。
 - CSS 相关
-  - 使用 [BEM](https://github.com/inuitcss/inuitcss) 命名规范来组织 CSS 代码，谨慎使用 `scoped` 。
+  - 使用 [BEM](http://getbem.com/naming/) 命名规范来组织 CSS 代码，谨慎使用 `scoped` 。
   - ~~容器组件 `CSS` 命名 `容器名-wrapper`。~~
     ```
     // ============================================================
@@ -58,6 +58,7 @@
 - 其他
   - `Commit` 代码之前，[要先效验与格式化代码](/#Usage) `npm run lint`，没有问题再提交。如果使用的 git 版本工具，commit 前会自动 lint code， 没有错误才会 commit 成功。
   - [了解 BEM](http://getbem.com/)。
+  - CSS命名BEM规范[BEM](http://getbem.com/naming/) - [CSS BEM 书写规范](https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-%5B%E8%A7%84%E8%8C%83%5D--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83)
   - [使用 BEM 命名规范来组织 CSS 代码](https://zhuanlan.zhihu.com/p/46073785)。
   - [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
   - 更多 Standards 参考[ Vue 官方的特有代码的风格指南](https://cn.vuejs.org/v2/style-guide/)。
