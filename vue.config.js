@@ -1,5 +1,4 @@
 const path = require('path')
-
 const resolve = dir => path.join(__dirname, '.', dir)
 
 module.exports = {
@@ -7,7 +6,6 @@ module.exports = {
     port: 9000,
     open: true
   },
-  lintOnSave: true,
   productionSourceMap: process.env.NODE_ENV !== 'production',
   css: {
     loaderOptions: {

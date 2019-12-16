@@ -1,7 +1,7 @@
 import axios from 'axios'
 import config from '@/config'
 import store from '@/store'
-import { Message } from 'iview'
+import { Message } from 'view-design'
 import { getToken, removeToken } from '@/utils/auth'
 
 const repeatMsg = 'REPEATREQUEST'

@@ -3,20 +3,21 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import utils from './utils'
-import iView from 'iview'
+import ViewUI from 'view-design'
 import SvgIcon from '@/components/SvgIcon'
 // import Mock from './mock'
 import request from './utils/request'
+import './registerServiceWorker'
 
 /* Import styles */
 
 import '@/themes/common.less'
-import '@/themes/my-theme.less'
+import '@/themes/iview-theme.less'
 import '@/assets/icons'
 
 /* Register component */
 
-Vue.use(iView)
+Vue.use(ViewUI)
 Vue.component('svg-icon', SvgIcon)
 
 /* Use plugins */

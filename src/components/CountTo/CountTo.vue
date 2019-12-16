@@ -103,7 +103,11 @@ export default {
     unit: {
       type: Array,
       default() {
-        return [[3, 'K+'], [6, 'M+'], [9, 'B+']]
+        return [
+          [3, 'K+'],
+          [6, 'M+'],
+          [9, 'B+']
+        ]
       }
     },
     countClass: {
