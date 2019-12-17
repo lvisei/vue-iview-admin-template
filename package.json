@@ -17,6 +17,7 @@
     "canvas-nest.js": "^2.0.4",
     "core-js": "^3.4.3",
     "countup": "^1.8.2",
+    "crypto-js": "^3.1.9-1",
     "echarts": "^4.5.0",
     "jsencrypt": "^3.0.0-rc.1",
     "leaflet": "^1.6.0",

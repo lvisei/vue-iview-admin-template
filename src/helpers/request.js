@@ -37,8 +37,9 @@ function paramsSerializer(params) {
 // create an axios instance
 const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 10000,
-  paramsSerializer: paramsSerializer
+  // withCredentials: true, // send cookies when cross-domain requests
+  timeout: 10000 // request timeout
+  // paramsSerializer: paramsSerializer
 })
 
 /**
@@ -100,7 +101,7 @@ request.interceptors.response.use(
       tip(`Status:${res.status},Message: ${res.data.message}`)
       return Promise.reject(res)
     } else if (message === repeatMsg) {
-      tip('repeat message')
+      tip('repeat request')
     } else {
       // To deal with broken network
       tip('Broken Network')

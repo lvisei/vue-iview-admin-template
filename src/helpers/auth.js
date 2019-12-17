@@ -1,6 +1,6 @@
-import { setLocalstorage, getLocalstorage, removeLocalstorage } from './index'
+import { setLocalstorage, getLocalstorage, removeLocalstorage } from '@/utils/index'
 
-const TokenKey = 'Admin-Token'
+const TokenKey = 'authenticate-token'
 
 export function getToken() {
   return getLocalstorage(TokenKey)
