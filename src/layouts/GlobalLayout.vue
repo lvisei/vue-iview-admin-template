@@ -18,7 +18,7 @@
       >
         <div class="logo">
           <router-link to="/">
-            <img class="logo__img" src="./../assets/images/logo.png" />
+            <img class="logo__img" src="~@/assets/images/logo.png" />
             <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
@@ -27,13 +27,13 @@
     <i-layout
       :class="[
         'global-layout__containers',
-        this.isCollapsed ? 'global-layout__containers--expand-width' : ''
+        this.isCollapsed ? 'global-layout__containers_expand-width' : ''
       ]"
     >
       <i-header
         :class="[
           'global-layout__header',
-          this.isCollapsed ? 'global-layout__header--expand-width' : ''
+          this.isCollapsed ? 'global-layout__header_expand-width' : ''
         ]"
       >
         <global-header :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
@@ -42,17 +42,18 @@
         <slot></slot>
       </i-content>
       <i-footer class="global-layout__footer">
-        <global-footer />
+        <global-footer :copyright="copyright" />
       </i-footer>
     </i-layout>
   </i-layout>
 </template>
 
 <script>
-import { shortSiteName } from '@/config'
+import { shortSiteName, copyright } from '@/config'
 import SideMenu from '@/components/SideMenu'
 import GlobalHeader from './GlobalHeader'
 import GlobalFooter from './GlobalFooter'
+import { getMenuList } from '@/helpers/router'
 
 export default {
   name: 'GlobalLayout',
@@ -71,7 +72,8 @@ export default {
     return {
       isCollapsed: false,
       menuList: [],
-      shortSiteName: shortSiteName
+      shortSiteName: shortSiteName,
+      copyright: copyright
     }
   },
 
@@ -80,8 +82,8 @@ export default {
   watch: {},
 
   created() {
-    let list = this.$router.options.routes.find(item => item.path === '/').children
-    this.menuList = this.$utils.getMenuList(list)
+    const list = this.$router.options.routes.find(({ name }) => name === 'MainView').children
+    this.menuList = getMenuList(list)
   },
 
   mounted() {},
@@ -150,7 +152,7 @@ export default {
     min-height: 100vh;
     padding-left: 256px;
 
-    &--expand-width {
+    &_expand-width {
       padding-left: 64px;
     }
   }
@@ -165,7 +167,7 @@ export default {
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     transition: width 0.2s ease-in-out;
 
-    &--expand-width {
+    &_expand-width {
       width: calc(100% - 64px);
     }
   }

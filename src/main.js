@@ -1,13 +1,13 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 import store from './store'
 import utils from './utils'
 import ViewUI from 'view-design'
+import request from './helpers/request'
 import SvgIcon from '@/components/SvgIcon'
-// import Mock from './mock'
-import request from './utils/request'
 import './registerServiceWorker'
+// import Mock from './mock'
 
 /* Import styles */
 

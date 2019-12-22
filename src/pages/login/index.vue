@@ -2,14 +2,14 @@
   <i-layout class="login-wrapper" ref="bg">
     <div class="login-content">
       <div class="login-header">
-        <img src="./../../assets/images/logo.png" alt="logo" class="logo" />
+        <img src="~@/assets/images/logo.png" alt="logo" class="logo" />
         <span class="title">{{ siteName }}</span>
       </div>
       <i-card class="login-main" title="账户密码登录" shadow>
         <login-form :loading="loading" @on-success-valid="handleSubmit"></login-form>
         <p class="mark">
           <span>用户名：admin</span>
-          <span>密码：任意</span>
+          <span>密码：123456</span>
         </p>
       </i-card>
     </div>
@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import CanvasNest from 'canvas-nest.js'
-import { siteName } from '@/config'
 import { mapActions } from 'vuex'
+import { siteName } from '@/config'
+import CanvasNest from 'canvas-nest.js'
 import GlobalFooter from '@/layouts/GlobalFooter'
 import LoginForm from '@/components/LoginForm/loginForm.vue'
 
@@ -58,12 +58,13 @@ export default {
   },
 
   methods: {
-    ...mapActions('user', ['login']),
+    ...mapActions('user', ['userLogin']),
 
     handleSubmit({ username, password }) {
       this.loading = true
-      this.login({ username, password }).then(res => {
-        if (res) {
+      this.userLogin({ username, password }).then(({ code, message }) => {
+        this.loading = false
+        if (code === 20000) {
           this.$Message.success({
             content: '登陆成功~',
             onClose: () => {
@@ -71,9 +72,8 @@ export default {
             }
           })
         } else {
-          this.$Message.error('账户或密码错误')
+          this.$Message.error(message)
         }
-        this.loading = false
       })
     }
   }

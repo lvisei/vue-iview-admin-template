@@ -1,9 +1,9 @@
 <template>
   <div class="global-header">
     <svg-icon icon-class="menu-fold" :class-name="rotateIcon" @click.native="toggleCollapse" />
-    <div class="custom-content-con">
+    <div class="global-header__custom-content">
       <header-user />
-      <fullscreen v-model="isFullscreen" />
+      <Fullscreen v-model="isFullscreen" />
     </div>
   </div>
 </template>
@@ -70,10 +70,9 @@ export default {
     transform: rotate(-180deg);
   }
 
-  .custom-content-con {
+  &__custom-content {
     float: right;
     height: 100%;
-    line-height: 64px;
 
     & > * {
       float: right;

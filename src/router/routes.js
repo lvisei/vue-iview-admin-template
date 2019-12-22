@@ -32,7 +32,7 @@ const routes = [
         path: 'dashboard',
         name: 'Dashboard',
         component: Dashboard,
-        meta: { title: '仪表盘', icon: 'ios-speedometer-outline', auths: ['super_admin', 'admin'] }
+        meta: { title: '仪表盘', icon: 'ios-speedometer-outline' }
       },
       {
         path: 'list-page',

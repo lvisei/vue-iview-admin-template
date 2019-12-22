@@ -48,6 +48,7 @@
     "lint-staged": "^9.4.3",
     "mockjs": "^1.1.0",
     "prettier": "^1.19.1",
+    "style-resources-loader": "^1.3.3",
     "svg-sprite-loader": "^4.1.6",
     "vue-template-compiler": "^2.6.10"
   },

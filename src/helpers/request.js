@@ -1,8 +1,6 @@
 import axios from 'axios'
-import config from '@/config'
 import store from '@/store'
 import { Message } from 'view-design'
-import { getToken, removeToken } from '@/utils/auth'
 
 const repeatMsg = 'REPEATREQUEST'
 const { CancelToken } = axios
@@ -12,10 +10,11 @@ let cancelRequest = new Map()
  * prompt function
  * @param {String} msg
  */
-const tip = msg => {
+const tip = (msg, onClose) => {
   Message.error({
     content: msg,
-    duration: 10
+    duration: 10,
+    onClose
   })
 }
 
@@ -60,7 +59,7 @@ request.interceptors.request.use(
 
     // token
     const token = store.state.user.token
-    token && (config.headers['Authorization'] = getToken())
+    token && (config.headers['Authorization'] = token)
 
     return config
   },
@@ -79,32 +78,34 @@ request.interceptors.request.use(
  */
 request.interceptors.response.use(
   response => {
-    const res = response.data
-    if (res.code !== 20000) {
-      // 50008: illegal token; 50012: other client logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        tip('Login Timeout')
-        removeToken()
-        location.reload()
+    const data = response.data
+    if (data.code !== 20000) {
+      // 20004: illegal token; 20003: Token expired;
+      if (data.code === 20004 || data.code === 20003) {
+        tip('Login Timeout', () => {
+          store.dispatch('user/resetToken').then(() => {
+            location.reload()
+          })
+        })
       } else {
-        tip(res.message)
+        tip(data.message)
       }
-      return Promise.reject('error')
+      return Promise.reject(new Error(data.message || 'Error'))
     } else {
-      return res
+      return data
     }
   },
   error => {
-    const { res, message } = error
-    if (res) {
+    const { response, message } = error
+    if (response) {
       // The request has been issued, but not in the range of 2 xx
-      tip(`Status:${res.status},Message: ${res.data.message}`)
-      return Promise.reject(res)
+      tip(`Status:${response.status},Message: ${message}`)
+      return Promise.reject(response)
     } else if (message === repeatMsg) {
       tip('repeat request')
     } else {
       // To deal with broken network
-      tip('Broken Network')
+      tip(`Broken Network, ${message}`)
     }
     // eslint-disable-next-line
     console.log(`err:${error}`)

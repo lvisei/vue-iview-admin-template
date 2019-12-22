@@ -10,12 +10,15 @@ export default {
 
   components: {},
 
-  props: [],
+  props: {
+    copyright: {
+      type: String,
+      default: ''
+    }
+  },
 
   data() {
-    return {
-      copyright: copyright
-    }
+    return {}
   },
 
   computed: {},

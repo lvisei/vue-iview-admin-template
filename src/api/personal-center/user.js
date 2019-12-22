@@ -8,7 +8,8 @@ import sha1 from 'crypto-js/sha1'
  * @returns {Promise}
  */
 export function userLoginApi(userName, password) {
-  const params = { userName, password: sha1(password).toString() }
+  const params = { userName, password }
+  // const params = { userName, password: sha1(password).toString() }
   return request.post('/user/login', params)
 }
 
@@ -27,5 +28,5 @@ export function userLogOutApi() {
  * @returns {Promise}
  */
 export function getUserInfoApi() {
-  return request.get('/user/login/token')
+  return request.get('/user')
 }

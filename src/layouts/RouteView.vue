@@ -1,35 +1,6 @@
 <script>
 export default {
   name: 'RouteView',
-
-  components: {},
-
-  filters: {},
-
-  props: {},
-
-  data() {
-    return {}
-  },
-
-  computed: {},
-
-  watch: {},
-
-  created() {},
-
-  mounted() {},
-
-  updated() {},
-
-  activated() {},
-
-  deactivated() {},
-
-  destroyed() {},
-
-  methods: {},
-
   render(createElement) {
     return this.$route.meta.keepAlive
       ? createElement('router-view')

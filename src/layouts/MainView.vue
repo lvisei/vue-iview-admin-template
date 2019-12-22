@@ -8,6 +8,7 @@
 <script>
 import GlobalLayout from './GlobalLayout'
 import BreadCrumb from '@/components/BreadCrumb'
+import { getBreadCrumbList } from '@/helpers/router'
 
 export default {
   name: 'MainView',
@@ -54,7 +55,7 @@ export default {
       //   name,
       //   meta: { title }
       // } = newRoute
-      this.breadCrumbList = this.$utils.getBreadCrumbList(newRoute.matched)
+      this.breadCrumbList = getBreadCrumbList(newRoute.matched)
     }
   }
 }

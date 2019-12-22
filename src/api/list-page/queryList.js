@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/helpers/request'
 
 export const getUserListApi = params => {
   return request.get('user/select/search', { params: params })

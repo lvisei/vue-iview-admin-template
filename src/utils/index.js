@@ -1,56 +1,4 @@
 /**
- * 是否有子路由
- * @param 	{Array} list 路由列表数组 routes
- * @returns {Boolean}
- */
-const hasChild = list => {
-  return list.children && list.children.length !== 0
-}
-
-/**
- * 通过路由列表得到菜单列表
- * @param 	{Array} list 路由列表数组 routes
- * @returns {Array}
- */
-const getMenuList = list => {
-  let res = []
-  list.forEach(item => {
-    if (item.meta && !item.hidden) {
-      let obj = {
-        name: item.name,
-        icon: item.meta.icon || '',
-        title: item.meta.title
-      }
-      if (hasChild(item)) {
-        obj.children = getMenuList(item.children)
-      }
-      if (item.meta && item.meta.href) obj.href = item.meta.href
-      res.push(obj)
-    }
-  })
-  return res
-}
-
-/**
- * 获取当前匹配路由
- * @param 	{Array} routeMetched 当前路由metched
- * @returns {Array}
- */
-const getBreadCrumbList = routeMetched => {
-  let res = routeMetched.map(item => {
-    return {
-      icon: item.meta.icon || '',
-      name: item.meta.title || '首页',
-      router: { name: item.name }
-    }
-  })
-  res.filter(item => {
-    return !item.hidden
-  })
-  return res
-}
-
-/**
  * Localstorage 存储数据
  * @param {String} key
  * @param {Object} value
@@ -193,10 +141,43 @@ export const throttle = (fn, time) => {
   }
 }
 
+/**
+ * 列表数据转换为树数据
+ * @param {Array} list
+ * @param {Object} value
+ * @returns
+ */
+export const generateOrganizationTree = (list, config) => {
+  const id = config.id || 'id'
+  const pid = config.pid || 'pid'
+  const children = config.children || 'children'
+  const lable = config.lable || 'lable'
+  const pConfig = config.pConfig || {}
+  const pConfigKey = Object.keys(pConfig)
+  const idMap = {}
+  const jsonTree = []
+  list.forEach(v => (idMap[v[id]] = v))
+  list.forEach(v => {
+    const parent = idMap[v[pid]]
+    if (parent) {
+      !parent[children] && (parent[children] = [])
+      v['title'] = v[lable]
+      parent[children].push(v)
+    } else {
+      pConfigKey.forEach(key => {
+        v[key] = pConfig[key]
+      })
+      v['title'] = v[lable]
+      jsonTree.push(v)
+    }
+  })
+
+  return jsonTree
+}
+
 export default {
-  getMenuList,
-  getBreadCrumbList,
   onEvent,
   offEvent,
-  debounce
+  debounce,
+  throttle
 }
