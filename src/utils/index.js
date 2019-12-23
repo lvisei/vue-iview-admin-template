@@ -5,7 +5,7 @@
  * @returns
  */
 export const setLocalstorage = (key, value) => {
-  var storage = window.localStorage
+  const storage = window.localStorage
   if (!storage) {
     window.alert('浏览器不支持localstorage')
     return false
@@ -19,7 +19,7 @@ export const setLocalstorage = (key, value) => {
  * @returns {Boolean} Boolean or String
  */
 export const getLocalstorage = key => {
-  var storage = window.localStorage
+  const storage = window.localStorage
   if (!storage) {
     window.alert('浏览器不支持localstorage')
     return false
@@ -34,7 +34,7 @@ export const getLocalstorage = key => {
  * @returns
  */
 export const removeLocalstorage = key => {
-  var storage = window.localStorage
+  const storage = window.localStorage
   if (!storage) {
     window.alert('浏览器不支持localstorage')
     return false

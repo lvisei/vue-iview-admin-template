@@ -19,7 +19,7 @@ export function userLoginApi(userName, password) {
  * @returns {Promise}
  */
 export function userLogOutApi() {
-  return request.get('/user/login/out')
+  return request.get('mock/user/login/out')
 }
 
 /**

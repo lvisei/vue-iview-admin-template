@@ -56,6 +56,7 @@ const actions = {
 
       // commit('SET_RIGHTS', rights)
       // commit('SET_ROLES', roles)
+      commit('SET_ROLES', ['super_admin', 'admin'])
       commit('SET_USER', data)
 
       return data

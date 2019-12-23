@@ -2,7 +2,7 @@
   <i-card class="user-pane" shadow>
     <div class="user-pane__avatar">
       <i-avatar :src="avatar" />
-      <p class="user-pane__avatar_name">{{ name }}</p>
+      <p class="user-pane__avatar_name">{{ userName }}</p>
     </div>
     <div class="user-pane__description">
       <p class="user-pane__description_item">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'UserPane',
@@ -61,7 +61,7 @@ export default {
   },
 
   computed: {
-    ...mapState('user', ['name', 'avatar'])
+    ...mapGetters(['userName', 'accountName', 'avatar'])
   },
 
   watch: {},

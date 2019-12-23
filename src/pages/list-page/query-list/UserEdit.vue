@@ -107,7 +107,7 @@ export default {
         email: [{ type: 'email', message: '邮箱格式不正确', trigger: 'blur' }],
         department: [{ required: true, message: '请输入部门', trigger: 'change' }],
         areacode: [{ required: true, type: 'array', message: '请输入行政区域' }],
-        state: [{ required: true, message: '请选择用户状态', trigger: 'change' }]
+        state: [{ required: true, type: 'number', message: '请选择用户状态', trigger: 'change' }]
       }
     }
   },

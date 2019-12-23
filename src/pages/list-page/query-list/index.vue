@@ -187,7 +187,7 @@ export default {
     },
 
     onBatch(type) {
-      let usernames = this.tableSelection.map(item => item.username)
+      const usernames = this.tableSelection.map(item => item.username)
       type === 'remove'
         ? this.removeUser(usernames)
         : type === 'disble'
@@ -206,7 +206,7 @@ export default {
     onAddSubmit(userInfo) {
       this.addSubmitLoading = true
       addUserApi(userInfo).then(res => {
-        if (res.data) {
+        if (res.code === 20000) {
           this.addPaneVisible = false
           this.$Message.success('添加用户成功~')
           this.upTableData()
@@ -225,7 +225,7 @@ export default {
     onEditSubmit(newUserInfo) {
       this.editSubmitLoading = true
       updateUserApi(newUserInfo).then(res => {
-        if (res.data) {
+        if (res.code === 20000) {
           this.editPaneVisible = false
           this.$Message.success('修改用户信息成功~')
           this.upTableData()
@@ -248,7 +248,7 @@ export default {
         passwordold: oldPassword,
         password: newPassword
       }).then(res => {
-        if (res.data) {
+        if (res.code === 20000) {
           this.$Message.success('修改密码成功~')
           this.passwordPaneVisible = false
         } else {
@@ -263,7 +263,7 @@ export default {
         title: `确定禁用用户${usernames}`,
         onOk: () => {
           disbleUserApi({ usernames: [...usernames] }).then(res => {
-            if (res.data) {
+            if (res.code === 20000) {
               this.canBatch = false
               this.$Message.success('禁用用户成功~')
               this.upTableData()
@@ -280,7 +280,7 @@ export default {
         title: `确定删除用户${usernames}`,
         onOk: () => {
           deleteUserApi({ usernames: [...usernames] }).then(res => {
-            if (res.data) {
+            if (res.code === 20000) {
               this.canBatch = false
               this.$Message.success('删除用户成功~')
               this.upTableData()
@@ -314,8 +314,8 @@ export default {
 
     async getUserList(params) {
       try {
-        let response = await getUserListApi(params)
-        let { userList, count } = response.data
+        const response = await getUserListApi(params)
+        const { userList = [], count = 0 } = response.data
         return { userList, count }
       } catch (err) {
         console.log(err) // eslint-disable-line
