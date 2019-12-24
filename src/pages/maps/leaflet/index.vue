@@ -1,5 +1,5 @@
 <template>
-  <i-card class="leaflet-maps" shadow :padding="5">
+  <i-card class="leaflet" shadow :padding="5">
     <MapContainer
       @on-load="onLoad"
       @update:zoom="zoomUpdated"
@@ -28,7 +28,7 @@ import LControlPosition from '@/components/LControlPosition'
 import LCustomizeControl from '@/components/LCustomizeControl'
 
 export default {
-  name: 'LeafletMaps',
+  name: 'Leaflet',
 
   components: { MapContainer, LControlScale, LControlPosition, LCustomizeControl },
 
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="less">
-.leaflet-maps {
+.leaflet {
   .vue2leaflet-map {
     height: 600px;
   }

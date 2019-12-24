@@ -10,11 +10,10 @@ let cancelRequest = new Map()
  * prompt function
  * @param {String} msg
  */
-const tip = (msg, onClose) => {
+const tip = msg => {
   Message.error({
     content: msg,
-    duration: 10,
-    onClose
+    duration: 10
   })
 }
 
@@ -82,10 +81,14 @@ request.interceptors.response.use(
     if (data.code !== 20000) {
       // 20004: illegal token; 20003: Token expired;
       if (data.code === 20004 || data.code === 20003) {
-        tip('Login Timeout', () => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
+        Message.info({
+          content: 'Login Timeout',
+          duration: 10,
+          onClose() {
+            store.dispatch('user/resetToken').then(() => {
+              location.reload()
+            })
+          }
         })
       } else {
         tip(data.message)

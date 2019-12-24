@@ -44,14 +44,14 @@ const routes = [
             path: 'query-list',
             name: 'QueryList',
             component: () =>
-              import(/* webpackChunkName: "QueryList" */ '@/pages/list-page/query-list'),
+              import(/* webpackChunkName: "query-list" */ '@/pages/list-page/query-list'),
             meta: { title: '查询表格', icon: 'md-list' }
           },
           {
             path: 'standard-list',
             name: 'StandardList',
             component: () =>
-              import(/* webpackChunkName: "StandardList" */ '@/pages/list-page/standard-list'),
+              import(/* webpackChunkName: "standard-list" */ '@/pages/list-page/standard-list'),
             meta: { title: '标准列表', icon: 'md-podium' }
           }
         ]
@@ -73,13 +73,13 @@ const routes = [
             path: 'count-to',
             name: 'CountTo',
             component: () =>
-              import(/* webpackChunkName: "CountTo" */ '@/pages/components-demo/count-to'),
+              import(/* webpackChunkName: "count-to" */ '@/pages/components-demo/count-to'),
             meta: { title: 'CountTo' }
           },
           {
             path: 'bpmn',
             name: 'Bpmn',
-            component: () => import(/* webpackChunkName: "Bpmn" */ '@/pages/components-demo/bpmn'),
+            component: () => import(/* webpackChunkName: "bpmn" */ '@/pages/components-demo/bpmn'),
             meta: { title: 'Bpmn' }
           }
         ]
@@ -91,11 +91,22 @@ const routes = [
         meta: { title: '地图', icon: 'md-map' },
         children: [
           {
-            path: 'leaflet-maps',
-            name: 'LeafletMaps',
-            component: () =>
-              import(/* webpackChunkName: "LeafletMaps" */ '@/pages/maps/leaflet-maps'),
-            meta: { title: 'leaflet-maps', icon: 'md-map' }
+            path: 'leaflet',
+            name: 'Leaflet',
+            component: () => import(/* webpackChunkName: "leaflet" */ '@/pages/maps/leaflet'),
+            meta: { title: 'leaflet', icon: 'md-map' }
+          },
+          {
+            path: 'openlayers',
+            name: 'Openlayers',
+            component: () => import(/* webpackChunkName: "openlayers" */ '@/pages/maps/openlayers'),
+            meta: { title: 'lopenlayers', icon: 'md-map' }
+          },
+          {
+            path: 'arcgis',
+            name: 'arcgis',
+            component: () => import(/* webpackChunkName: "arcgis" */ '@/pages/maps/arcgis'),
+            meta: { title: 'arcgis', icon: 'md-map' }
           }
         ]
       },
@@ -109,13 +120,14 @@ const routes = [
             path: 'user-center',
             name: 'UserCenter',
             component: () =>
-              import(/* webpackChunkName: "UserCenter" */ '@/pages/user-page/user-center'),
+              import(/* webpackChunkName: "user-center" */ '@/pages/user-page/user-center'),
             meta: { title: '个人中心', icon: 'logo-octocat' }
           },
           {
             path: 'user-set',
             name: 'UserSet',
-            component: () => import(/* webpackChunkName: "UserSet" */ '@/pages/user-page/user-set'),
+            component: () =>
+              import(/* webpackChunkName: "user-set" */ '@/pages/user-page/user-set'),
             meta: { title: '个人设置', icon: 'ios-settings' }
           }
         ]
