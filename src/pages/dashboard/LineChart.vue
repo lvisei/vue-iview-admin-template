@@ -1,7 +1,7 @@
 <template>
   <v-chart
     :options="chartOptions"
-    ref="map"
+    ref="chart"
     :style="{ height: height, width: width }"
     :autoresize="autoResize"
   />
