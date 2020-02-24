@@ -12,6 +12,8 @@
 .DS_Store
 .wafpicke-*
 .lock-wscript
+!.env
+!.env.*
 .venv
 npm-debug.log
 config.gypi
