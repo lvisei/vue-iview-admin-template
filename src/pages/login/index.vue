@@ -24,7 +24,7 @@ import { mapActions } from 'vuex'
 import { siteName } from '@/config'
 import CanvasNest from 'canvas-nest.js'
 import GlobalFooter from '@/layouts/GlobalFooter'
-import LoginForm from '@/components/LoginForm/loginForm.vue'
+import LoginForm from '@/components/LoginForm/LoginForm.vue'
 
 export default {
   name: 'Login',

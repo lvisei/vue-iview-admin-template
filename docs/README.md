@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/liuvigongzuoshi/vue-iview-admin-template">
-    <img alt="vue-iview-admin-template" width="200" src="./_media/logo.png">
+    <img alt="vue-iview-admin-template" width="200" src="./docs/_media/logo.png">
   </a>
 </p>
 
@@ -11,16 +11,16 @@
 基于第三方组件 iView 参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
 
 [![vue](https://img.shields.io/badge/vue-2.6.10-brightgreen.svg)](https://github.com/vuejs/vue)
-[![view-design](https://img.shields.io/badge/view_design-4.1.2-brightgreen.svg)](https://github.com/view-design/ViewUI)
+[![view-design](https://img.shields.io/badge/view_design-4.1.3-brightgreen.svg)](https://github.com/view-design/ViewUI)
 [![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca91adeb-0a21-4d43-91d1-105fb6c072a7/deploy-status)](https://app.netlify.com/sites/vue-iview-admin-temp/deploys)
 
 </div>
 
-**Live demo one:** [https://vue-iview-admin-temp.ywbang.top](https://vue-iview-admin-temp.ywbang.top) 
+**Live demo one:** [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu) 
 
-**Live demo two:** [https://vue-iview-admin-template.ywbang.top](https://vue-iview-admin-template.ywbang.top)
+**Live demo two:** [https://vue-iview-admin-template.ywbang.icu](https://vue-iview-admin-template.ywbang.icu)
 
 ## Usage
 
@@ -50,8 +50,8 @@ npm run lint
 
 ## Links
 
-- [Live demo one](https://vue-iview-admin-temp.ywbang.top)
-- [Live demo two](https://vue-iview-admin-template.ywbang.top)
+- [Live demo one](https://vue-iview-admin-temp.ywbang.icu)
+- [Live demo two](https://vue-iview-admin-template.ywbang.icu)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
 - 待续
 
