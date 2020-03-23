@@ -1,6 +1,6 @@
 <template>
   <div class="sketch-graphic-attribute">
-    <div class="sketch-graphic-attribute__header">图斑属性编辑</div>
+    <div class="sketch-graphic-attribute__header">图斑属性{{ edit ? '编辑' : '预览' }}</div>
     <div class="sketch-graphic-attribute__content">
       <i-form ref="form" :model="formData">
         <i-row v-for="(item, index) in formData.attributeList" :key="index">
@@ -52,7 +52,7 @@
         </i-row>
       </i-form>
     </div>
-    <div class="sketch-graphic-attribute__controls">
+    <div v-if="edit" class="sketch-graphic-attribute__controls">
       <button class="sketch-graphic-attribute__controls-btn" @click="handSave">保存</button>
     </div>
   </div>
@@ -72,6 +72,10 @@ export default {
     attributes: {
       type: Array,
       default: () => []
+    },
+    edit: {
+      type: Boolean,
+      default: true
     }
   },
 

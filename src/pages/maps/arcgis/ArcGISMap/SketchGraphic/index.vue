@@ -4,6 +4,7 @@
     <SearchBar />
     <SketchGraphicAttribute
       :attributes="attributesList"
+      :edit="editAttribute"
       v-if="attribute && showAttributePane"
       @on-save="onSaveAttribute"
     />
@@ -55,7 +56,12 @@ export default {
 
     attribute: {
       type: Boolean,
-      default: false
+      default: true
+    },
+
+    editAttribute: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -101,7 +107,16 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    geoJson(geoJson) {
+      if (this.sketchGraphicLayer) {
+        this.sketchGraphicLayer.removeAll()
+        const graphics = this.loadGraphics(geoJson)
+        this.sketchGraphicLayer.addMany(graphics)
+        this.view.goTo(graphics)
+      }
+    }
+  },
 
   created() {},
 
@@ -226,7 +241,13 @@ export default {
               item => !ignoreKey.includes(item[0])
             )
             const fieldInfos = attributesKey.map(item => ({ fieldName: item[0], value: item[1] }))
-            this.attributesList = fieldInfos.length ? fieldInfos : attributeTep
+            this.attributesList = this.editAttribute
+              ? fieldInfos.length
+                ? fieldInfos
+                : attributeTep
+              : fieldInfos.length
+              ? fieldInfos
+              : []
           } else {
             this.attributesList = attributeTep
           }
