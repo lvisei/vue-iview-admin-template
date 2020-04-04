@@ -1,3 +1,3 @@
-import loginForm from './loginForm.vue'
+import loginForm from './LoginForm.vue'
 
 export default loginForm
