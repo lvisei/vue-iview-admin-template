@@ -56,6 +56,9 @@ request.interceptors.request.use(
       cancelRequest.set(urlParams, cancel)
     })
 
+    // Switch page to cancel request
+    // https://github.com/dingFY/vue-iview3-admin/blob/master/src/api/axios.js#L72
+
     // token
     const token = store.state.user.token
     token && (config.headers['Authorization'] = token)
