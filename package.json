@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "bpmn-js": "^6.3.4",
     "canvas-nest.js": "^2.0.4",
+    "codemirror": "^5.52.2",
     "core-js": "^3.6.4",
     "countup": "^1.8.2",
     "crypto-js": "^4.0.0",
