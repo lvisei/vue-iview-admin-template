@@ -94,19 +94,25 @@ const routes = [
             path: 'leaflet',
             name: 'Leaflet',
             component: () => import(/* webpackChunkName: "leaflet" */ '@/pages/maps/leaflet'),
-            meta: { title: 'leaflet', icon: 'md-map' }
+            meta: { title: 'Leaflet', icon: 'md-map' }
           },
           {
             path: 'openlayers',
             name: 'Openlayers',
             component: () => import(/* webpackChunkName: "openlayers" */ '@/pages/maps/openlayers'),
-            meta: { title: 'lopenlayers', icon: 'md-map' }
+            meta: { title: 'Openlayers', icon: 'md-map' }
           },
           {
             path: 'arcgis',
-            name: 'arcgis',
+            name: 'ArcGIS',
             component: () => import(/* webpackChunkName: "arcgis" */ '@/pages/maps/arcgis'),
-            meta: { title: 'arcgis', icon: 'md-map' }
+            meta: { title: 'ArcGIS', icon: 'md-map' }
+          },
+          {
+            path: 'mapbox',
+            name: 'Mapbox',
+            component: () => import(/* webpackChunkName: "mapbox" */ '@/pages/maps/mapbox'),
+            meta: { title: 'Mapbox', icon: 'md-map' }
           }
         ]
       },
