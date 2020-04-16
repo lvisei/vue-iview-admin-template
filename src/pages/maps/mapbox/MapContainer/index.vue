@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { initMapContainer } from './helpers'
+import { loadMap } from './helpers'
 
 export default {
   name: 'MapContainer',
@@ -26,8 +26,7 @@ export default {
 
   mounted() {
     const container = this.$refs.mapContainer
-    const map = initMapContainer('mapContainer')
-    console.log('map: ', map)
+    this.initMapContainer()
   },
 
   updated() {},
@@ -38,7 +37,14 @@ export default {
 
   beforeDestroy() {},
 
-  methods: {}
+  methods: {
+    initMapContainer() {
+      const map = loadMap('mapContainer')
+      map.on('load', () => {
+        this.$emit('on-load', map)
+      })
+    }
+  }
 }
 </script>
 

@@ -24,8 +24,8 @@
 <script>
 import MapContainer from './MapContainer'
 import { LControlScale } from 'vue2-leaflet'
-import LControlPosition from '@/components/LControlPosition'
-import LCustomizeControl from '@/components/LCustomizeControl'
+import LControlPosition from '@/components/Vue2Leaflet/LControlPosition'
+import LCustomizeControl from '@/components/Vue2Leaflet/LCustomizeControl'
 
 export default {
   name: 'Leaflet',

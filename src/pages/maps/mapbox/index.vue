@@ -1,6 +1,6 @@
 <template>
   <i-card class="mapbox" shadow :padding="5">
-    <MapContainer></MapContainer>
+    <MapContainer @on-load="onMapLoad"></MapContainer>
   </i-card>
 </template>
 
@@ -36,7 +36,11 @@ export default {
 
   beforeDestroy() {},
 
-  methods: {}
+  methods: {
+    onMapLoad(map) {
+      // console.log('map: ', map)
+    }
+  }
 }
 </script>
 
