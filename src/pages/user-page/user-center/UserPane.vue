@@ -23,6 +23,16 @@
         </span>
         <span class="user-pane__description_item-detail">四川省成都市</span>
       </p>
+      <p
+        class="user-pane__description_item"
+        v-clipboard="'liuvigongzuoshi@foxmail.com'"
+        v-clipboard:success="() => $Message.success('复制成功')"
+      >
+        <span class="user-pane__description_item-title">
+          <i-icon type="ios-mail-outline" />
+        </span>
+        <span class="user-pane__description_item-detail">liuvigongzuoshi@foxmail.com</span>
+      </p>
     </div>
     <i-divider dashed />
     <div class="user-pane__tags">

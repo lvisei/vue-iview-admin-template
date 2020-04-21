@@ -6,6 +6,7 @@ import utils from './utils'
 import ViewUI from 'view-design'
 import request from './helpers/request'
 import SvgIcon from '@/components/SvgIcon'
+import Clipboard from 'v-clipboard'
 import './registerServiceWorker'
 // import Mock from './mock'
 
@@ -19,6 +20,10 @@ import '@/assets/icons'
 
 Vue.use(ViewUI)
 Vue.component('svg-icon', SvgIcon)
+
+/* Register directive */
+
+Vue.use(Clipboard)
 
 /* Use plugins */
 

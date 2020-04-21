@@ -26,6 +26,7 @@
     "lodash": "^4.17.15",
     "mapbox-gl": "^1.9.1",
     "register-service-worker": "^1.7.1",
+    "v-clipboard": "^2.2.2",
     "view-design": "^4.2.0",
     "vue": "^2.6.10",
     "vue-echarts": "^4.1.0",
