@@ -84,7 +84,7 @@ export default {
 <style lang="less">
 .leaflet {
   .vue2leaflet-map {
-    height: 600px;
+    height: 800px;
   }
 }
 </style>

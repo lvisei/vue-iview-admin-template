@@ -43,7 +43,7 @@ export default {
 <style lang="less">
 .openlayers {
   .map-container {
-    height: 600px;
+    height: 800px;
   }
 }
 </style>

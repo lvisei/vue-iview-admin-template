@@ -99,9 +99,9 @@ export async function loadMap(element, { search }) {
   })
 
   const map = new Map({
-    basemap: basemap_tdt_vec
+    basemap: basemaptdt_img
   })
-  const gzs_bbox = [103.601439, 24.61822, 109.597385, 29.221005]
+  const gzs_bbox = [103.601439, 24.61822, 119.597385, 39.221005]
   const gzs_extent = new Extent({
     xmin: gzs_bbox[0],
     ymin: gzs_bbox[1],
@@ -113,7 +113,7 @@ export async function loadMap(element, { search }) {
   const view = new MapView({
     container: element,
     map: map,
-    zoom: 8,
+    zoom: 3,
     center: new Point({
       x: 106.6274,
       y: 26.693,
@@ -128,7 +128,7 @@ export async function loadMap(element, { search }) {
 
   const basemapToggle = new BasemapToggle({
     view: view,
-    nextBasemap: basemaptdt_img
+    nextBasemap: basemap_tdt_vec
   })
   view.ui.add(basemapToggle, {
     position: 'bottom-right'

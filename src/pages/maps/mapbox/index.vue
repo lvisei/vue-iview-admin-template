@@ -48,7 +48,7 @@ export default {
 @import '~mapbox-gl/dist/mapbox-gl.css';
 .mapbox {
   .map-container {
-    height: 600px;
+    height: 800px;
   }
 }
 </style>

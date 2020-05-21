@@ -1,7 +1,7 @@
 <template>
   <i-card class="arcgis" shadow :padding="5">
-    <MapContainer class="sketch-graphic" @on-load="onMapLoad">
-      <MapPosition class="sketch-graphic__map-position" />
+    <MapContainer class="arcgis__map-container" @on-load="onMapLoad">
+      <MapPosition class="arcgis__map-position" />
       <slot />
     </MapContainer>
   </i-card>
@@ -52,7 +52,12 @@ export default {
 <style lang="less">
 .arcgis {
   .map-container {
-    height: 600px;
+    height: 800px;
+  }
+
+  &__map-position {
+    left: 0;
+    bottom: 0;
   }
 }
 </style>
