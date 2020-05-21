@@ -12,6 +12,7 @@
     "inspect": "vue-cli-service inspect --mode=production"
   },
   "dependencies": {
+    "@turf/turf": "^5.1.6",
     "axios": "^0.19.2",
     "bpmn-js": "^6.5.1",
     "canvas-nest.js": "^2.0.4",
@@ -25,6 +26,8 @@
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",
     "mapbox-gl": "^1.10.1",
+    "ol": "^6.3.1",
+    "proj4": "^2.6.2",
     "register-service-worker": "^1.7.1",
     "v-clipboard": "^2.2.3",
     "view-design": "^4.2.0",

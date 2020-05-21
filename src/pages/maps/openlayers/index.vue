@@ -42,7 +42,7 @@ export default {
 
 <style lang="less">
 .openlayers {
-  .vl-map {
+  .map-container {
     height: 600px;
   }
 }

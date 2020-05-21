@@ -1,55 +1,25 @@
 <template>
-  <vl-map
-    class="map-container"
-    :load-tiles-while-animating="true"
-    :load-tiles-while-interacting="true"
-    data-projection="EPSG:4326"
-  >
-    <vl-view
-      :zoom.sync="zoom"
-      :center.sync="center"
-      :max-zoom="maxZomm"
-      :min-zoom="minZoom"
-      projection="EPSG:4326"
-    />
-
-    <vl-layer-tile v-for="item in tileLayer" :key="item.url">
-      <vl-source-wmts
-        :id="`wmts${item.url}`"
-        :url="item.url"
-        :format="item.format"
-        :layer-name="item.layerName"
-        :matrix-set="item.matrixSet"
-        :style-name="item.style"
-      />
-    </vl-layer-tile>
-
-    <vl-layer-vector>
-      <vl-source-vector :features="featureList" />
-      <!-- <vl-feature></vl-feature> -->
-    </vl-layer-vector>
-
-    <div class="map-container__status-bar">Zoom: {{ zoom }}, Center: {{ center.join(',') }}</div>
-  </vl-map>
+  <div ref="mapContainer" class="map-container" id="mapContainer">
+    <template v-if="!loading">
+      <GeoJsonLayer :feature-list="featureList" />
+      <div class="map-container__status-bar">Zoom: {{ zoom }}, Center: {{ center.join(',') }}</div>
+      <slot />
+    </template>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import { Map, TileLayer, WmtsSource, VectorLayer, VectorSource, Feature } from 'vuelayers'
-import 'vuelayers/lib/style.css'
-
-// Hacks
-Vue.use(Map)
-Vue.use(TileLayer)
-Vue.use(WmtsSource)
-Vue.use(VectorLayer)
-Vue.use(VectorSource)
-Vue.use(Feature)
+import GeoJsonLayer from './GeoJsonLayer'
+import { initMap } from './helpers/init-map'
 
 export default {
   name: 'MapContainer',
 
-  components: {},
+  provide: {
+    mapInstance: null
+  },
+
+  components: { GeoJsonLayer },
 
   filters: {},
 
@@ -63,26 +33,9 @@ export default {
 
   data() {
     return {
+      loading: true,
       zoom: 3,
-      maxZomm: undefined,
-      minZoom: 3,
-      center: [106.46281299898496, 29.631357102439466],
-      tileLayer: [
-        {
-          url: 'http://t0.tianditu.gov.cn/img_w/wmts?tk=e60679f6e9718d3426f745fd8cd94cbd',
-          layerName: 'img',
-          style: 'default',
-          format: '',
-          matrixSet: 'w'
-        },
-        {
-          url: 'http://t0.tianditu.gov.cn/cia_w/wmts?tk=e60679f6e9718d3426f745fd8cd94cbd',
-          layerName: 'cia',
-          format: '',
-          style: 'default',
-          matrixSet: 'w'
-        }
-      ]
+      center: [106.46281299898496, 29.631357102439466]
     }
   },
 
@@ -92,7 +45,14 @@ export default {
 
   created() {},
 
-  mounted() {},
+  mounted() {
+    const { zoom, center } = this
+    const { mapContainer } = this.$refs
+    const map = initMap(mapContainer, zoom, center)
+    this._provided.mapInstance = map
+    this.bindEvent(map)
+    this.loading = false
+  },
 
   updated() {},
 
@@ -102,21 +62,40 @@ export default {
 
   beforeDestroy() {},
 
-  methods: {}
+  methods: {
+    bindEvent(map) {
+      map.on('pointermove', event => {
+        const { coordinate } = event
+        this.center = coordinate
+      })
+      map.on('moveend', event => {
+        const zoom = map.getView().getZoom()
+        this.zoom = Math.round(zoom)
+      })
+    }
+  }
 }
 </script>
 
 <style lang="less">
 .map-container {
   position: relative;
+  width: 100%;
+  height: 100%;
 
   &__status-bar {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.8);
     padding: 0 5px;
     position: absolute;
-    left: 0.5em;
-    bottom: 0.5em;
+    left: 0;
+    bottom: 0;
     z-index: 2;
+  }
+
+  .ol-zoom {
+    top: 0.5em;
+    left: unset;
+    right: 0.5em;
   }
 }
 </style>
