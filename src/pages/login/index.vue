@@ -6,10 +6,10 @@
         <span class="title">{{ siteName }}</span>
       </div>
       <i-card class="login-main" title="账户密码登录" shadow>
-        <login-form :loading="loading" @on-success-valid="handleSubmit"></login-form>
+        <LoginForm :loading="loading" @on-success-valid="handleSubmit" />
         <p class="mark">
-          <span>用户名：admin</span>
-          <span>密码：123456</span>
+          <span>用户名：super-admin</span>
+          <span>密码：super-admin</span>
         </p>
       </i-card>
     </div>
@@ -22,9 +22,9 @@
 <script>
 import { mapActions } from 'vuex'
 import { siteName } from '@/config'
-import CanvasNest from 'canvas-nest.js'
 import GlobalFooter from '@/layouts/GlobalFooter'
 import LoginForm from './LoginForm'
+import CanvasNest from 'canvas-nest.js'
 
 export default {
   name: 'Login',
@@ -60,21 +60,22 @@ export default {
   methods: {
     ...mapActions('user', ['userLogin']),
 
-    handleSubmit({ username, password }) {
+    handleSubmit(data) {
       this.loading = true
-      this.userLogin({ username, password }).then(({ code, message }) => {
-        this.loading = false
-        if (code === 20000) {
+      this.userLogin(data)
+        .then(({ message }) => {
+          this.loading = false
           this.$Message.success({
             content: '登陆成功~',
             onClose: () => {
               this.$router.push({ path: '/' })
             }
           })
-        } else {
-          this.$Message.error(message)
-        }
-      })
+        })
+        .catch(({ error }) => {
+          this.loading = false
+          this.$Message.error(error.message)
+        })
     }
   }
 }

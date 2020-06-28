@@ -1,4 +1,4 @@
-import { userLoginApi, userLogOutApi, getUserInfoApi } from '@/api/personal-center'
+import { userLoginApi, userLogOutApi, getUserInfoApi } from '@/api/personal-center/user'
 import { getToken, setToken, removeToken } from '@/helpers/auth'
 
 const state = {
@@ -30,19 +30,20 @@ const mutations = {
 }
 
 const actions = {
-  userLogin: async ({ commit }, { username, password }) => {
+  userLogin: async ({ commit }, { username, password, captchaCode, captchaId }) => {
     try {
-      const response = await userLoginApi(username, password)
-      const { token } = response.data
-      if (token) {
+      const data = await userLoginApi(username, password, captchaCode, captchaId)
+      const { access_token, token_type, expires_at } = data
+      if (access_token) {
+        const token = `${token_type} ${access_token}`
         setToken(token)
         commit('SET_TOKEN', token)
       }
 
-      return response
+      return data
     } catch (err) {
       console.log(err) // eslint-disable-line
-      return err
+      return Promise.reject(err)
     }
   },
 
@@ -62,7 +63,7 @@ const actions = {
       return data
     } catch (err) {
       console.log(err) // eslint-disable-line
-      return err
+      return Promise.reject(err)
     }
   },
 
@@ -81,7 +82,7 @@ const actions = {
       return response
     } catch (err) {
       console.log(err) // eslint-disable-line
-      return err
+      return Promise.reject(err)
     }
   },
 

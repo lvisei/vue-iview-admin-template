@@ -20,6 +20,25 @@
         </span>
       </i-input>
     </i-form-item>
+    <i-form-item prop="captchaCode">
+      <i-row :gutter="16">
+        <i-col span="16">
+          <i-input v-model="form.captchaCode" placeholder="请输入验证码">
+            <span slot="prefix">
+              <i-icon :size="16" type="ios-image" />
+            </span>
+          </i-input>
+        </i-col>
+        <i-col span="8">
+          <img
+            class="login-form__captcha"
+            :src="captchaUrl"
+            alt="验证码"
+            @click="handClickCaptcha"
+          />
+        </i-col>
+      </i-row>
+    </i-form-item>
     <i-form-item>
       <i-button @click="handleSubmit" type="primary" long :loading="loading">登录</i-button>
     </i-form-item>
@@ -27,6 +46,8 @@
 </template>
 
 <script>
+import { getCaptchaidApi, getCaptchaUrl } from '@/api/personal-center/user'
+
 export default {
   name: 'LoginForm',
 
@@ -51,14 +72,22 @@ export default {
 
   data() {
     return {
+      captchaId: '',
+      reloadCaptcha: '',
       form: {
-        username: '',
-        password: ''
+        username: 'super-admin',
+        password: 'super-admin',
+        captchaCode: ''
       }
     }
   },
 
   computed: {
+    captchaUrl() {
+      const { captchaId, reloadCaptcha } = this
+      return captchaId ? getCaptchaUrl(captchaId, reloadCaptcha) : ''
+    },
+
     rules() {
       return {
         username: this.userNameRules,
@@ -67,13 +96,23 @@ export default {
     }
   },
 
+  created() {
+    getCaptchaidApi().then(({ captcha_id }) => (this.captchaId = captcha_id))
+  },
+
   methods: {
+    handClickCaptcha() {
+      this.reloadCaptcha += 'reload'
+    },
+
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.$emit('on-success-valid', {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            captchaCode: this.form.captchaCode,
+            captchaId: this.captchaId
           })
         }
       })
@@ -90,6 +129,10 @@ export default {
     &:last-child {
       margin-bottom: 10px;
     }
+  }
+
+  &__captcha {
+    height: 33px;
   }
 }
 </style>
