@@ -82,25 +82,6 @@ request.interceptors.response.use(
   response => {
     const data = response.data
     const { error } = data
-    // if (data.code !== 20000) {
-    //   // 20004: illegal token; 20003: Token expired;
-    //   if (data.code === 20004 || data.code === 20003) {
-    //     Message.info({
-    //       content: 'Login Timeout',
-    //       duration: 10,
-    //       onClose() {
-    //         store.dispatch('user/resetToken').then(() => {
-    //           location.reload()
-    //         })
-    //       }
-    //     })
-    //   } else {
-    //     tip(data.message)
-    //   }
-    //   return Promise.reject(new Error(data.message || 'Error'))
-    // } else {
-    //   return data
-    // }
     if (error) {
       const { code, message } = error
       tip(message)

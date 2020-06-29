@@ -44,11 +44,19 @@ export function userLogOutApi() {
 }
 
 /**
- * 获取用户信息
+ * 获取当前用户信息
  * @returns {Promise}
  */
 export function getUserInfoApi() {
   return request.get('/pub/current/user')
+}
+
+/**
+ * 查询当前用户菜单树
+ * @returns {Promise}
+ */
+export function getUserMenutreeApi() {
+  return request.get('/pub/current/menutree')
 }
 
 /**
