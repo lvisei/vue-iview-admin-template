@@ -49,15 +49,13 @@ export default {
           this.$router.push({ name: 'UserSet' })
           break
         case 'logout':
-          this.userLogOut().then(({ code }) => {
-            if (code === 20000) {
-              this.$Message.success({
-                content: '退出登陆成功~',
-                onClose: () => {
-                  this.$router.push({ name: 'Login' })
-                }
-              })
-            }
+          this.userLogOut().then(_ => {
+            this.$Message.success({
+              content: '退出登陆成功~',
+              onClose: () => {
+                this.$router.push({ name: 'Login' })
+              }
+            })
           })
           break
       }
