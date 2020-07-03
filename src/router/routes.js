@@ -57,6 +57,23 @@ const routes = [
         ]
       },
       {
+        path: 'system-management',
+        name: 'SystemManagement',
+        component: RouteView,
+        meta: { title: '系统管理', icon: 'md-sys' },
+        children: [
+          {
+            path: 'menu-management',
+            name: 'MenuManagement',
+            component: () =>
+              import(
+                /* webpackChunkName: "menu-management" */ '@/pages/system-management/menu-management'
+              ),
+            meta: { title: '菜单管理', icon: 'md-list' }
+          }
+        ]
+      },
+      {
         path: 'components-demo',
         name: 'ComponentsDemo',
         component: RouteView,
