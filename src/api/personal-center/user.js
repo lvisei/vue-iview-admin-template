@@ -19,19 +19,14 @@ export function getCaptchaUrl(id, reload) {
 
 /**
  * 用户登陆
- * @param {String} username
+ * @param {String} userName
  * @param {String} password
  * @param {String} captchaCode
  * @param {String} captchaId
  * @returns {Promise}
  */
-export function userLoginApi(username, password, captchaCode, captchaId) {
-  const params = {
-    user_name: username,
-    password: sha1(password).toString(),
-    captcha_code: captchaCode,
-    captcha_id: captchaId
-  }
+export function userLoginApi(userName, password, captchaCode, captchaId) {
+  const params = { userName, password: sha1(password).toString(), captchaCode, captchaId }
   return request.post('/pub/login', params)
 }
 
@@ -61,14 +56,14 @@ export function getUserMenutreeApi() {
 
 /**
  * 修改用户密码
- * @param {String} old_password
- * @param {String} new_password
+ * @param {String} oldPassword
+ * @param {String} newPassword
  * @returns
  */
-export function editUserPasswordApi(old_password, new_password) {
+export function editUserPasswordApi(oldPassword, newPassword) {
   const params = {
-    new_password: sha1(new_password).toString(),
-    old_password: sha1(old_password).toString()
+    newPassword: sha1(newPassword).toString(),
+    oldPassword: sha1(oldPassword).toString()
   }
   return request.put('/pub/current/password', params)
 }

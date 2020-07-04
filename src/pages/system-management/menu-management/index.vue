@@ -94,9 +94,9 @@
               :text="row.status === 1 ? '启用' : '禁用'"
             />
           </template>
-          <template slot-scope="{ row }" slot="show_status">
-            <p :style="{ color: row.show_status === 1 ? 'green' : 'red' }">
-              {{ row.show_status === 1 ? '显示' : '隐藏' }}
+          <template slot-scope="{ row }" slot="showStatus">
+            <p :style="{ color: row.showStatus === 1 ? 'green' : 'red' }">
+              {{ row.showStatus === 1 ? '显示' : '隐藏' }}
             </p>
           </template>
           <template slot-scope="{ row }" slot="action">
@@ -165,9 +165,9 @@ export default {
         { title: '菜单图标', key: 'icon' },
         { title: '访问路由', key: 'router' },
         { title: '状态', key: 'status', slot: 'status' },
-        { title: '是否隐藏', key: 'show_status', slot: 'show_status' },
+        { title: '是否隐藏', key: 'showStatus', slot: 'showStatus' },
         { title: '排序值', key: 'sequence', sortable: true },
-        { title: '创建时间', key: 'created_at', sortable: true },
+        { title: '创建时间', key: 'createdAt', sortable: true },
         { title: '创建者', key: 'creator' },
         { title: '备注', key: 'memo' },
         { title: '操作', slot: 'action', width: 250, align: 'center' }

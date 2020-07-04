@@ -97,7 +97,7 @@ export default {
   },
 
   created() {
-    getCaptchaidApi().then(({ captcha_id }) => (this.captchaId = captcha_id))
+    getCaptchaidApi().then(({ captchaId }) => (this.captchaId = captchaId))
   },
 
   methods: {

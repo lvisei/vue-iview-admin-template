@@ -36,9 +36,9 @@ const actions = {
   userLogin: async ({ commit }, { username, password, captchaCode, captchaId }) => {
     try {
       const data = await userLoginApi(username, password, captchaCode, captchaId)
-      const { access_token, token_type, expires_at } = data
+      const { accessToken, tokenType, expiresAt } = data
 
-      const token = `${token_type} ${access_token}`
+      const token = `${tokenType} ${accessToken}`
       setToken(token)
       commit('SET_TOKEN', token)
 
@@ -52,14 +52,9 @@ const actions = {
   getUserInfo: async ({ commit, state }) => {
     try {
       const data = await getUserInfoApi()
-      const { user_id, user_name, real_name, roles } = data
+      const { userId, userName, realName, roles } = data
 
-      const user = {
-        userId: user_id,
-        userName: user_name,
-        realName: real_name,
-        roles: roles || []
-      }
+      const user = { userId, userName, realName, roles: roles || [] }
       commit('SET_USER', data)
       commit('SET_ROLES', roles || [])
 
