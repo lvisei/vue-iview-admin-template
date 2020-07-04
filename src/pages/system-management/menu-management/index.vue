@@ -128,10 +128,18 @@
         />
       </div>
     </div>
+    <MenuEdit
+      :edit-type="editMenuType"
+      :modal-visible.sync="editMenuVisible"
+      :menu="editorMenu"
+      :loading="editMenuLoading"
+      @on-edit-submit="onEditSubmit"
+    />
   </i-card>
 </template>
 
 <script>
+import MenuEdit from './MenuEdit'
 import {
   getMenus,
   getMenusTree,
@@ -145,7 +153,7 @@ import { formatMenusTree } from './helper'
 export default {
   name: 'MenuManagement',
 
-  components: {},
+  components: { MenuEdit },
 
   filters: {},
 
@@ -165,14 +173,18 @@ export default {
         { title: '菜单图标', key: 'icon' },
         { title: '访问路由', key: 'router' },
         { title: '状态', key: 'status', slot: 'status' },
-        { title: '是否隐藏', key: 'showStatus', slot: 'showStatus' },
+        { title: '可见', key: 'showStatus', slot: 'showStatus' },
         { title: '排序值', key: 'sequence', sortable: true },
         { title: '创建时间', key: 'createdAt', sortable: true },
         { title: '创建者', key: 'creator' },
         { title: '备注', key: 'memo' },
         { title: '操作', slot: 'action', width: 250, align: 'center' }
       ],
-      tableData: []
+      tableData: [],
+      editMenuVisible: false,
+      editMenuLoading: false,
+      editorMenu: {},
+      editMenuType: 'add'
     }
   },
 
@@ -232,9 +244,22 @@ export default {
       this.upTableData()
     },
 
-    handAdd() {},
-    handEdit() {},
+    handAdd() {
+      this.editMenuVisible = true
+    },
+
+    handEdit() {
+      this.editMenuVisible = true
+    },
+
+    onEditSubmit() {
+      this.editMenuLoading = true
+      this.editMenuVisible = false
+      this.editMenuLoading = false
+    },
+
     handRemove() {},
+
     handEditStatus() {},
 
     upTableData() {
