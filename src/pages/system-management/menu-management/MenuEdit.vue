@@ -17,7 +17,8 @@
         <i-input v-model.trim="formData.name" placeholder="请输入菜单名称"></i-input>
       </i-form-item>
       <i-form-item label="上级菜单" prop="parentId">
-        <i-input v-model.trim="formData.parentId" placeholder="请输入上级菜单"></i-input>
+        <!-- <i-input v-model.trim="formData.parentId" placeholder="请输入上级菜单"></i-input> -->
+        <TreeSelect v-model="formData.parentId" :data="menusTree" />
       </i-form-item>
       <i-form-item label="显示排序" prop="sequence">
         <i-input-number
@@ -90,12 +91,13 @@
 </template>
 
 <script>
+import TreeSelect from '@/components/TreeSelect'
 import { getMenu } from '@/api/system-management/menu-management'
 
 export default {
   name: 'MenuEdit',
 
-  components: {},
+  components: { TreeSelect },
 
   filters: {},
 
@@ -116,6 +118,10 @@ export default {
     menu: {
       type: Object,
       default: () => ({})
+    },
+    menusTree: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -123,12 +129,14 @@ export default {
     return {
       formRule: {
         name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-        status: [{ required: true, message: '请选择菜单状态', trigger: 'blur' }],
-        showStatus: [{ required: true, message: '请选择菜单是否可见', trigger: 'blur' }]
+        status: [{ required: true, type: 'number', message: '请选择菜单状态', trigger: 'blur' }],
+        showStatus: [
+          { required: true, type: 'number', message: '请选择菜单是否可见', trigger: 'blur' }
+        ]
       },
       formData: {
         name: '',
-        parentId: '',
+        parentId: [],
         sequence: null,
         router: '',
         icon: '',
@@ -163,7 +171,9 @@ export default {
     modalVisible(value) {
       if (value) {
         const { id } = this.menu
-        this.getMenuData(id)
+        this.isEditMenu && this.getMenuData(id)
+      } else {
+        this.$refs.form.resetFields()
       }
     }
   },
@@ -186,7 +196,7 @@ export default {
         .then(data => {
           const formData = {
             name: data.name,
-            parentId: data.parentId,
+            parentId: [data.parentId],
             sequence: data.sequence,
             router: data.router,
             icon: data.icon,
@@ -205,7 +215,19 @@ export default {
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.$emit('on-edit-submit', {})
+          const formData = this.formData
+          const data = {
+            name: formData.name,
+            parentId: formData.parentId.length ? formData.parentId[0] : '',
+            sequence: formData.sequence,
+            router: formData.router,
+            icon: formData.icon,
+            status: formData.status,
+            showStatus: formData.showStatus,
+            memo: formData.memo,
+            actions: formData.actions
+          }
+          this.$emit('on-edit-submit', data)
         }
       })
     },

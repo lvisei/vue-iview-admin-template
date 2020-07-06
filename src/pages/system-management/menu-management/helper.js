@@ -8,11 +8,14 @@ export const formatMenusTree = (menusTree, tileKey, expandAll = true) => {
         Object.assign({}, item, {
           expand: expandAll,
           title: item[tileKey],
+          value: item.id,
           children: formatMenusTree(item.children, tileKey, expandAll)
         })
       )
     } else {
-      _menusTree.push(Object.assign({}, item, { expand: expandAll, title: item[tileKey] }))
+      _menusTree.push(
+        Object.assign({}, item, { expand: expandAll, title: item[tileKey], value: item.id })
+      )
     }
   }
 

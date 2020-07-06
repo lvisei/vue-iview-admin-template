@@ -9,7 +9,7 @@
             size="small"
             icon="md-trash"
             style="margin-left: 5px"
-            @click="handRemove(row)"
+            @click="handRemove({ id: searchValue.parentID })"
           >
             删除
           </i-button>
@@ -18,7 +18,7 @@
             size="small"
             icon="md-create"
             style="margin-left: 5px"
-            @click="handEdit(row)"
+            @click="handEdit({ id: searchValue.parentID })"
           >
             编辑
           </i-button>
@@ -27,7 +27,7 @@
             icon="md-add"
             type="primary"
             style="margin-left: 5px"
-            @click="handAdd(row)"
+            @click="handAdd({})"
           >
             新增
           </i-button>
@@ -141,6 +141,7 @@
       :edit-type="editMenuType"
       :modal-visible.sync="editMenuVisible"
       :menu="editorMenu"
+      :menus-tree="menusTree"
       :loading="editMenuLoading"
       @on-edit-submit="onEditSubmit"
     />
@@ -254,18 +255,30 @@ export default {
     },
 
     handAdd() {
+      this.editMenuType = 'add'
       this.editMenuVisible = true
     },
 
     handEdit(row) {
+      this.editMenuType = 'edit'
       this.editorMenu = Object.freeze(row)
       this.editMenuVisible = true
     },
 
-    onEditSubmit() {
+    onEditSubmit(data) {
+      const { id } = this.editorMenu
       this.editMenuLoading = true
-      this.editMenuVisible = false
-      this.editMenuLoading = false
+      editMenus(id, data)
+        .then(_ => {
+          this.editMenuVisible = false
+          this.$Message.success('编辑成功')
+          this.upTableData()
+          this.getMenusTree()
+        })
+        .catch(_ => {
+          this.$Message.error('编辑失败')
+        })
+        .finally(_ => (this.editMenuLoading = false))
     },
 
     handRemove() {},
@@ -343,13 +356,13 @@ export default {
     padding: 20px 10px;
     border: 1px solid #4a506621;
     margin-right: 30px;
-    flex: 2;
+    flex: 0 0 300px;
   }
 
   &__right {
     padding: 20px;
     border: 1px solid #4a506621;
-    flex: 8;
+    flex: 1;
   }
 
   &__page {
