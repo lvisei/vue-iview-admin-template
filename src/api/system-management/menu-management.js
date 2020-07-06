@@ -30,6 +30,15 @@ export const addMenus = params => {
 }
 
 /**
+ * 查询菜单
+ * @param {String} id 菜单ID
+ * @returns {Promise}
+ */
+export const getMenu = id => {
+  return request.get(`/menus/${id}`)
+}
+
+/**
  * 更新菜单
  * @param {String} id 菜单ID
  * @param {Object} params
@@ -46,7 +55,7 @@ export const editMenus = (id, params) => {
  * @returns {Promise}
  */
 export const editMenusStatus = (id, status) => {
-  return request.put(`/menus/${id}/${status === 1 ? 'enable' : 'disable'}`)
+  return request.patch(`/menus/${id}/${status === 1 ? 'enable' : 'disable'}`)
 }
 
 /**

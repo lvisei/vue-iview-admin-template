@@ -54,7 +54,7 @@
         ></i-input>
       </i-form-item>
       <i-form-item label="按钮管理">
-        <i-table size="small" :columns="btnColumns" :data="btnData">
+        <i-table size="small" :columns="btnColumns" :data="formData.actions">
           <template slot-scope="{ row }" slot="name">
             <i-input v-model="row.name" placeholder="请输入按钮名称" />
           </template>
@@ -66,13 +66,18 @@
               type="text"
               size="small"
               style="margin-left: 5px"
-              @click="btnData.splice(index, 1)"
+              @click="formData.actions.splice(index, 1)"
             >
               删除
             </i-button>
           </template>
         </i-table>
-        <i-button long type="default" size="small" @click="btnData.push({ name: '', code: '' })">
+        <i-button
+          long
+          type="default"
+          size="small"
+          @click="formData.actions.push({ name: '', code: '' })"
+        >
           新增
         </i-button>
       </i-form-item>
@@ -85,6 +90,8 @@
 </template>
 
 <script>
+import { getMenu } from '@/api/system-management/menu-management'
+
 export default {
   name: 'MenuEdit',
 
@@ -127,7 +134,8 @@ export default {
         icon: '',
         status: '',
         showStatus: '',
-        memo: ''
+        memo: '',
+        actions: []
       },
       btnColumns: [
         {
@@ -141,8 +149,7 @@ export default {
           slot: 'code'
         },
         { title: '操作', slot: 'action', width: 100, align: 'center' }
-      ],
-      btnData: []
+      ]
     }
   },
 
@@ -152,7 +159,14 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    modalVisible(value) {
+      if (value) {
+        const { id } = this.menu
+        this.getMenuData(id)
+      }
+    }
+  },
 
   created() {},
 
@@ -167,6 +181,27 @@ export default {
   beforeDestroy() {},
 
   methods: {
+    getMenuData(id) {
+      getMenu(id)
+        .then(data => {
+          const formData = {
+            name: data.name,
+            parentId: data.parentId,
+            sequence: data.sequence,
+            router: data.router,
+            icon: data.icon,
+            status: data.status,
+            showStatus: data.showStatus,
+            memo: data.memo,
+            actions: data.actions || []
+          }
+          this.formData = formData
+        })
+        .catch(_ => {
+          this.$Message.error('获取菜单数据失败')
+        })
+    },
+
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {

@@ -9,6 +9,7 @@
             size="small"
             icon="md-trash"
             style="margin-left: 5px"
+            @click="handRemove(row)"
           >
             删除
           </i-button>
@@ -17,15 +18,16 @@
             size="small"
             icon="md-create"
             style="margin-left: 5px"
+            @click="handEdit(row)"
           >
             编辑
           </i-button>
           <i-button
-            :disabled="!searchValue.parentID"
             size="small"
             icon="md-add"
             type="primary"
             style="margin-left: 5px"
+            @click="handAdd(row)"
           >
             新增
           </i-button>
@@ -106,14 +108,21 @@
             <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
               编辑
             </i-button>
-            <i-button
-              type="warning"
-              size="small"
-              style="margin-left: 5px"
-              @click="handEditStatus(row)"
+            <Poptip
+              confirm
+              transfer
+              :title="`确认${row.status === 1 ? '禁用' : '启用'}这个菜单？`"
+              @on-ok="handEditStatus(row)"
             >
-              {{ row.status === 1 ? '禁用' : '启用' }}
-            </i-button>
+              <i-button
+                :type="row.status === 1 ? 'warning' : 'success'"
+                size="small"
+                style="margin-left: 5px"
+              >
+                {{ row.status === 1 ? '禁用' : '启用' }}
+              </i-button>
+            </Poptip>
+
             <i-button type="error" size="small" style="margin-left: 5px" @click="handRemove(row)">
               删除
             </i-button>
@@ -233,7 +242,7 @@ export default {
     exportExcel() {
       if (this.tableLoading) return false
       this.$refs.table.exportCsv({
-        filename: `用户信息.csv`,
+        filename: `系统菜单.csv`,
         original: false
       })
     },
@@ -248,7 +257,8 @@ export default {
       this.editMenuVisible = true
     },
 
-    handEdit() {
+    handEdit(row) {
+      this.editorMenu = Object.freeze(row)
       this.editMenuVisible = true
     },
 
@@ -260,7 +270,16 @@ export default {
 
     handRemove() {},
 
-    handEditStatus() {},
+    handEditStatus({ id, status }) {
+      editMenusStatus(id, status === 1 ? 2 : 1)
+        .then(_ => {
+          this.$Message.success('编辑成功')
+          this.upTableData()
+        })
+        .catch(_ => {
+          this.$Message.error('编辑失败')
+        })
+    },
 
     upTableData() {
       this.tableLoading = !this.spinShow
