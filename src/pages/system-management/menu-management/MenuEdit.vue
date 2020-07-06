@@ -17,8 +17,7 @@
         <i-input v-model.trim="formData.name" placeholder="请输入菜单名称"></i-input>
       </i-form-item>
       <i-form-item label="上级菜单" prop="parentId">
-        <!-- <i-input v-model.trim="formData.parentId" placeholder="请输入上级菜单"></i-input> -->
-        <TreeSelect v-model="formData.parentId" :data="menusTree" />
+        <TreeSelect v-model="formData.parentId" :data="menusTree" placeholder="请选择上级菜单" />
       </i-form-item>
       <i-form-item label="显示排序" prop="sequence">
         <i-input-number
