@@ -135,7 +135,7 @@ export default {
       },
       formData: {
         name: '',
-        parentId: [],
+        parentId: '',
         sequence: null,
         router: '',
         icon: '',
@@ -195,7 +195,7 @@ export default {
         .then(data => {
           const formData = {
             name: data.name,
-            parentId: [data.parentId],
+            parentId: data.parentId,
             sequence: data.sequence,
             router: data.router,
             icon: data.icon,
@@ -217,7 +217,7 @@ export default {
           const formData = this.formData
           const data = {
             name: formData.name,
-            parentId: formData.parentId.length ? formData.parentId[0] : '',
+            parentId: formData.parentId,
             sequence: formData.sequence,
             router: formData.router,
             icon: formData.icon,
