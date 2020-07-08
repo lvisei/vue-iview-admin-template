@@ -1,11 +1,13 @@
 <template>
   <Tree
     :data="data"
-    @on-check-change="handleCheckSelect"
+    :show-checkbox="showCheckbox"
+    :load-data="loadDataCallback"
+    :children-key="parent.replaceFields.children"
     v-on="parent.$listeners"
     v-bind="parent.$attrs"
-    :load-data="loadDataCallback"
-    show-checkbox
+    @on-select-change="handleSelect"
+    @on-check-change="handleCheckSelect"
   ></Tree>
 </template>
 
@@ -41,6 +43,10 @@ export default {
       type: Array,
       default: () => []
     },
+    showCheckbox: {
+      type: Boolean,
+      default: false
+    },
     loadData: Function
   },
 
@@ -72,6 +78,7 @@ export default {
       )
       if (this.expandAll) this.checkData(newData, false, true)
     },
+
     selectedArray(newVal, oldVal) {
       if (arrayEqual(newVal, oldVal)) return
       const filtedNewVal = newVal.filter(id => id in this.flatDic)
@@ -97,38 +104,51 @@ export default {
         label
       })
     },
+
     updateFlagDic(newData) {
       let newFlagDic = {}
+      const key = this.parent.replaceFields.key
       this.setFlagDic(newData, item => {
-        newFlagDic[item.id] = item
+        newFlagDic[item[key]] = item
       })
       this.flatDic = newFlagDic
     },
+
     setFlagDic(data, callback) {
+      const { children } = this.parent.replaceFields
       data.forEach(item => {
-        if (item.children && item.children.length) {
-          this.setFlagDic(item.children, callback)
+        if (item[children] && item[children].length) {
+          this.setFlagDic(item[children], callback)
         }
         callback(item)
       })
     },
+
+    handleSelect(selectArray, selectItem) {
+      this.$emit('on-check', selectArray)
+      this.parent.$emit('on-change', { selectArray, selectItem })
+    },
+
     handleCheckSelect(selectArray, selectItem) {
       this.$emit('on-check', selectArray)
-      this.parent.$emit('on-change', selectArray)
+      this.parent.$emit('on-change', { selectArray, selectItem })
     },
+
     checkData(data, emit, expandAll) {
+      const { key, children } = this.parent.replaceFields
       data.forEach(item => {
-        if (this.selectedArray.includes(item.id)) {
-          this.$set(item, 'checked', true)
+        if (this.selectedArray.includes(item[key])) {
+          this.$set(item, this.showCheckbox ? 'checked' : 'selected', true)
           this.checkedArray.push(item)
-          if (emit) this.checkEmit(item.id, item.title)
-        } else this.$set(item, 'checked', false)
-        if (item.children && item.children.length) {
+          if (emit) this.checkEmit(item[key], item.title)
+        } else this.$set(item, this.showCheckbox ? 'checked' : 'selected', false)
+        if (item[children] && item[children].length) {
           if (this.expandAll && expandAll) this.$set(item, 'expand', true)
-          this.checkData(item.children, emit, expandAll)
+          this.checkData(item[children], emit, expandAll)
         }
       })
     },
+
     loadDataCallback(item, callback) {
       this.loadData(item, data => {
         return (() => {
@@ -138,6 +158,7 @@ export default {
       })
     }
   },
+
   mounted() {
     this.checkData(this.data, false, true)
     this.$nextTick(() => {
@@ -147,4 +168,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.ivu-tree-title {
+  width: 95%;
+}
+</style>

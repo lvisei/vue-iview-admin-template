@@ -7,10 +7,11 @@
     :multiple="multiple"
   >
     <tree-select-tree-item
-      :selectedArray="value"
+      :selectedArray="selectedArray"
       :data="treeData"
-      @on-clear="handleClear"
+      :show-checkbox="multiple"
       :load-data="loadData"
+      @on-clear="handleClear"
       @on-check="handleTreeCheck"
     ></tree-select-tree-item>
   </Select>
@@ -32,7 +33,7 @@ export default {
   props: {
     value: {
       type: [Array, String],
-      default: () => []
+      default: ''
     },
     data: {
       type: Array,
@@ -42,7 +43,11 @@ export default {
       type: Boolean,
       default: false
     },
-    loadData: Function
+    loadData: Function,
+    replaceFields: {
+      type: Object,
+      default: () => ({ children: 'children', key: 'id', value: 'id' })
+    }
   },
 
   data() {
@@ -55,6 +60,10 @@ export default {
   computed: {
     treeData() {
       return JSON.parse(JSON.stringify(this.data))
+    },
+
+    selectedArray() {
+      return this.multiple ? this.value : this.value ? [this.value] : []
     }
   },
 
@@ -71,10 +80,13 @@ export default {
     },
     handleTreeCheck(selectedArray) {
       this.isChangedByTree = true
-      this.$emit(
-        'input',
-        selectedArray.map(item => item.id)
-      )
+      const valueKey = this.replaceFields.value
+      const value = this.multiple
+        ? selectedArray.map(item => item[valueKey])
+        : selectedArray.length
+        ? selectedArray[0][valueKey]
+        : ''
+      this.$emit('input', value)
     },
     handleClear() {
       this.$refs.select.reset()
