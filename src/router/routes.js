@@ -70,6 +70,15 @@ const routes = [
                 /* webpackChunkName: "menu-management" */ '@/pages/system-management/menu-management'
               ),
             meta: { title: '菜单管理', icon: 'md-list' }
+          },
+          {
+            path: 'role-management',
+            name: 'RoleManagement',
+            component: () =>
+              import(
+                /* webpackChunkName: "role-management" */ '@/pages/system-management/role-management'
+              ),
+            meta: { title: '角色管理', icon: 'md-list' }
           }
         ]
       },
