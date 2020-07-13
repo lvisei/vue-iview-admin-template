@@ -1,4 +1,4 @@
-export const formatMenusTree = (menusTree, tileKey, expandAll = true) => {
+export const formatMenusTree = (menusTree, titleKey, expandAll = true) => {
   const _menusTree = []
   for (let index = 0; index < menusTree.length; index++) {
     const item = menusTree[index]
@@ -7,12 +7,12 @@ export const formatMenusTree = (menusTree, tileKey, expandAll = true) => {
       _menusTree.push(
         Object.assign({}, item, {
           expand: expandAll,
-          title: item[tileKey],
-          children: formatMenusTree(item.children, tileKey, expandAll)
+          title: item[titleKey],
+          children: formatMenusTree(item.children, titleKey, expandAll)
         })
       )
     } else {
-      _menusTree.push(Object.assign({}, item, { expand: expandAll, title: item[tileKey] }))
+      _menusTree.push(Object.assign({}, item, { expand: expandAll, title: item[titleKey] }))
     }
   }
 

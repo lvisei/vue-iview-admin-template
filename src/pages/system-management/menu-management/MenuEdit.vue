@@ -55,11 +55,11 @@
       </i-form-item>
       <i-form-item label="按钮管理">
         <i-table size="small" :columns="btnColumns" :data="formData.actions">
-          <template slot-scope="{ row }" slot="name">
-            <i-input v-model="row.name" placeholder="请输入按钮名称" />
+          <template slot-scope="{ index }" slot="name">
+            <i-input v-model="formData.actions[index].name" placeholder="请输入按钮名称" />
           </template>
-          <template slot-scope="{ row }" slot="code">
-            <i-input v-model="row.code" placeholder="请输入权限编号" />
+          <template slot-scope="{ index }" slot="code">
+            <i-input v-model="formData.actions[index].code" placeholder="请输入权限编号" />
           </template>
           <template slot-scope="{ index }" slot="action">
             <i-button
@@ -128,6 +128,7 @@ export default {
     return {
       formRule: {
         name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
+        sequence: [{ required: true, type: 'number', message: '请输入排序值', trigger: 'blur' }],
         status: [{ required: true, type: 'number', message: '请选择菜单状态', trigger: 'blur' }],
         showStatus: [
           { required: true, type: 'number', message: '请选择菜单是否可见', trigger: 'blur' }

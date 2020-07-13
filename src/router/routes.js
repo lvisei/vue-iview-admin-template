@@ -60,7 +60,7 @@ const routes = [
         path: 'system-management',
         name: 'SystemManagement',
         component: RouteView,
-        meta: { title: '系统管理', icon: 'md-sys' },
+        meta: { title: '系统管理', icon: 'md-list' },
         children: [
           {
             path: 'menu-management',

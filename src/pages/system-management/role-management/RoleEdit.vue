@@ -3,7 +3,7 @@
     class="role-edit"
     :value="modalVisible"
     width="800"
-    :title="`${isEditMenu ? `编辑菜单:${role.name}` : '新增菜单'}`"
+    :title="`${isEditRole ? `编辑角色:${role.name}` : '新增角色'}`"
     @on-cancel="onCancel"
   >
     <i-form
@@ -13,11 +13,8 @@
       :label-width="100"
       @keydown.enter.native="onSubmit"
     >
-      <i-form-item label="菜单名称" prop="name">
-        <i-input v-model.trim="formData.name" placeholder="请输入菜单名称"></i-input>
-      </i-form-item>
-      <i-form-item label="上级菜单" prop="parentId">
-        <TreeSelect v-model="formData.parentId" :data="menusTree" placeholder="请选择上级菜单" />
+      <i-form-item label="角色名称" prop="name">
+        <i-input v-model.trim="formData.name" placeholder="请输入角色名称"></i-input>
       </i-form-item>
       <i-form-item label="显示排序" prop="sequence">
         <i-input-number
@@ -27,59 +24,27 @@
           style="width: 100%"
         />
       </i-form-item>
-      <i-form-item label="组件路径" prop="router">
-        <i-input v-model.trim="formData.router" placeholder="请输入组件路径"></i-input>
-      </i-form-item>
-      <i-form-item label="菜单图标" prop="icon">
-        <i-input v-model.trim="formData.icon" placeholder="请选择菜单图标"></i-input>
-      </i-form-item>
-      <i-form-item label="菜单状态" prop="status">
-        <i-radio-group v-model="formData.status">
-          <i-radio :label="1">启用</i-radio>
-          <i-radio :label="2">禁用</i-radio>
-        </i-radio-group>
-      </i-form-item>
-      <i-form-item label="是否可见" prop="showStatus">
-        <i-radio-group v-model="formData.showStatus">
-          <i-radio :label="1">可见</i-radio>
-          <i-radio :label="2">隐藏</i-radio>
-        </i-radio-group>
-      </i-form-item>
       <i-form-item label="备注" prop="memo">
         <i-input
           v-model.trim="formData.memo"
           type="textarea"
           :autosize="{ minRows: 2, maxRows: 3 }"
-          placeholder="请输入菜单备注"
+          placeholder="请输入角色备注"
         ></i-input>
       </i-form-item>
-      <i-form-item label="按钮管理">
-        <i-table size="small" :columns="btnColumns" :data="formData.actions">
-          <template slot-scope="{ row }" slot="name">
-            <i-input v-model="row.name" placeholder="请输入按钮名称" />
-          </template>
-          <template slot-scope="{ row }" slot="code">
-            <i-input v-model="row.code" placeholder="请输入权限编号" />
-          </template>
-          <template slot-scope="{ index }" slot="action">
-            <i-button
-              type="text"
-              size="small"
-              style="margin-left: 5px"
-              @click="formData.actions.splice(index, 1)"
+      <i-form-item label="菜单权限">
+        <i-table size="small" row-key="id" :columns="roleColumns" :data="menusTree">
+          <template slot-scope="{ row }" slot="actions">
+            <i-checkbox-group
+              :value="formData.roleMenus.map(({ actionId }) => actionId)"
+              @on-change="actionIds => onCheckGroupChange(row.id, actionIds)"
             >
-              删除
-            </i-button>
+              <i-checkbox :label="item.id" v-for="item in row.actions" :key="item.id">
+                {{ item.name }}
+              </i-checkbox>
+            </i-checkbox-group>
           </template>
         </i-table>
-        <i-button
-          long
-          type="default"
-          size="small"
-          @click="formData.actions.push({ name: '', code: '' })"
-        >
-          新增
-        </i-button>
       </i-form-item>
     </i-form>
     <div slot="footer">
@@ -90,13 +55,14 @@
 </template>
 
 <script>
-import TreeSelect from '@/components/TreeSelect'
-import { getMenu } from '@/api/system-management/role-management'
+import { getMenusTree } from '@/api/system-management/menu-management'
+import { getRole } from '@/api/system-management/role-management'
+import { formatMenusTree } from '../helpers'
 
 export default {
   name: 'RoleEdit',
 
-  components: { TreeSelect },
+  components: {},
 
   filters: {},
 
@@ -117,51 +83,44 @@ export default {
     role: {
       type: Object,
       default: () => ({})
-    },
-    menusTree: {
-      type: Array,
-      default: () => []
     }
   },
 
   data() {
     return {
       formRule: {
-        name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-        status: [{ required: true, type: 'number', message: '请选择菜单状态', trigger: 'blur' }],
-        showStatus: [
-          { required: true, type: 'number', message: '请选择菜单是否可见', trigger: 'blur' }
-        ]
+        name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
+        sequence: [{ required: true, type: 'number', message: '请输入排序值', trigger: 'blur' }]
       },
       formData: {
         name: '',
-        parentId: '',
         sequence: null,
-        router: '',
-        icon: '',
-        status: '',
-        showStatus: '',
         memo: '',
-        actions: []
+        roleMenus: []
       },
-      btnColumns: [
+      menusTree: [],
+      roleColumns: [
         {
-          title: '按钮名称',
+          type: 'selection',
+          width: 60,
+          align: 'center'
+        },
+        {
+          title: '菜单名称',
           key: 'name',
-          slot: 'name'
+          tree: true
         },
         {
-          title: '权限编号',
-          key: 'code',
-          slot: 'code'
-        },
-        { title: '操作', slot: 'action', width: 100, align: 'center' }
+          title: '按钮权限',
+          key: 'actions',
+          slot: 'actions'
+        }
       ]
     }
   },
 
   computed: {
-    isEditMenu() {
+    isEditRole() {
       return this.editType === 'edit'
     }
   },
@@ -170,7 +129,8 @@ export default {
     modalVisible(value) {
       if (value) {
         const { id } = this.role
-        this.isEditMenu && this.getMenuData(id)
+        this.isEditRole && this.getRoleData(id)
+        this.menusTree.length || this.getMenusTree()
       } else {
         this.$refs.form.resetFields()
       }
@@ -190,24 +150,37 @@ export default {
   beforeDestroy() {},
 
   methods: {
-    getMenuData(id) {
-      getMenu(id)
+    onCheckGroupChange(menuId, actionIds) {
+      console.log('actionIds: ', actionIds)
+
+      const checkedList = actionIds.map(actionId => ({ actionId, menuId }))
+      const checkedOtherList = this.formData.roleMenus.filter(({ menuId }) => menuId !== menuId)
+      this.formData.roleMenus = checkedOtherList.concat(checkedList)
+    },
+
+    async getMenusTree() {
+      try {
+        const data = await getMenusTree()
+        const { list = [] } = data
+        this.menusTree = Object.freeze(formatMenusTree(list, 'name'))
+      } catch (err) {
+        new Error(err)
+      }
+    },
+
+    getRoleData(id) {
+      getRole(id)
         .then(data => {
           const formData = {
             name: data.name,
-            parentId: data.parentId,
             sequence: data.sequence,
-            router: data.router,
-            icon: data.icon,
-            status: data.status,
-            showStatus: data.showStatus,
             memo: data.memo,
-            actions: data.actions || []
+            roleMenus: data.roleMenus
           }
           this.formData = formData
         })
         .catch(_ => {
-          this.$Message.error('获取菜单数据失败')
+          this.$Message.error('获取角色数据失败')
         })
     },
 
@@ -217,14 +190,9 @@ export default {
           const formData = this.formData
           const data = {
             name: formData.name,
-            parentId: formData.parentId,
             sequence: formData.sequence,
-            router: formData.router,
-            icon: formData.icon,
-            status: formData.status,
-            showStatus: formData.showStatus,
             memo: formData.memo,
-            actions: formData.actions
+            roleMenus: formData.roleMenus
           }
           this.$emit('on-edit-submit', data)
         }

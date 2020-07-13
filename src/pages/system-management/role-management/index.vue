@@ -28,24 +28,44 @@
           <Option :value="2">禁用</Option>
         </i-select>
       </i-form-item>
-      <i-form-item label="" prop="showStatus" :label-width="30">
-        <i-select
-          clearable
-          v-model="searchValue.showStatus"
-          placeholder="请选择显示状态"
-          style="width: 250px"
-        >
-          <Option :value="1">显示</Option>
-          <Option :value="2">隐藏</Option>
-        </i-select>
-      </i-form-item>
-      <i-form-item class="search-btn" :label-width="10">
+      <i-form-item :label-width="10">
         <i-button @click="handleSearch" type="primary">查询</i-button>
       </i-form-item>
-      <i-form-item class="search-btn" :label-width="10">
+      <i-form-item :label-width="10">
         <i-button @click="handleReset">重置</i-button>
       </i-form-item>
     </i-form>
+    <div class="role-management__batch">
+      <i-button class="role-management__batch-btn" type="primary" icon="md-add" @click="handAdd">
+        添加用户
+      </i-button>
+      <!-- <i-button
+        class="role-management__batch-btn"
+        type="primary"
+        icon="md-trash"
+        :disabled="!canBatch"
+        @click="onBatch('remove')"
+      >
+        批量删除
+      </i-button>
+      <i-button
+        class="role-management__batch-btn"
+        type="primary"
+        icon="md-remove-circle"
+        :disabled="!canBatch"
+        @click="onBatch('disble')"
+      >
+        批量禁用
+      </i-button> -->
+      <i-button
+        class="role-management__export-btn"
+        type="primary"
+        icon="md-cloud-download"
+        @click="exportExcel"
+      >
+        导出为CSV
+      </i-button>
+    </div>
     <i-table
       ref="table"
       class="role-management__table"
@@ -74,10 +94,10 @@
         <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
           编辑
         </i-button>
-        <Poptip
+        <i-poptip
           confirm
           transfer
-          :title="`确认${row.status === 1 ? '禁用' : '启用'}这个菜单？`"
+          :title="`确认${row.status === 1 ? '禁用' : '启用'}这个角色？`"
           @on-ok="handEditStatus(row)"
         >
           <i-button
@@ -87,11 +107,20 @@
           >
             {{ row.status === 1 ? '禁用' : '启用' }}
           </i-button>
-        </Poptip>
+        </i-poptip>
 
-        <i-button type="error" size="small" style="margin-left: 5px" @click="handRemove(row)">
-          删除
-        </i-button>
+        <i-poptip
+          confirm
+          transfer
+          title="确定删除这个角色？"
+          @on-ok="handRemove(row)"
+          ok-text="确定"
+          cancel-text="取消"
+        >
+          <i-button type="error" size="small" style="margin-left: 5px">
+            删除
+          </i-button>
+        </i-poptip>
       </template>
     </i-table>
     <i-page
@@ -116,14 +145,12 @@
 <script>
 import RoleEdit from './RoleEdit'
 import {
-  getMenus,
-  getMenusTree,
-  addMenus,
-  editMenus,
-  editMenusStatus,
-  deleteMenu
+  getRoles,
+  addRoles,
+  editRoles,
+  editRolesStatus,
+  deleteRole
 } from '@/api/system-management/role-management'
-import { formatMenusTree } from './helper'
 
 export default {
   name: 'RoleManagement',
@@ -137,15 +164,15 @@ export default {
   data() {
     return {
       spinShow: true,
-      searchValue: { queryValue: '', status: null, showStatus: null, parentID: '' },
+      searchValue: { queryValue: '', status: null },
       menusTree: [],
       pageIndex: 1,
       pageSize: 10,
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '菜单名称', key: 'name', slot: 'name' },
-        { title: '菜单图标', key: 'icon' },
+        { title: '角色名称', key: 'name', slot: 'name' },
+        { title: '角色图标', key: 'icon' },
         { title: '访问路由', key: 'router' },
         { title: '状态', key: 'status', slot: 'status' },
         { title: '可见', key: 'showStatus', slot: 'showStatus' },
@@ -169,7 +196,6 @@ export default {
 
   created() {
     this.spinShow = false
-    this.getMenusTree()
     this.upTableData().then(() => {
       this.spinShow = false
     })
@@ -213,12 +239,6 @@ export default {
       })
     },
 
-    onTreeSelectChange(_, { id, selected }) {
-      this.searchValue.parentID = selected ? id : ''
-      this.pageIndex = 1
-      this.upTableData()
-    },
-
     handAdd() {
       this.editRoleType = 'add'
       this.editRoleVisible = true
@@ -231,25 +251,49 @@ export default {
     },
 
     onRoleSubmit(data) {
-      const { id } = this.editorRole
       this.editRoleLoading = true
-      editMenus(id, data)
+      const isAddRole = this.editRoleType === 'add'
+
+      if (isAddRole) {
+        addRoles(data)
+          .then(_ => {
+            this.editRoleVisible = false
+            this.$Message.success('添加成功')
+            this.upTableData()
+          })
+          .catch(_ => {
+            this.$Message.error('添加失败')
+          })
+          .finally(_ => (this.editRoleLoading = false))
+      } else {
+        const { id } = this.editorRole
+        editRoles(id, data)
+          .then(_ => {
+            this.editRoleVisible = false
+            this.$Message.success('编辑成功')
+            this.upTableData()
+          })
+          .catch(_ => {
+            this.$Message.error('编辑失败')
+          })
+          .finally(_ => (this.editRoleLoading = false))
+      }
+    },
+
+    handRemove({ id }) {
+      deleteRole(id)
         .then(_ => {
-          this.editRoleVisible = false
-          this.$Message.success('编辑成功')
+          this.$Message.success('删除成功')
           this.upTableData()
           this.getMenusTree()
         })
         .catch(_ => {
-          this.$Message.error('编辑失败')
+          this.$Message.error('删除失败')
         })
-        .finally(_ => (this.editRoleLoading = false))
     },
 
-    handRemove() {},
-
     handEditStatus({ id, status }) {
-      editMenusStatus(id, status === 1 ? 2 : 1)
+      editRolesStatus(id, status === 1 ? 2 : 1)
         .then(_ => {
           this.$Message.success('编辑成功')
           this.upTableData()
@@ -261,7 +305,7 @@ export default {
 
     upTableData() {
       this.tableLoading = !this.spinShow
-      return this.getMenuList().then(({ list, count }) => {
+      return this.getRoleList().then(({ list, count }) => {
         this.tableData = list
         this.totalCount = count
         this.tableLoading = false
@@ -269,27 +313,15 @@ export default {
       })
     },
 
-    async getMenusTree() {
-      try {
-        const data = await getMenusTree()
-        const { list = [] } = data
-        this.menusTree = Object.freeze(formatMenusTree(list, 'name'))
-      } catch (err) {
-        new Error(err)
-      }
-    },
-
-    async getMenuList() {
+    async getRoleList() {
       const params = {
         current: this.pageIndex,
         pageSize: this.pageSize,
-        parentID: this.searchValue.parentID || undefined,
         queryValue: this.searchValue.queryValue,
-        status: this.searchValue.status,
-        showStatus: this.searchValue.showStatus
+        status: this.searchValue.status
       }
       try {
-        const data = await getMenus(params)
+        const data = await getRoles(params)
         const {
           list = [],
           pagination: { total }
@@ -305,6 +337,18 @@ export default {
 
 <style lang="less">
 .role-management {
+  &__batch {
+    padding: 10px 0 25px;
+  }
+
+  &__batch-btn {
+    margin-right: 10px;
+  }
+
+  &__export-btn {
+    float: right;
+  }
+
   &__page {
     text-align: right;
     margin: 20px 0 10px;

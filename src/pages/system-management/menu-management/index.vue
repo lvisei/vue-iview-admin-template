@@ -4,15 +4,24 @@
     <div class="menu-management__content">
       <div class="menu-management__left">
         <div class="menu-management__menu-tool">
-          <i-button
-            :disabled="!searchValue.parentID"
-            size="small"
-            icon="md-trash"
-            style="margin-left: 5px"
-            @click="handRemove({ id: searchValue.parentID })"
+          <i-poptip
+            confirm
+            transfer
+            title="确定删除这个菜单？"
+            @on-ok="handRemove({ id: searchValue.parentID })"
+            ok-text="确定"
+            cancel-text="取消"
           >
-            删除
-          </i-button>
+            <i-button
+              :disabled="!searchValue.parentID"
+              size="small"
+              icon="md-trash"
+              style="margin-left: 5px"
+            >
+              删除
+            </i-button>
+          </i-poptip>
+
           <i-button
             :disabled="!searchValue.parentID"
             size="small"
@@ -73,10 +82,10 @@
               <Option :value="2">隐藏</Option>
             </i-select>
           </i-form-item>
-          <i-form-item class="search-btn" :label-width="10">
+          <i-form-item :label-width="10">
             <i-button @click="handleSearch" type="primary">查询</i-button>
           </i-form-item>
-          <i-form-item class="search-btn" :label-width="10">
+          <i-form-item :label-width="10">
             <i-button @click="handleReset">重置</i-button>
           </i-form-item>
         </i-form>
@@ -108,7 +117,7 @@
             <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
               编辑
             </i-button>
-            <Poptip
+            <i-poptip
               confirm
               transfer
               :title="`确认${row.status === 1 ? '禁用' : '启用'}这个菜单？`"
@@ -121,11 +130,20 @@
               >
                 {{ row.status === 1 ? '禁用' : '启用' }}
               </i-button>
-            </Poptip>
+            </i-poptip>
 
-            <i-button type="error" size="small" style="margin-left: 5px" @click="handRemove(row)">
-              删除
-            </i-button>
+            <i-poptip
+              confirm
+              transfer
+              title="确定删除这个菜单？"
+              @on-ok="handRemove(row)"
+              ok-text="确定"
+              cancel-text="取消"
+            >
+              <i-button type="error" size="small" style="margin-left: 5px">
+                删除
+              </i-button>
+            </i-poptip>
           </template>
         </i-table>
         <i-page
@@ -158,7 +176,7 @@ import {
   editMenusStatus,
   deleteMenu
 } from '@/api/system-management/menu-management'
-import { formatMenusTree } from './helper'
+import { formatMenusTree } from '../helpers'
 
 export default {
   name: 'MenuManagement',
@@ -266,22 +284,48 @@ export default {
     },
 
     onEditSubmit(data) {
-      const { id } = this.editorMenu
       this.editMenuLoading = true
-      editMenus(id, data)
+      const isAddMenu = this.editMenuType === 'add'
+
+      if (isAddMenu) {
+        addMenus(data)
+          .then(_ => {
+            this.editMenuVisible = false
+            this.$Message.success('添加成功')
+            this.upTableData()
+            this.getMenusTree()
+          })
+          .catch(_ => {
+            this.$Message.error('添加失败')
+          })
+          .finally(_ => (this.editMenuLoading = false))
+      } else {
+        const { id } = this.editorMenu
+        editMenus(id, data)
+          .then(_ => {
+            this.editMenuVisible = false
+            this.$Message.success('编辑成功')
+            this.upTableData()
+            this.getMenusTree()
+          })
+          .catch(_ => {
+            this.$Message.error('编辑失败')
+          })
+          .finally(_ => (this.editMenuLoading = false))
+      }
+    },
+
+    handRemove({ id }) {
+      deleteMenu(id)
         .then(_ => {
-          this.editMenuVisible = false
-          this.$Message.success('编辑成功')
+          this.$Message.success('删除成功')
           this.upTableData()
           this.getMenusTree()
         })
         .catch(_ => {
-          this.$Message.error('编辑失败')
+          this.$Message.error('删除失败')
         })
-        .finally(_ => (this.editMenuLoading = false))
     },
-
-    handRemove() {},
 
     handEditStatus({ id, status }) {
       editMenusStatus(id, status === 1 ? 2 : 1)
