@@ -10,6 +10,17 @@ export const getRoles = params => {
 }
 
 /**
+ * 查询全部角色
+ * @param {String} queryValue 关键字
+ * @param {String} status 状态(1:启用 2:禁用)
+ * @returns {Promise}
+ */
+export const getAllRoles = (queryValue, status) => {
+  const params = { queryValue, status }
+  return request.get('/roles.select', { params })
+}
+
+/**
  * 创建角色
  * @param {Object} params
  * @returns {Promise}

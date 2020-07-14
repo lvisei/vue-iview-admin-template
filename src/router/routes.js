@@ -79,6 +79,15 @@ const routes = [
                 /* webpackChunkName: "role-management" */ '@/pages/system-management/role-management'
               ),
             meta: { title: '角色管理', icon: 'md-list' }
+          },
+          {
+            path: 'user-management',
+            name: 'UserManagement',
+            component: () =>
+              import(
+                /* webpackChunkName: "user-management" */ '@/pages/system-management/user-management'
+              ),
+            meta: { title: '用户管理', icon: 'md-list' }
           }
         ]
       },
