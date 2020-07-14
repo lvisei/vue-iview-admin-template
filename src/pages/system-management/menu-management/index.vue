@@ -27,7 +27,7 @@
             size="small"
             icon="md-create"
             style="margin-left: 5px"
-            @click="handEdit({ id: searchValue.parentID })"
+            @click="handEdit({ id: searchValue.parentID, name: searchValue.parentName })"
           >
             编辑
           </i-button>
@@ -190,7 +190,7 @@ export default {
   data() {
     return {
       spinShow: true,
-      searchValue: { queryValue: '', status: null, showStatus: null, parentID: '' },
+      searchValue: { queryValue: '', status: null, showStatus: null, parentID: '', parentName: '' },
       menusTree: [],
       pageIndex: 1,
       pageSize: 10,
@@ -266,8 +266,9 @@ export default {
       })
     },
 
-    onTreeSelectChange(_, { id, selected }) {
+    onTreeSelectChange(_, { id, name, selected }) {
       this.searchValue.parentID = selected ? id : ''
+      this.searchValue.parentName = selected ? name : ''
       this.pageIndex = 1
       this.upTableData()
     },

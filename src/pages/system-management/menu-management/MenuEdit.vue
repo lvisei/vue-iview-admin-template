@@ -3,7 +3,7 @@
     class="menu-edit"
     :value="modalVisible"
     width="800"
-    :title="`${isEditMenu ? `编辑菜单:${menu.name}` : '新增菜单'}`"
+    :title="`${isEditMenu ? `编辑菜单：${menu.name}` : '新增菜单'}`"
     @on-cancel="onCancel"
   >
     <i-form
@@ -53,8 +53,8 @@
           placeholder="请输入菜单备注"
         ></i-input>
       </i-form-item>
-      <i-form-item label="按钮管理">
-        <i-table size="small" :columns="btnColumns" :data="formData.actions">
+      <i-form-item class="menu-edit__actions" label="按钮管理">
+        <i-table border size="small" :columns="btnColumns" :data="formData.actions">
           <template slot-scope="{ index }" slot="name">
             <i-input v-model="formData.actions[index].name" placeholder="请输入按钮名称" />
           </template>
@@ -239,4 +239,18 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.menu-edit {
+  &__actions {
+    /deep/ .ivu-form-item-label {
+      float: none;
+      display: inline-block;
+      padding: 0 0 10px;
+    }
+
+    /deep/ .ivu-form-item-content {
+      margin-left: 30px !important;
+    }
+  }
+}
+</style>

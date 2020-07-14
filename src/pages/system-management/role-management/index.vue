@@ -37,7 +37,7 @@
     </i-form>
     <div class="role-management__batch">
       <i-button class="role-management__batch-btn" type="primary" icon="md-add" @click="handAdd">
-        添加用户
+        添加角色
       </i-button>
       <!-- <i-button
         class="role-management__batch-btn"
@@ -134,8 +134,7 @@
     <RoleEdit
       :edit-type="editRoleType"
       :modal-visible.sync="editRoleVisible"
-      :menu="editorRole"
-      :menus-tree="menusTree"
+      :role="editorRole"
       :loading="editRoleLoading"
       @on-edit-submit="onRoleSubmit"
     />
@@ -165,17 +164,13 @@ export default {
     return {
       spinShow: true,
       searchValue: { queryValue: '', status: null },
-      menusTree: [],
       pageIndex: 1,
       pageSize: 10,
       totalCount: 0,
       tableLoading: false,
       columns: [
         { title: '角色名称', key: 'name', slot: 'name' },
-        { title: '角色图标', key: 'icon' },
-        { title: '访问路由', key: 'router' },
         { title: '状态', key: 'status', slot: 'status' },
-        { title: '可见', key: 'showStatus', slot: 'showStatus' },
         { title: '排序值', key: 'sequence', sortable: true },
         { title: '创建时间', key: 'createdAt', sortable: true },
         { title: '创建者', key: 'creator' },
@@ -285,7 +280,6 @@ export default {
         .then(_ => {
           this.$Message.success('删除成功')
           this.upTableData()
-          this.getMenusTree()
         })
         .catch(_ => {
           this.$Message.error('删除失败')
