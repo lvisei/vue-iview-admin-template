@@ -116,7 +116,7 @@ export default {
       formRule: {
         name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
         sequence: [{ required: true, type: 'number', message: '请输入排序值', trigger: 'blur' }],
-        status: [{ required: true, type: 'number', message: '请选择角色状态', trigger: 'blur' }],
+        status: [{ required: true, type: 'number', message: '请选择角色状态', trigger: 'change' }],
         roleMenus: [{ required: true, type: 'array', message: '请选择菜单权限' }]
       },
       formData: {

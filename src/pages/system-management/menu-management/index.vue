@@ -341,11 +341,11 @@ export default {
 
     upTableData() {
       this.tableLoading = !this.spinShow
-      return this.getMenuList().then(({ list, count }) => {
+      return this.getMenuList().then(({ list, total }) => {
         this.tableData = list
-        this.totalCount = count
+        this.totalCount = total
         this.tableLoading = false
-        return { list, count }
+        return { list, total }
       })
     },
 

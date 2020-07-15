@@ -1,4 +1,5 @@
 import request from '@/helpers/request'
+import sha1 from 'crypto-js/sha1'
 
 /**
  * 分页查询用户列表
@@ -14,8 +15,9 @@ export const getUsers = params => {
  * @param {Object} params
  * @returns {Promise}
  */
-export const addUsers = params => {
-  return request.post(`/users`, params)
+export const addUsers = ({ password, ...params }) => {
+  const data = Object.assign(params, { password: sha1(password).toString() })
+  return request.post(`/users`, data)
 }
 
 /**
@@ -35,6 +37,19 @@ export const getUser = id => {
  */
 export const editUsers = (id, params) => {
   return request.put(`/users/${id}`, params)
+}
+
+/**
+ * 重置用户密码
+ * @param {String} id 用户ID
+ * @param {String} password
+ * @returns {Promise}
+ */
+export const restUsersPassword = (id, password) => {
+  const data = sha1(password).toString()
+  return request.put(`/users/${id}/rest`, data, {
+    headers: { 'Content-Type': 'text/plain' }
+  })
 }
 
 /**

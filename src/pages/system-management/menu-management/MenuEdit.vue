@@ -131,7 +131,7 @@ export default {
         sequence: [{ required: true, type: 'number', message: '请输入排序值', trigger: 'blur' }],
         status: [{ required: true, type: 'number', message: '请选择菜单状态', trigger: 'blur' }],
         showStatus: [
-          { required: true, type: 'number', message: '请选择菜单是否可见', trigger: 'blur' }
+          { required: true, type: 'number', message: '请选择菜单是否可见', trigger: 'change' }
         ]
       },
       formData: {

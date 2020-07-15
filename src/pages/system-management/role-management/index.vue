@@ -88,9 +88,6 @@
         </p>
       </template>
       <template slot-scope="{ row }" slot="action">
-        <i-button type="primary" size="small" @click="handAdd(row)">
-          新增
-        </i-button>
         <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
           编辑
         </i-button>
@@ -299,11 +296,11 @@ export default {
 
     upTableData() {
       this.tableLoading = !this.spinShow
-      return this.getRoleList().then(({ list, count }) => {
+      return this.getRoleList().then(({ list, total }) => {
         this.tableData = list
-        this.totalCount = count
+        this.totalCount = total
         this.tableLoading = false
-        return { list, count }
+        return { list, total }
       })
     },
 

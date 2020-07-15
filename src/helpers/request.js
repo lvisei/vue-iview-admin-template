@@ -48,13 +48,13 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // do something before request is sent
-    let urlParams = config.url + JSON.stringify(config.params)
-    if (cancelRequest.has(urlParams)) {
-      cancelRequest.get(urlParams)(repeatMsg)
-    }
-    config.cancelToken = new CancelToken(cancel => {
-      cancelRequest.set(urlParams, cancel)
-    })
+    // let urlParams = config.url + JSON.stringify(config.params)
+    // if (cancelRequest.has(urlParams)) {
+    //   cancelRequest.get(urlParams)(repeatMsg)
+    // }
+    // config.cancelToken = new CancelToken(cancel => {
+    //   cancelRequest.set(urlParams, cancel)
+    // })
 
     // Switch page to cancel request
     // https://github.com/dingFY/vue-iview3-admin/blob/master/src/api/axios.js#L72
@@ -116,7 +116,7 @@ request.interceptors.response.use(
         }
         // TODO:
         // tip(message)
-        return Promise.reject(data)
+        return Promise.reject(err)
       }
     } else {
       const { statusText, status, message } = response

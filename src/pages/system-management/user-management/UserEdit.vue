@@ -3,7 +3,7 @@
     class="user-edit"
     :value="modalVisible"
     width="800"
-    :title="`${isEditRole ? `编辑用户：${role.name}` : '新增用户'}`"
+    :title="`${isEditUser ? `编辑用户：${user.userName}` : '新增用户'}`"
     @on-cancel="onCancel"
   >
     <i-form
@@ -13,16 +13,28 @@
       :label-width="100"
       @keydown.enter.native="onSubmit"
     >
-      <i-form-item label="用户名称" prop="name">
-        <i-input v-model.trim="formData.name" placeholder="请输入用户名称"></i-input>
+      <i-form-item label="登录名称" prop="userName">
+        <i-input v-model.trim="formData.userName" placeholder="请输入登录名称"></i-input>
       </i-form-item>
-      <i-form-item label="显示排序" prop="sequence">
-        <i-input-number
-          :min="1"
-          v-model="formData.sequence"
-          placeholder="请输入显示排序"
-          style="width: 100%"
-        />
+      <i-form-item label="真实姓名" prop="realName">
+        <i-input v-model.trim="formData.realName" placeholder="请输入真实姓名"></i-input>
+      </i-form-item>
+      <i-form-item label="所属角色" prop="userRoles">
+        <i-select
+          v-model="formData.userRoles"
+          clearable
+          filterable
+          multiple
+          remote
+          :remote-method="remoteSearchRoles"
+          :loading="searchRolesLoading"
+          placeholder="请选择角色"
+          @hook:mounted="remoteSearchRoles('')"
+        >
+          <i-option v-for="(option, index) in roleList" :value="option.id" :key="index">
+            {{ option.name }}
+          </i-option>
+        </i-select>
       </i-form-item>
       <i-form-item label="用户状态" prop="status">
         <i-radio-group v-model="formData.status">
@@ -30,46 +42,28 @@
           <i-radio :label="2">禁用</i-radio>
         </i-radio-group>
       </i-form-item>
-      <i-form-item label="备注" prop="memo">
-        <i-input
-          v-model.trim="formData.memo"
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 3 }"
-          placeholder="请输入用户备注"
-        ></i-input>
+      <i-form-item label="邮箱" prop="email">
+        <i-input v-model.trim="formData.email" placeholder="请输入邮箱"></i-input>
       </i-form-item>
-      <i-form-item class="user-edit__menus" label="菜单权限" prop="roleMenus">
-        <i-table
-          border
-          size="small"
-          row-key="id"
-          :indent-size="10"
-          :columns="roleColumns"
-          :data="menusTree"
-        >
-          <template slot-scope="{ row }" slot="selection">
-            <i-checkbox
-              :value="checkedMenuIds.includes(row.id)"
-              @on-change="check => onCheckMenuChange(check, row)"
-            />
-          </template>
-          <template slot-scope="{ row }" slot="actions">
-            <i-checkbox-group
-              v-if="row.actions"
-              :value="
-                checkedActions.filter(
-                  actionId => row.actions.findIndex(({ id }) => id === actionId) !== -1
-                )
-              "
-              @on-change="actionIds => onCheckActionChange(row, actionIds)"
-            >
-              <i-checkbox :label="item.id" v-for="item in row.actions" :key="item.id">
-                {{ item.name }}
-              </i-checkbox>
-            </i-checkbox-group>
-          </template>
-        </i-table>
+      <i-form-item label="电话号码" prop="phone">
+        <i-input v-model.trim="formData.phone" placeholder="请输入电话号码"></i-input>
       </i-form-item>
+      <template v-if="!isEditUser">
+        <i-form-item label="登录密码" prop="password">
+          <i-input
+            type="password"
+            v-model="formData.password"
+            placeholder="请输入登录密码"
+          ></i-input>
+        </i-form-item>
+        <i-form-item label="确认密码" prop="passwdCheck">
+          <i-input
+            type="password"
+            v-model="formData.passwdCheck"
+            placeholder="请再次输入登录密码"
+          ></i-input>
+        </i-form-item>
+      </template>
     </i-form>
     <div slot="footer">
       <i-button type="text" @click="onCancel">取消</i-button>
@@ -79,10 +73,8 @@
 </template>
 
 <script>
-import { getMenusTree } from '@/api/system-management/menu-management'
-import { getRole } from '@/api/system-management/role-management'
-import { getChildrenRoleMenus } from './helper'
-import { formatMenusTree } from '../helpers'
+import { getAllRoles } from '@/api/system-management/role-management'
+import { getUser } from '@/api/system-management/user-management'
 
 export default {
   name: 'UserEdit',
@@ -105,7 +97,7 @@ export default {
       required: true,
       validator: value => ['edit', 'add'].indexOf(value) !== -1
     },
-    role: {
+    user: {
       type: Object,
       default: () => ({})
     }
@@ -114,58 +106,60 @@ export default {
   data() {
     return {
       formRule: {
-        name: [{ required: true, message: '请输入用户名称', trigger: 'blur' }],
-        sequence: [{ required: true, type: 'number', message: '请输入排序值', trigger: 'blur' }],
-        status: [{ required: true, type: 'number', message: '请选择用户状态', trigger: 'blur' }],
-        roleMenus: [{ required: true, type: 'array', message: '请选择菜单权限' }]
+        userName: [{ required: true, message: '请输入登录名称', trigger: 'blur' }],
+        realName: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
+        status: [{ required: true, type: 'number', message: '请选择用户状态', trigger: 'change' }],
+        userRoles: [{ required: true, type: 'array', message: '请选择所属角色' }],
+        email: [{ type: 'email', message: '输入的邮箱格式不正确' }],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          {
+            type: 'string',
+            message: '密码不能小于六位多余十八未',
+            min: 6,
+            max: 18,
+            trigger: 'blur'
+          },
+          { validator: this.validatePass, trigger: 'blur' }
+        ],
+        passwdCheck: [
+          { required: true, message: '确认密码不能为空', trigger: 'blur' },
+          {
+            type: 'string',
+            message: '密码不能小于六位多余十八未',
+            min: 6,
+            max: 18,
+            trigger: 'blur'
+          },
+          { validator: this.validatePassCheck, trigger: 'blur' }
+        ]
       },
       formData: {
-        name: '',
-        sequence: null,
+        userName: '',
+        realName: '',
         status: '',
-        memo: '',
-        roleMenus: []
+        userRoles: [],
+        email: '',
+        phone: '',
+        password: '',
+        passwdCheck: ''
       },
-      menusTree: [],
-      roleColumns: [
-        {
-          width: 60,
-          slot: 'selection'
-        },
-        {
-          title: '菜单名称',
-          key: 'name',
-          tree: true
-        },
-        {
-          title: '按钮权限',
-          key: 'actions',
-          slot: 'actions'
-        }
-      ]
+      roleList: [],
+      searchRolesLoading: false
     }
   },
 
   computed: {
-    isEditRole() {
+    isEditUser() {
       return this.editType === 'edit'
-    },
-
-    checkedMenuIds() {
-      return this.formData.roleMenus.map(({ menuId }) => menuId)
-    },
-
-    checkedActions() {
-      return this.formData.roleMenus.map(({ actionId }) => actionId)
     }
   },
 
   watch: {
     modalVisible(value) {
       if (value) {
-        const { id } = this.role
-        this.isEditRole && this.getRoleData(id)
-        this.menusTree.length || this.getMenusTree()
+        const { id } = this.user
+        this.isEditUser && this.getUserData(id)
       } else {
         this.$refs.form.resetFields()
       }
@@ -185,53 +179,30 @@ export default {
   beforeDestroy() {},
 
   methods: {
-    onCheckMenuChange(check, { id: menuId, actions, children }) {
-      if (check) {
-        const checkedList = actions
-          ? actions.map(({ id: actionId }) => ({ actionId, menuId }))
-          : [{ menuId }]
-        const checkedOtherList = this.formData.roleMenus.filter(({ menuId: id }) => id !== menuId)
-        const checkedChildrenList = children ? getChildrenRoleMenus(children) : []
+    validatePass(rule, value, callback) {
+      if (this.formData.passwdCheck !== '') this.$refs.form.validateField('passwdCheck')
+      callback()
+    },
 
-        this.formData.roleMenus = [...checkedOtherList, ...checkedChildrenList, ...checkedList]
+    validatePassCheck(rule, value, callback) {
+      if (value !== this.formData.password) {
+        callback(new Error('两次输入不一致！'))
       } else {
-        const childrenMenus = (children ? getChildrenRoleMenus(children) : []).map(
-          ({ menuId }) => menuId
-        )
-        const checkedOtherList = this.formData.roleMenus
-          .filter(({ menuId: id }) => id !== menuId)
-          .filter(({ menuId: id }) => !childrenMenus.includes(id))
-        this.formData.roleMenus = checkedOtherList
+        callback()
       }
     },
 
-    onCheckActionChange({ id: menuId }, actionIds) {
-      const checkedList = actionIds.length
-        ? actionIds.map(actionId => ({ actionId, menuId }))
-        : [{ menuId }]
-      const checkedOtherList = this.formData.roleMenus.filter(({ menuId: id }) => id !== menuId)
-      this.formData.roleMenus = checkedOtherList.concat(checkedList)
-    },
-
-    async getMenusTree() {
-      try {
-        const data = await getMenusTree()
-        const { list = [] } = data
-        this.menusTree = Object.freeze(formatMenusTree(list, 'name', { _showChildren: true }))
-      } catch (err) {
-        new Error(err)
-      }
-    },
-
-    getRoleData(id) {
-      getRole(id)
+    getUserData(id) {
+      getUser(id)
         .then(data => {
           const formData = {
-            name: data.name,
-            sequence: data.sequence,
+            userName: data.userName,
+            realName: data.realName,
             status: data.status,
             memo: data.memo,
-            roleMenus: data.roleMenus
+            email: data.email,
+            phone: data.phone,
+            userRoles: data.userRoles.map(({ roleId }) => roleId)
           }
           this.formData = formData
         })
@@ -240,16 +211,32 @@ export default {
         })
     },
 
+    remoteSearchRoles(query) {
+      if (query.trim() !== '') {
+        this.searchRolesLoading = true
+        getAllRoles(query)
+          .then(({ list }) => (this.roleList = list))
+          .finally(_ => (this.searchRolesLoading = false))
+      } else {
+        getAllRoles()
+          .then(({ list }) => (this.roleList = list))
+          .finally(_ => (this.searchRolesLoading = false))
+      }
+    },
+
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
           const formData = this.formData
           const data = {
-            name: formData.name,
-            sequence: formData.sequence,
+            userName: formData.userName,
+            realName: formData.realName,
             status: formData.status,
             memo: formData.memo,
-            roleMenus: formData.roleMenus
+            email: formData.email,
+            phone: formData.phone,
+            userRoles: formData.userRoles.map(roleId => ({ roleId })),
+            password: this.isEditUser ? '' : formData.password
           }
           this.$emit('on-edit-submit', data)
         }
@@ -264,17 +251,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.user-edit {
-  &__menus {
-    /deep/ .ivu-form-item-label {
-      float: none;
-      display: inline-block;
-      padding: 0 0 10px;
-    }
-
-    /deep/ .ivu-form-item-content {
-      margin-left: 30px !important;
-    }
-  }
-}
+// .user-edit {}
 </style>

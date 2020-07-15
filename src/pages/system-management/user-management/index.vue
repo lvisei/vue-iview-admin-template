@@ -26,13 +26,13 @@
           remote
           :remote-method="remoteSearchRoles"
           :loading="searchRolesLoading"
-          placeholder="请选择用户"
+          placeholder="请选择角色"
           @hook:mounted="remoteSearchRoles('')"
           style="width: 300px"
         >
-          <Option v-for="(option, index) in roleList" :value="option.id" :key="index">
+          <i-option v-for="(option, index) in roleList" :value="option.id" :key="index">
             {{ option.name }}
-          </Option>
+          </i-option>
         </i-select>
       </i-form-item>
       <i-form-item label="" prop="status" :label-width="30">
@@ -91,8 +91,8 @@
       :columns="columns"
       :data="tableData"
     >
-      <template slot-scope="{ row }" slot="name">
-        <strong>{{ row.name }}</strong>
+      <template slot-scope="{ row }" slot="userName">
+        <strong>{{ row.userName }}</strong>
       </template>
       <template slot-scope="{ row }" slot="status">
         <i-badge
@@ -106,11 +106,16 @@
         </p>
       </template>
       <template slot-scope="{ row }" slot="action">
-        <i-button type="primary" size="small" @click="handAdd(row)">
-          新增
-        </i-button>
         <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
           编辑
+        </i-button>
+        <i-button
+          type="warning"
+          size="small"
+          style="margin-left: 5px"
+          @click="handEditPassword(row)"
+        >
+          重置密码
         </i-button>
         <i-poptip
           confirm
@@ -156,16 +161,24 @@
       :loading="editUserLoading"
       @on-edit-submit="onUserSubmit"
     />
+    <EditPassword
+      :modal-visible.sync="editPasswordVisible"
+      :user="editorUser"
+      :loading="editUserLoading"
+      @on-edit-submit="onPasswordSubmit"
+    />
   </i-card>
 </template>
 
 <script>
 import UserEdit from './UserEdit'
+import EditPassword from './EditPassword'
 import { getAllRoles } from '@/api/system-management/role-management'
 import {
   getUsers,
   addUsers,
   editUsers,
+  restUsersPassword,
   editUsersStatus,
   deleteUser
 } from '@/api/system-management/user-management'
@@ -173,7 +186,7 @@ import {
 export default {
   name: 'UserManagement',
 
-  components: { UserEdit },
+  components: { UserEdit, EditPassword },
 
   filters: {},
 
@@ -190,20 +203,20 @@ export default {
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '登录名称', key: 'userName', slot: 'name' },
-        { title: '真实姓名', key: 'realName', slot: 'name' },
+        { title: '登录名称', key: 'userName', slot: 'userName' },
+        { title: '真实姓名', key: 'realName' },
         { title: '用户状态', key: 'status', slot: 'status' },
-        { title: '邮箱', key: 'email', slot: 'status' },
-        { title: '电话号码', key: 'phone', slot: 'status' },
+        { title: '邮箱', key: 'email' },
+        { title: '电话号码', key: 'phone' },
         { title: '创建时间', key: 'createdAt', sortable: true },
-        { title: '创建者', key: 'creator' },
-        { title: '操作', slot: 'action', width: 250, align: 'center' }
+        { title: '操作', slot: 'action', width: 320, align: 'center' }
       ],
       tableData: [],
       editUserVisible: false,
       editUserLoading: false,
       editorUser: {},
-      editUserType: 'add'
+      editUserType: 'add',
+      editPasswordVisible: false
     }
   },
 
@@ -236,7 +249,6 @@ export default {
           .then(({ list }) => (this.roleList = list))
           .finally(_ => (this.searchRolesLoading = false))
       } else {
-        console.log('query: ', query)
         getAllRoles()
           .then(({ list }) => (this.roleList = list))
           .finally(_ => (this.searchRolesLoading = false))
@@ -292,8 +304,8 @@ export default {
             this.$Message.success('添加成功')
             this.upTableData()
           })
-          .catch(_ => {
-            this.$Message.error('添加失败')
+          .catch(({ message }) => {
+            this.$Message.error(`编辑失败: ${message}`)
           })
           .finally(_ => (this.editUserLoading = false))
       } else {
@@ -304,8 +316,8 @@ export default {
             this.$Message.success('编辑成功')
             this.upTableData()
           })
-          .catch(_ => {
-            this.$Message.error('编辑失败')
+          .catch(({ message }) => {
+            this.$Message.error(`编辑失败: ${message}`)
           })
           .finally(_ => (this.editUserLoading = false))
       }
@@ -333,13 +345,33 @@ export default {
         })
     },
 
+    handEditPassword(row) {
+      this.editorUser = Object.freeze(row)
+      this.editPasswordVisible = true
+    },
+
+    onPasswordSubmit(password) {
+      this.editUserLoading = true
+      const { id } = this.editorUser
+      restUsersPassword(id, password)
+        .then(_ => {
+          this.editPasswordVisible = false
+          this.$Message.success('重置密码成功')
+          this.upTableData()
+        })
+        .catch(_ => {
+          this.$Message.error('重置密码失败')
+        })
+        .finally(_ => (this.editUserLoading = false))
+    },
+
     upTableData() {
       this.tableLoading = !this.spinShow
-      return this.getUserList().then(({ list, count }) => {
+      return this.getUserList().then(({ list, total }) => {
         this.tableData = list
-        this.totalCount = count
+        this.totalCount = total
         this.tableLoading = false
-        return { list, count }
+        return { list, total }
       })
     },
 
