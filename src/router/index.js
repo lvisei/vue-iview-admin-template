@@ -1,24 +1,34 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './routes'
+import { constantRoutes } from './routes'
 import store from '@/store'
 import { LoadingBar } from 'view-design'
 
 Vue.use(Router)
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-const router = new Router({
-  routes: routes,
-  mode: isDevelopment ? 'hash' : 'history'
-})
 
-const hasPermission = (rights, rigth) => {
-  return rigth !== undefined ? rights.includes(rigth) : 1
-}
+// const router = new Router({
+//   routes: routes,
+//   mode: isDevelopment ? 'hash' : 'history'
+// })
+// const hasPermission = (rights, rigth) => {
+//   return rigth !== undefined ? rights.includes(rigth) : 1
+// }
+// const canVisitor = visitor => {
+//   return visitor !== undefined ? visitor : 0
+// }
 
-const canVisitor = visitor => {
-  return visitor !== undefined ? visitor : 0
-}
+// export default router
+
+const createRouter = () =>
+  new Router({
+    mode: isDevelopment ? 'hash' : 'history',
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
+
+const router = createRouter()
 
 router.beforeEach(async (to, from, next) => {
   LoadingBar.start()
@@ -68,5 +78,11 @@ router.afterEach((to, from) => {
 
   LoadingBar.finish()
 })
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
 
 export default router

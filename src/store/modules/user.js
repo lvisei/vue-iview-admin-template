@@ -1,5 +1,6 @@
 import {
   userLoginApi,
+  refreshTokenApi,
   userLogOutApi,
   getUserInfoApi,
   getUserMenutreeApi
@@ -49,7 +50,7 @@ const actions = {
     }
   },
 
-  getUserInfo: async ({ commit, state }) => {
+  getUserInfo: async ({ commit }) => {
     try {
       const data = await getUserInfoApi()
       const { userId, userName, realName, roles } = data
@@ -65,11 +66,10 @@ const actions = {
     }
   },
 
-  getUserMenutree: async ({ commit, state }) => {
+  getUserMenutree: async ({ commit }) => {
     try {
-      const response = await getUserMenutreeApi()
-      const { code, data } = response
-      if (code !== 20000) return false
+      const data = await getUserMenutreeApi()
+      const { list } = data
       // const { rights, roles, user } = data
 
       // commit('SET_RIGHTS', rights)
@@ -84,7 +84,24 @@ const actions = {
     }
   },
 
-  userLogOut: async ({ commit, state }) => {
+  refreshToken({ commit }) {
+    return new Promise((resolve, reject) => {
+      refreshTokenApi()
+        .then(data => {
+          const { accessToken, tokenType, expiresAt } = data
+          const token = `${tokenType} ${accessToken}`
+          setToken(token)
+          commit('SET_TOKEN', token)
+          resolve()
+        })
+        .catch(err => {
+          console.log(err) // eslint-disable-line
+          reject(err)
+        })
+    })
+  },
+
+  userLogOut: async ({ commit }) => {
     try {
       const data = await userLogOutApi()
 

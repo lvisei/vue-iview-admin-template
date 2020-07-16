@@ -1,7 +1,7 @@
-import { asyncRoutes, constantRoutes } from '@/router'
-import { getRoutes } from '@/api/system/role'
-import Layout from '@/layout'
-// import sysuserindex from '@/views/sysuser/index'
+import { asyncRoutes, constantRoutes } from '@/router/routes'
+import { getUserMenutreeApi } from '@/api/personal-center/user'
+import MainView from '@/layouts/MainView'
+import RouteView from '@/layouts/RouteView'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -37,15 +37,11 @@ export function generaMenu(routes, data) {
   data.forEach(item => {
     const menu = {
       path: item.path,
-      component: item.component === 'Layout' ? Layout : loadView(item.component),
-      hidden: item.visible !== '0',
+      component: item.component === 'Layout' ? MainView : loadView(item.component),
+      hidden: item.showStatus === 0,
       children: [],
-      name: item.menuName,
-      meta: {
-        title: item.title,
-        icon: item.icon,
-        noCache: true
-      }
+      // name: item.menuName,
+      meta: { title: item.name, icon: item.icon }
     }
     if (item.children) {
       generaMenu(menu.children, item.children)
@@ -117,26 +113,15 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
-      const loadMenuData = []
+      getUserMenutreeApi()
+        .then(data => {
+          // console.log(JSON.stringify(data))
+          const { list } = data
 
-      getRoutes()
-        .then(response => {
-          // console.log(JSON.stringify(response))
-          let data = response
-          if (response.code !== 200) {
-            this.$message({
-              message: '菜单数据加载异常',
-              type: 0
-            })
-          } else {
-            data = response.data
-            Object.assign(loadMenuData, data)
-
-            generaMenu(asyncRoutes, loadMenuData)
-            asyncRoutes.push({ path: '*', redirect: '/404', hidden: true })
-            commit('SET_ROUTES', asyncRoutes)
-            resolve(asyncRoutes)
-          }
+          generaMenu(asyncRoutes, list)
+          asyncRoutes.push({ path: '*', redirect: '/404', hidden: true })
+          commit('SET_ROUTES', asyncRoutes)
+          resolve(asyncRoutes)
         })
         .catch(error => {
           console.log(error)

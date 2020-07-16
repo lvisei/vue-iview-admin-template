@@ -7,7 +7,8 @@ const getters = {
   avatar: state => state.user.avatar,
   userName: state => state.user.user && state.user.user.username,
   accountName: state => state.user.user && state.user.user.accountName,
-  userId: state => state.user.user && state.user.user.userId
+  userId: state => state.user.user && state.user.user.userId,
+  permissionRoutes: state => state.permission.routes
 }
 
 export default getters

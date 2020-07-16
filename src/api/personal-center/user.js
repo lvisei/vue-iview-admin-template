@@ -31,6 +31,14 @@ export function userLoginApi(userName, password, captchaCode, captchaId) {
 }
 
 /**
+ * 用户刷新令牌
+ * @returns {Promise}
+ */
+export function refreshTokenApi() {
+  return request.post('/pub/refresh-token')
+}
+
+/**
  * 用户退出登陆
  * @returns {Promise}
  */
