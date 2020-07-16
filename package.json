@@ -24,7 +24,7 @@
     "esri-loader": "^2.14.0",
     "jsencrypt": "^3.0.0-rc.1",
     "leaflet": "^1.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mapbox-gl": "^1.11.0",
     "ol": "^6.3.1",
     "proj4": "^2.6.2",
