@@ -27,8 +27,14 @@
           style="width: 100%"
         />
       </i-form-item>
-      <i-form-item label="组件路径" prop="router">
-        <i-input v-model.trim="formData.router" placeholder="请输入组件路径"></i-input>
+      <i-form-item label="路由名称" prop="routeName">
+        <i-input v-model.trim="formData.routeName" placeholder="请输入组件路径"></i-input>
+      </i-form-item>
+      <i-form-item label="路由地址" prop="routePath">
+        <i-input v-model.trim="formData.routePath" placeholder="请输入组件路径"></i-input>
+      </i-form-item>
+      <i-form-item label="组件路径" prop="component">
+        <i-input v-model.trim="formData.component" placeholder="请输入组件路径"></i-input>
       </i-form-item>
       <i-form-item label="菜单图标" prop="icon">
         <i-input v-model.trim="formData.icon" placeholder="请选择菜单图标"></i-input>
@@ -138,7 +144,9 @@ export default {
         name: '',
         parentId: '',
         sequence: null,
-        router: '',
+        routeName: '',
+        routePath: '',
+        component: '',
         icon: '',
         status: '',
         showStatus: '',
@@ -198,7 +206,9 @@ export default {
             name: data.name,
             parentId: data.parentId,
             sequence: data.sequence,
-            router: data.router,
+            routeName: data.routeName,
+            routePath: data.routePath,
+            component: data.component,
             icon: data.icon,
             status: data.status,
             showStatus: data.showStatus,
@@ -220,7 +230,9 @@ export default {
             name: formData.name,
             parentId: formData.parentId,
             sequence: formData.sequence,
-            router: formData.router,
+            routeName: formData.routeName,
+            routePath: formData.routePath,
+            component: formData.component,
             icon: formData.icon,
             status: formData.status,
             showStatus: formData.showStatus,

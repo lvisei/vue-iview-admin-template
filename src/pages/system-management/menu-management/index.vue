@@ -199,7 +199,7 @@ export default {
       columns: [
         { title: '菜单名称', key: 'name', slot: 'name' },
         { title: '菜单图标', key: 'icon' },
-        { title: '访问路由', key: 'router' },
+        { title: '访问地址', key: 'routePath' },
         { title: '状态', key: 'status', slot: 'status' },
         { title: '可见', key: 'showStatus', slot: 'showStatus' },
         { title: '排序值', key: 'sequence', sortable: true },

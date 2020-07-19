@@ -36,11 +36,11 @@ function hasPathPermission(paths, route) {
 export function generaMenu(routes, data) {
   data.forEach(item => {
     const menu = {
-      path: item.path,
-      component: item.component === 'Layout' ? MainView : loadView(item.component),
+      path: item.router,
+      component: item.router === 'Layout' ? MainView : loadView(item.router),
       hidden: item.showStatus === 0,
       children: [],
-      // name: item.menuName,
+      name: item.router,
       meta: { title: item.name, icon: item.icon }
     }
     if (item.children) {
@@ -52,8 +52,7 @@ export function generaMenu(routes, data) {
 
 export const loadView = view => {
   // 路由懒加载
-  return resolve => require(['@/views' + view], resolve)
-  // return () => import(`@/views${view}`)
+  return () => import(`@/pages${view}`)
 }
 
 /**

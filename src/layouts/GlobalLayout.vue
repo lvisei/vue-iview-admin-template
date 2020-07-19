@@ -8,7 +8,7 @@
       :collapsed-width="64"
       v-model="isCollapsed"
     >
-      <side-menu
+      <SideMenu
         theme="dark"
         :accordion="true"
         :active-name="$route.name"
@@ -22,7 +22,7 @@
             <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
-      </side-menu>
+      </SideMenu>
     </i-sider>
     <i-layout
       :class="[
@@ -36,13 +36,13 @@
           this.isCollapsed ? 'global-layout__header_expand-width' : ''
         ]"
       >
-        <global-header :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
+        <GlobalHeader :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
       </i-header>
       <i-content class="global-layout__content">
         <slot></slot>
       </i-content>
       <i-footer class="global-layout__footer">
-        <global-footer :copyright="copyright" />
+        <GlobalFooter :copyright="copyright" />
       </i-footer>
     </i-layout>
   </i-layout>
@@ -82,8 +82,8 @@ export default {
   watch: {},
 
   created() {
-    const list = this.$router.options.routes.find(({ name }) => name === 'MainView').children
-    this.menuList = getMenuList(list)
+    const routes = this.$router.options.routes
+    this.menuList = getMenuList(routes)
   },
 
   mounted() {},

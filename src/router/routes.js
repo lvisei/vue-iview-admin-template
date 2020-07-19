@@ -46,43 +46,69 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/user-page',
+    name: 'UserPage',
+    component: MainView,
+    meta: { title: '个人页', icon: 'md-person' },
+    children: [
+      {
+        path: 'user-center',
+        name: 'UserCenter',
+        component: () =>
+          import(/* webpackChunkName: "user-center" */ '@/pages/user-page/user-center'),
+        meta: { title: '个人中心', icon: 'logo-octocat' }
+      },
+      {
+        path: 'user-set',
+        name: 'UserSet',
+        component: () => import(/* webpackChunkName: "user-set" */ '@/pages/user-page/user-set'),
+        meta: { title: '个人设置', icon: 'ios-settings' }
+      }
+    ]
+  },
+  {
+    path: '/list-page',
+    name: 'ListPage',
+    component: MainView,
+    meta: { title: '列表页', icon: 'md-grid' },
+    children: [
+      {
+        path: 'query-list',
+        name: 'QueryList',
+        component: () =>
+          import(/* webpackChunkName: "query-list" */ '@/pages/list-page/query-list'),
+        meta: { title: '查询表格', icon: 'md-list' }
+      },
+      {
+        path: 'standard-list',
+        name: 'StandardList',
+        component: () =>
+          import(/* webpackChunkName: "standard-list" */ '@/pages/list-page/standard-list'),
+        meta: { title: '标准列表', icon: 'md-podium' }
+      }
+    ]
+  },
+  {
     path: '/',
     name: 'MainView',
     component: MainView,
-    // redirect: '/dashboard',
     children: [
       {
-        path: 'user-page',
-        name: 'UserPage',
-        component: RouteView,
-        meta: { title: '个人页', icon: 'md-person' },
-        children: [
-          {
-            path: 'user-center',
-            name: 'UserCenter',
-            component: () =>
-              import(/* webpackChunkName: "user-center" */ '@/pages/user-page/user-center'),
-            meta: { title: '个人中心', icon: 'logo-octocat' }
-          },
-          {
-            path: 'user-set',
-            name: 'UserSet',
-            component: () =>
-              import(/* webpackChunkName: "user-set" */ '@/pages/user-page/user-set'),
-            meta: { title: '个人设置', icon: 'ios-settings' }
-          }
-        ]
-      },
-      {
-        name: 'Documentation',
-        path: '/external-link',
-        meta: {
-          title: '文档',
-          icon: 'md-open',
-          href: 'https://liuvigongzuoshi.github.io/vue-iview-admin-template/'
-        }
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/dashboard'),
+        meta: { title: '仪表盘', icon: 'md-speedometer' }
       }
     ]
+  },
+  {
+    name: 'Documentation',
+    path: '/external-link',
+    meta: {
+      title: '文档',
+      icon: 'md-open',
+      href: 'https://liuvigongzuoshi.github.io/vue-iview-admin-template/'
+    }
   }
 ]
 
