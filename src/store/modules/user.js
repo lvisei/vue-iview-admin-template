@@ -2,8 +2,7 @@ import {
   userLoginApi,
   refreshTokenApi,
   userLogOutApi,
-  getUserInfoApi,
-  getUserMenutreeApi
+  getUserInfoApi
 } from '@/api/personal-center/user'
 import { getToken, setToken, removeToken } from '@/helpers/auth'
 
@@ -58,24 +57,6 @@ const actions = {
       const user = { userId, userName, realName, roles: roles || [] }
       commit('SET_USER', data)
       commit('SET_ROLES', roles || [])
-
-      return data
-    } catch (err) {
-      console.log(err) // eslint-disable-line
-      return Promise.reject(err)
-    }
-  },
-
-  getUserMenutree: async ({ commit }) => {
-    try {
-      const data = await getUserMenutreeApi()
-      const { list } = data
-      // const { rights, roles, user } = data
-
-      // commit('SET_RIGHTS', rights)
-      // commit('SET_ROLES', roles)
-      commit('SET_ROLES', ['super_admin', 'admin'])
-      commit('SET_USER', data)
 
       return data
     } catch (err) {

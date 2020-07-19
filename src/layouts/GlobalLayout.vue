@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { shortSiteName, copyright } from '@/config'
 import SideMenu from '@/components/SideMenu'
 import GlobalHeader from './GlobalHeader'
@@ -71,20 +72,24 @@ export default {
   data() {
     return {
       isCollapsed: false,
-      menuList: [],
       shortSiteName: shortSiteName,
       copyright: copyright
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapGetters(['permissionRoutes']),
+
+    menuList() {
+      const routes = this.permissionRoutes
+      const menuList = getMenuList(routes)
+      return menuList
+    }
+  },
 
   watch: {},
 
-  created() {
-    const routes = this.$router.options.routes
-    this.menuList = getMenuList(routes)
-  },
+  created() {},
 
   mounted() {},
 

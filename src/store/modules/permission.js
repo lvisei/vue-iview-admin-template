@@ -36,11 +36,11 @@ function hasPathPermission(paths, route) {
 export function generaMenu(routes, data) {
   data.forEach(item => {
     const menu = {
-      path: item.router,
-      component: item.router === 'Layout' ? MainView : loadView(item.router),
+      name: item.routeName,
+      path: item.routePath,
+      component: loadComponent(item.component),
       hidden: item.showStatus === 0,
       children: [],
-      name: item.router,
       meta: { title: item.name, icon: item.icon }
     }
     if (item.children) {
@@ -50,9 +50,14 @@ export function generaMenu(routes, data) {
   })
 }
 
-export const loadView = view => {
-  // 路由懒加载
-  return () => import(`@/pages${view}`)
+/**
+ * 路由懒加载
+ * @param {String} view
+ * @returns {Promise}
+ */
+const loadComponent = component => {
+  const componentPath = component.startsWith('/layouts/') ? `@${component}` : `@/pages${component}`
+  return () => import(componentPath)
 }
 
 /**
@@ -110,22 +115,20 @@ const mutations = {
 }
 
 const actions = {
-  generateRoutes({ commit }, roles) {
-    return new Promise(resolve => {
-      getUserMenutreeApi()
-        .then(data => {
-          // console.log(JSON.stringify(data))
-          const { list } = data
+  getUserMenutree: async ({ commit }) => {
+    try {
+      const data = await getUserMenutreeApi()
+      const { list } = data
 
-          generaMenu(asyncRoutes, list)
-          asyncRoutes.push({ path: '*', redirect: '/404', hidden: true })
-          commit('SET_ROUTES', asyncRoutes)
-          resolve(asyncRoutes)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    })
+      generaMenu(asyncRoutes[0].children, list)
+      // asyncRoutes.children.push({ path: '*', redirect: '/404', hidden: true })
+      commit('SET_ROUTES', asyncRoutes)
+
+      return asyncRoutes
+    } catch (err) {
+      console.log(err) // eslint-disable-line
+      return Promise.reject(err)
+    }
   }
 }
 
