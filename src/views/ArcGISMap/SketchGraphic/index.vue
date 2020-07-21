@@ -15,15 +15,14 @@
 <script>
 import { getType } from '@turf/turf'
 import terraformerArcgisParser from 'terraformer-arcgis-parser'
-import MapContainer from '@/views/ArcGISMap/MapContainer'
-import MapPosition from '@/views/ArcGISMap/MapPosition'
-import SearchBar from '@/views/ArcGISMap/SearchBar'
+import MapContainer from '../MapContainer'
+import MapPosition from '../MapPosition'
 import SketchGraphicAttribute from './Attribute'
 
 export default {
   name: 'SketchGraphic',
 
-  components: { MapContainer, MapPosition, SearchBar, SketchGraphicAttribute },
+  components: { MapContainer, MapPosition, SketchGraphicAttribute },
 
   filters: {},
 

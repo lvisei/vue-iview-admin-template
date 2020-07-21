@@ -72,7 +72,7 @@ export default {
             }
           })
         })
-        .catch(({ error }) => {
+        .catch(error => {
           this.loading = false
           this.$Message.error(error.message)
         })

@@ -5,7 +5,7 @@ import getters from './getters'
 Vue.use(Vuex)
 
 import user from './modules/user'
-import permission from './modules/permission'
+import routes from './modules/routes'
 
 export default new Vuex.Store({
   state: {},
@@ -14,6 +14,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     user,
-    permission
+    routes
   }
 })

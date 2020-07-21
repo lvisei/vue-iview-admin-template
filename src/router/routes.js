@@ -1,6 +1,5 @@
 import MainView from '@/layouts/MainView'
-import RouteView from '@/layouts/RouteView'
-// import Dashboard from '@/pages/dashboard'
+// import RouteView from '@/layouts/RouteView'
 
 /**
  * configurable parameters under the routing '/'
@@ -49,29 +48,62 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
-    path: '/',
-    name: 'MainView',
+    path: '/components-demo',
+    name: 'ComponentsDemo',
     component: MainView,
-    children: []
-  },
-  {
-    path: '/user-page',
-    name: 'UserPage',
-    component: MainView,
-    meta: { title: '个人页', icon: 'md-person' },
+    meta: { title: '组件实例', icon: 'ios-grid' },
     children: [
       {
-        path: 'user-center',
-        name: 'UserCenter',
+        path: 'back-to-top',
+        name: 'BackToTop',
         component: () =>
-          import(/* webpackChunkName: "user-center" */ '@/pages/user-page/user-center'),
-        meta: { title: '个人中心', icon: 'logo-octocat' }
+          import(/* webpackChunkName: "back-to-top" */ '@/pages/components-demo/back-to-top'),
+        meta: { title: '返回顶部' }
       },
       {
-        path: 'user-set',
-        name: 'UserSet',
-        component: () => import(/* webpackChunkName: "user-set" */ '@/pages/user-page/user-set'),
-        meta: { title: '个人设置', icon: 'ios-settings' }
+        path: 'count-to',
+        name: 'CountTo',
+        component: () =>
+          import(/* webpackChunkName: "count-to" */ '@/pages/components-demo/count-to'),
+        meta: { title: 'CountTo' }
+      },
+      {
+        path: 'bpmn',
+        name: 'Bpmn',
+        component: () => import(/* webpackChunkName: "bpmn" */ '@/pages/components-demo/bpmn'),
+        meta: { title: 'Bpmn' }
+      }
+    ]
+  },
+  {
+    path: '/maps-page',
+    name: 'MapsPage',
+    component: MainView,
+    meta: { title: '地图', icon: 'md-map' },
+    children: [
+      {
+        path: 'leaflet',
+        name: 'Leaflet',
+        component: () => import(/* webpackChunkName: "leaflet" */ '@/pages/maps/leaflet'),
+        meta: { title: 'Leaflet', icon: 'md-map' }
+      },
+      {
+        path: 'openlayers',
+        name: 'Openlayers',
+        component: () => import(/* webpackChunkName: "openlayers" */ '@/pages/maps/openlayers'),
+        meta: { title: 'Openlayers', icon: 'md-map' }
+      },
+      {
+        path: 'arcgis',
+        name: 'ArcGIS',
+        component: () => import(/* webpackChunkName: "arcgis" */ '@/pages/maps/arcgis'),
+        meta: { title: 'ArcGIS', icon: 'md-map' }
+      },
+      {
+        path: 'mapbox',
+        name: 'Mapbox',
+        component: () => import(/* webpackChunkName: "mapbox" */ '@/pages/maps/mapbox'),
+        meta: { title: 'Mapbox', icon: 'md-map' }
       }
     ]
   },
@@ -94,6 +126,27 @@ export const asyncRoutes = [
         component: () =>
           import(/* webpackChunkName: "standard-list" */ '@/pages/list-page/standard-list'),
         meta: { title: '标准列表', icon: 'md-podium' }
+      }
+    ]
+  },
+  {
+    path: '/user-page',
+    name: 'UserPage',
+    component: MainView,
+    meta: { title: '个人页', icon: 'md-person' },
+    children: [
+      {
+        path: 'user-center',
+        name: 'UserCenter',
+        component: () =>
+          import(/* webpackChunkName: "user-center" */ '@/pages/user-page/user-center'),
+        meta: { title: '个人中心', icon: 'logo-octocat' }
+      },
+      {
+        path: 'user-set',
+        name: 'UserSet',
+        component: () => import(/* webpackChunkName: "user-set" */ '@/pages/user-page/user-set'),
+        meta: { title: '个人设置', icon: 'ios-settings' }
       }
     ]
   },

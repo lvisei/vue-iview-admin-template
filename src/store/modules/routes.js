@@ -1,7 +1,7 @@
 import { asyncRoutes, constantRoutes } from '@/router/routes'
 import { getUserMenutreeApi } from '@/api/personal-center/user'
-import MainView from '@/layouts/MainView'
-import RouteView from '@/layouts/RouteView'
+import Page404 from '@/pages/error-page/404'
+// import RouteView from '@/layouts/RouteView'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -56,8 +56,11 @@ export function generaMenu(routes, data) {
  * @returns {Promise}
  */
 const loadComponent = component => {
-  const componentPath = component.startsWith('/layouts/') ? `@${component}` : `@/pages${component}`
-  return () => import(componentPath)
+  return () =>
+    (component.startsWith('/layouts/')
+      ? import(`@/layouts/${component.split('/layouts/')[1]}.vue`)
+      : import(`@/pages${component}/index.vue`)
+    ).catch(_ => Page404)
 }
 
 /**
@@ -119,12 +122,13 @@ const actions = {
     try {
       const data = await getUserMenutreeApi()
       const { list } = data
+      const _asyncRoutes = []
 
-      generaMenu(asyncRoutes[0].children, list)
-      // asyncRoutes.children.push({ path: '*', redirect: '/404', hidden: true })
-      commit('SET_ROUTES', asyncRoutes)
+      generaMenu(_asyncRoutes, list)
+      const __asyncRoutes = _asyncRoutes.concat(asyncRoutes)
 
-      return asyncRoutes
+      commit('SET_ROUTES', __asyncRoutes)
+      return __asyncRoutes
     } catch (err) {
       console.log(err) // eslint-disable-line
       return Promise.reject(err)

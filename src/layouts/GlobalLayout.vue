@@ -78,10 +78,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['permissionRoutes']),
+    ...mapGetters(['routes']),
 
     menuList() {
-      const routes = this.permissionRoutes
+      const routes = this.routes
       const menuList = getMenuList(routes)
       return menuList
     }

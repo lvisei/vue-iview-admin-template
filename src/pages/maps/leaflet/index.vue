@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import MapContainer from './MapContainer'
+import MapContainer from '@/views/LeafletMap/MapContainer'
 import { LControlScale } from 'vue2-leaflet'
 import LControlPosition from '@/components/Vue2Leaflet/LControlPosition'
 import LCustomizeControl from '@/components/Vue2Leaflet/LCustomizeControl'

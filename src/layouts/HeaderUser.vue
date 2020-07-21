@@ -2,7 +2,7 @@
   <div class="header-user">
     <i-dropdown @on-click="handleClick">
       <i-avatar :src="avatar" />
-      <span class="header-user__text">{{ userName }}</span>
+      <span class="header-user__text">{{ realName }}</span>
       <i-dropdown-menu slot="list">
         <i-dropdown-item name="user">
           <i-icon class="header-user__icon" size="16" type="ios-person-outline" />
@@ -34,7 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userName', 'accountName', 'avatar'])
+    ...mapGetters(['userName', 'realName', 'avatar'])
   },
 
   methods: {

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import MapContainer from './ArcGISMap/MapContainer'
-import MapPosition from './ArcGISMap/MapPosition'
+import MapContainer from '@/views/ArcGISMap/MapContainer'
+import MapPosition from '@/views/ArcGISMap/MapPosition'
 
 export default {
   name: 'ArcGis',
