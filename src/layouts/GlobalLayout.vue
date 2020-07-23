@@ -16,10 +16,10 @@
         @on-select="turnToPage"
         :menu-list="menuList"
       >
-        <div class="logo">
+        <div class="global-layout__logo layout-logo">
           <router-link to="/">
-            <img class="logo__img" src="~@/assets/images/logo.png" />
-            <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
+            <img class="layout-logo__img" src="~@/assets/images/logo.png" />
+            <h1 v-show="!isCollapsed" class="layout-logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
       </SideMenu>
@@ -127,30 +127,12 @@ export default {
       box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
       z-index: 9;
     }
+  }
 
-    .logo {
-      height: 64px;
-      line-height: 64px;
-      text-align: center;
-
-      &__title {
-        padding-left: 20px;
-        box-sizing: border-box;
-        font-size: 19px;
-        font-weight: 600;
-        display: inline-block;
-        height: 32px;
-        line-height: 32px;
-        vertical-align: middle;
-        text-transform: uppercase;
-        color: #1890ff;
-      }
-
-      &__img {
-        height: 34px;
-        vertical-align: middle;
-      }
-    }
+  &__logo {
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
   }
 
   &__containers {
@@ -183,6 +165,26 @@ export default {
 
   &__footer {
     text-align: center;
+  }
+}
+
+.layout-logo {
+  &__title {
+    padding-left: 20px;
+    box-sizing: border-box;
+    font-size: 19px;
+    font-weight: 600;
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #1890ff;
+  }
+
+  &__img {
+    height: 34px;
+    vertical-align: middle;
   }
 }
 </style>

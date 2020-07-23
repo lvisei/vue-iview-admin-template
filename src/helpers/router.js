@@ -39,15 +39,14 @@ export const getMenuList = routes => {
  * @returns {Array}
  */
 export const getBreadCrumbList = routeMetched => {
-  let res = routeMetched.map(item => {
-    return {
-      icon: item.meta.icon || '',
-      name: item.meta.title || '首页',
-      router: { name: item.name }
-    }
-  })
-  res.filter(item => {
-    return !item.hidden
-  })
-  return res
+  const list = routeMetched
+    .map(item => {
+      return {
+        icon: item.meta.icon || '',
+        name: item.meta.title || '首页',
+        router: { name: item.name }
+      }
+    })
+    .filter(item => !item.hidden)
+  return list
 }

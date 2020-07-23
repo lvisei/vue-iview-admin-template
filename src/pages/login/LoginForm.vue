@@ -34,7 +34,7 @@
             class="login-form__captcha"
             :src="captchaUrl"
             alt="验证码"
-            @click="handClickCaptcha"
+            @click="getCaptchaBS64('reload')"
           />
         </i-col>
       </i-row>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getCaptchaidApi, getCaptchaUrl } from '@/api/personal-center/user'
+import { getCaptchaidApi, getCaptchaBase64 } from '@/api/personal-center/user'
 
 export default {
   name: 'LoginForm',
@@ -67,13 +67,14 @@ export default {
       default: () => {
         return [{ required: true, message: '密码不能为空', trigger: 'blur' }]
       }
-    }
+    },
+    reloadCaptcha: String
   },
 
   data() {
     return {
       captchaId: '',
-      reloadCaptcha: '',
+      captchaUrl: '',
       form: {
         username: 'super-admin',
         password: 'super-admin',
@@ -83,11 +84,6 @@ export default {
   },
 
   computed: {
-    captchaUrl() {
-      const { captchaId, reloadCaptcha } = this
-      return captchaId ? getCaptchaUrl(captchaId, reloadCaptcha) : ''
-    },
-
     rules() {
       return {
         username: this.userNameRules,
@@ -96,19 +92,38 @@ export default {
     }
   },
 
+  watch: {
+    reloadCaptcha(val) {
+      getCaptchaidApi().then(({ captchaId }) => {
+        this.captchaId = captchaId
+        this.getCaptchaBS64()
+      })
+    }
+  },
+
   created() {
-    getCaptchaidApi().then(({ captchaId }) => (this.captchaId = captchaId))
+    getCaptchaidApi().then(({ captchaId }) => {
+      this.captchaId = captchaId
+      this.getCaptchaBS64()
+    })
   },
 
   methods: {
-    handClickCaptcha() {
-      this.reloadCaptcha += 'reload'
+    getCaptchaBS64(reloadCaptcha) {
+      const { captchaId } = this
+      getCaptchaBase64(captchaId, reloadCaptcha)
+        .then(base64 => {
+          this.captchaUrl = base64
+        })
+        .catch(error => {
+          this.$Message.error(error.message)
+        })
     },
 
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$emit('on-success-valid', {
+          this.$emit('on-submit', {
             username: this.form.username,
             password: this.form.password,
             captchaCode: this.form.captchaCode,

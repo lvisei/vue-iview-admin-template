@@ -39,6 +39,7 @@ export function generaMenu(routes, data) {
       name: item.routeName,
       path: item.routePath,
       component: loadComponent(item.component),
+      redirect: item.children ? { name: item.children[0].routeName } : null,
       hidden: item.showStatus === 0,
       children: [],
       meta: { title: item.name, icon: item.icon }

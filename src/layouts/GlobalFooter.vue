@@ -13,7 +13,7 @@ export default {
   props: {
     copyright: {
       type: String,
-      default: ''
+      default: copyright
     }
   },
 

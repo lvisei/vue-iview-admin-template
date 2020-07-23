@@ -1,21 +1,15 @@
 <template>
   <div class="dashboard">
-    <PanelGroup :panel-data="panelData" />
+    <PanelGroup :data="panelData" />
     <i-row class="dashboard__multi-chart" :gutter="32">
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <RaddarChart />
-        </div>
+        <RaddarChart class="dashboard__chart-wrapper" />
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <PieChart />
-        </div>
+        <PieChart class="dashboard__chart-wrapper" />
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <BarChart />
-        </div>
+        <BarChart class="dashboard__chart-wrapper" />
       </i-col>
     </i-row>
     <i-card class="dashboard__line-chart" shadow>
@@ -104,12 +98,11 @@ export default {
 
   &__multi-chart {
     margin-top: 20px;
+  }
 
-    .chart-wrapper {
-      background: #fff;
-      padding: 16px 16px 0;
-      margin-bottom: 10px;
-    }
+  &__chart-wrapper {
+    padding: 10px 10px 0;
+    background: #fff;
   }
 }
 </style>

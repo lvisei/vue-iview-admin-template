@@ -13,8 +13,22 @@ export function getCaptchaidApi() {
  * 响应图形验证码
  * @returns {Promise}
  */
-export function getCaptchaUrl(id, reload) {
-  return `${process.env.VUE_APP_BASE_API}/pub/login/captcha?id=${id}&reload=${reload}`
+export function getCaptchaBase64(id, reload) {
+  return request
+    .get('/pub/login/captcha', {
+      params: { id, reload },
+      responseType: 'blob'
+    })
+    .then(blob => {
+      const reader = new FileReader()
+      return new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const base64 = reader.result
+          resolve(base64)
+        }
+        reader.readAsDataURL(blob)
+      })
+    })
 }
 
 /**

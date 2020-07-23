@@ -6,10 +6,10 @@ import JSEncrypt from 'jsencrypt'
  * @returns ciphertext
  */
 export const rsaEncrypt = (text, publicKey) => {
-  let _publicKey = '-----BEGIN PUBLIC KEY-----' + publicKey + '-----END PUBLIC KEY-----'
-  let encrypt = new JSEncrypt()
+  const _publicKey = '-----BEGIN PUBLIC KEY-----' + publicKey + '-----END PUBLIC KEY-----'
+  const encrypt = new JSEncrypt()
   encrypt.setPublicKey(_publicKey)
-  let encrypted = encrypt.encrypt(text)
+  const encrypted = encrypt.encrypt(text)
   return encrypted
 }
 /**
@@ -19,9 +19,10 @@ export const rsaEncrypt = (text, publicKey) => {
  * @returns text
  */
 export const rsaDecrypt = (ciphertext, privateKey) => {
-  let _privateKey = '-----BEGIN RSA PRIVATE KEY-----' + privateKey + '-----END RSA PRIVATE KEY-----'
-  let decrypt = new JSEncrypt()
+  const _privateKey =
+    '-----BEGIN RSA PRIVATE KEY-----' + privateKey + '-----END RSA PRIVATE KEY-----'
+  const decrypt = new JSEncrypt()
   decrypt.setPrivateKey(_privateKey)
-  let uncrypted = decrypt.decrypt(ciphertext)
+  const uncrypted = decrypt.decrypt(ciphertext)
   return uncrypted
 }

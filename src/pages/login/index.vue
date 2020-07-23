@@ -1,20 +1,20 @@
 <template>
   <i-layout class="login-wrapper" ref="bg">
-    <div class="login-content">
-      <div class="login-header">
-        <img src="~@/assets/images/logo.png" alt="logo" class="logo" />
-        <span class="title">{{ siteName }}</span>
+    <div class="login">
+      <div class="login__header">
+        <img src="~@/assets/images/logo.png" alt="logo" class="login__logo" />
+        <span class="login__title">{{ siteName }}</span>
       </div>
-      <i-card class="login-main" title="账户密码登录" shadow>
-        <LoginForm :loading="loading" @on-success-valid="handleSubmit" />
-        <p class="mark">
+      <i-card class="login__form-pane" title="账户密码登录" shadow>
+        <LoginForm :loading="loading" :reload-captcha="reloadCaptcha" @on-submit="handleSubmit" />
+        <p class="login__mark">
           <span>用户名：super-admin</span>
           <span>密码：super-admin</span>
         </p>
       </i-card>
     </div>
     <i-footer class="global-layout__footer">
-      <global-footer />
+      <GlobalFooter />
     </i-footer>
   </i-layout>
 </template>
@@ -45,7 +45,28 @@ export default {
         count: 220,
         zIndex: 0,
         opacity: 0.8
-      }
+      },
+      reloadCaptcha: '',
+      redirectPath: undefined,
+      otherQuery: {}
+    }
+  },
+
+  watch: {
+    $route: {
+      handler: function(route) {
+        const query = route.query
+        if (query) {
+          this.redirectPath = query.redirectPath
+          this.otherQuery = Object.keys(query).reduce((acc, cur) => {
+            if (cur !== 'redirectPath') {
+              acc[cur] = query[cur]
+            }
+            return acc
+          }, {})
+        }
+      },
+      immediate: true
     }
   },
 
@@ -68,11 +89,14 @@ export default {
           this.$Message.success({
             content: '登陆成功~',
             onClose: () => {
-              this.$router.push({ path: '/' })
+              this.$router
+                .push({ path: this.redirectPath || '/', query: this.otherQuery })
+                .catch(err => console.log(err))
             }
           })
         })
         .catch(error => {
+          this.reloadCaptcha = new Date().getTime().toString()
           this.loading = false
           this.$Message.error(error.message)
         })
@@ -82,64 +106,59 @@ export default {
 </script>
 
 <style lang="less">
+.login-wrapper {
+  height: 100vh;
+  &.ivu-layout {
+    background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
+    background-repeat: no-repeat;
+    background-position: center 110px;
+    background-size: 100%;
+  }
+}
+
 .login {
-  &-wrapper {
-    height: 100vh;
-    &.ivu-layout {
-      background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
-      background-repeat: no-repeat;
-      background-position: center 110px;
-      background-size: 100%;
-    }
-  }
+  z-index: 1;
+  flex: 1;
+  padding-top: 150px;
 
-  &-content {
-    z-index: 1;
-    flex: 1;
-    padding-top: 150px;
-  }
-
-  &-header {
+  &__header {
     padding: 15px 0;
     font-size: 30px;
     font-weight: 500;
     text-align: center;
-
-    .logo {
-      height: 45px;
-      margin: 0 15px;
-      vertical-align: top;
-    }
-
-    .title {
-      font-size: 28px;
-      font-weight: 600;
-    }
   }
 
-  &-main {
+  &__logo {
+    height: 45px;
+    margin: 0 15px;
+    vertical-align: top;
+  }
+
+  &__title {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  &__form-pane {
     width: 368px;
     margin: 50px auto;
+
     .ivu-card-head {
       font-size: 16px;
       text-align: center;
       padding: 20px 0;
-
-      p {
-        color: #666;
-      }
     }
 
     .ivu-card-body {
       padding: 30px;
     }
+  }
 
-    .mark {
-      color: #ccc;
-      text-align: center;
-      display: flex;
-      justify-content: space-between;
-    }
+  &__mark {
+    color: #ccc;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

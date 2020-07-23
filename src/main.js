@@ -30,6 +30,10 @@ Vue.use(Clipboard)
 Vue.prototype.$utils = utils
 Vue.prototype.$http = request
 
+/* permission control */
+
+import '@/permission'
+
 /* Config */
 
 Vue.config.productionTip = false

@@ -22,7 +22,7 @@
           </i-menu-item>
         </template>
         <template v-else>
-          <side-menu-item
+          <SideMenuItem
             v-if="showChildren(item)"
             :parent-item="item"
             :key="index"
@@ -37,9 +37,9 @@
       </template>
     </i-menu>
     <!-- folded menu -->
-    <div class="menu-collapsed" v-show="collapsed" :list="menuList">
+    <div class="side-menu__menu-collapsed" v-show="collapsed" :list="menuList">
       <template v-for="(item, index) in menuList">
-        <collapsed-menu
+        <CollapsedMenu
           v-if="item.children && item.children.length > 1"
           @on-click="handleSelect"
           hide-title
@@ -56,7 +56,7 @@
           placement="right"
           :key="index"
         >
-          <a @click="handleSelect(getRouteNameOrHref(item))" class="drop-menu-a">
+          <a @click="handleSelect(getRouteNameOrHref(item))" class="side-menu__drop-menu-a">
             <i-icon
               :size="rootIconSize"
               :color="textColor"
@@ -181,7 +181,7 @@ export default {
 .side-menu {
   user-select: none;
 
-  .menu-collapsed {
+  &__menu-collapsed {
     padding-top: 10px;
 
     .ivu-dropdown {
@@ -212,16 +212,12 @@ export default {
     }
   }
 
-  .drop-menu-a {
+  &__drop-menu-a {
     display: inline-block;
     padding: 14px 15px;
     width: 100%;
     text-align: center;
     color: #495060;
   }
-}
-
-.menu-title {
-  padding-left: 6px;
 }
 </style>

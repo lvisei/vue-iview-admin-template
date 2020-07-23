@@ -5,6 +5,7 @@ import {
   getUserInfoApi
 } from '@/api/personal-center/user'
 import { getToken, setToken, removeToken } from '@/helpers/auth'
+import { resetRouter } from '@/router'
 
 const defaultUser = { userId: '', userName: '', realName: '', avatar: '', roles: [] }
 
@@ -82,15 +83,11 @@ const actions = {
     })
   },
 
-  userLogOut: async ({ commit }) => {
+  userLogOut: async ({ commit, dispatch }) => {
     try {
       const data = await userLogOutApi()
 
-      commit('SET_TOKEN', '')
-      commit('SET_RIGHTS', [])
-      commit('SET_ROLES', [])
-      commit('SET_USER', { ...defaultUser })
-      removeToken()
+      dispatch('resetToken')
 
       return data
     } catch (err) {
@@ -106,6 +103,7 @@ const actions = {
       commit('SET_ROLES', [])
       commit('SET_USER', { ...defaultUser })
       removeToken()
+      resetRouter()
       resolve()
     })
   }

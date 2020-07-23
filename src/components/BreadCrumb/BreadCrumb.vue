@@ -1,11 +1,7 @@
 <template>
   <div class="bread-crumb">
     <i-breadcrumb :style="{ fontSize: `${fontSize}px` }">
-      <i-breadcrumb-item
-        v-for="(item, index) in breadCrumbList"
-        :to="index ? '' : item.router"
-        :key="index"
-      >
+      <i-breadcrumb-item v-for="(item, index) in breadCrumbList" :to="item.router" :key="index">
         <i-icon class="icon" v-if="showIcon" :type="item.icon || ''" />
         {{ item.name }}
       </i-breadcrumb-item>
