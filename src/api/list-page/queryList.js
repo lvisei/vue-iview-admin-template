@@ -1,21 +1,21 @@
 import request from '@/helpers/request'
 
 export const getUserListApi = params => {
-  return request.get('mock/user/search', { params: params })
+  return request.get('/mock/users', { params: params })
 }
 
 export const addUserApi = params => {
-  return request.post('mock/user/insert', params)
+  return new Promise((resolve, reject) => resolve())
 }
 
 export const updateUserApi = params => {
-  return request.post('mock/user/update', params)
+  return new Promise((resolve, reject) => resolve())
 }
 
 export const disbleUserApi = param => {
-  return request.post('mock/user/disable', param)
+  return new Promise((resolve, reject) => resolve())
 }
 
 export const deleteUserApi = param => {
-  return request.post('mock/user/delete', param)
+  return new Promise((resolve, reject) => resolve())
 }

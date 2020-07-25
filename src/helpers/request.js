@@ -99,7 +99,7 @@ request.interceptors.response.use(
       if (code === 9999) {
         Message.info({
           content: 'Login Timeout',
-          duration: 5,
+          duration: 2,
           onClose() {
             store.dispatch('user/resetToken').then(() => {
               location.reload()

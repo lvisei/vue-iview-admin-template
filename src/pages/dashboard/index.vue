@@ -65,8 +65,8 @@ export default {
   watch: {},
 
   created() {
-    getSysLogCountApi().then(res => {
-      let { online, newVisits, totalUser, messages } = res.data
+    getSysLogCountApi().then(data => {
+      let { online, newVisits, totalUser, messages } = data
       let inforCount = [online, newVisits, totalUser, messages]
       this.panelData = this.panelData.map((item, index) => {
         return { ...item, count: inforCount[index] }

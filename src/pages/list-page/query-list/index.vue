@@ -205,16 +205,16 @@ export default {
 
     onAddSubmit(userInfo) {
       this.addSubmitLoading = true
-      addUserApi(userInfo).then(res => {
-        if (res.code === 20000) {
+      addUserApi(userInfo)
+        .then(_ => {
           this.addPaneVisible = false
           this.$Message.success('添加用户成功~')
           this.upTableData()
-        } else {
-          this.$Message.error(res.message)
-        }
-        this.addSubmitLoading = false
-      })
+        })
+        .catch(({ message }) => {
+          this.$Message.error(message)
+        })
+        .finally(_ => (this.addSubmitLoading = false))
     },
 
     editUser(row) {
@@ -224,16 +224,18 @@ export default {
 
     onEditSubmit(newUserInfo) {
       this.editSubmitLoading = true
-      updateUserApi(newUserInfo).then(res => {
-        if (res.code === 20000) {
+      updateUserApi(newUserInfo)
+        .then(_ => {
           this.editPaneVisible = false
           this.$Message.success('修改用户信息成功~')
           this.upTableData()
-        } else {
-          this.$Message.error(res.message)
-        }
-        this.editSubmitLoading = false
-      })
+
+          this.editSubmitLoading = false
+        })
+        .catch(({ message }) => {
+          this.$Message.error(message)
+        })
+        .finally(_ => (this.editSubmitLoading = false))
     },
 
     changeUserPassword(row) {
@@ -247,30 +249,30 @@ export default {
         username,
         passwordold: oldPassword,
         password: newPassword
-      }).then(res => {
-        if (res.code === 20000) {
+      })
+        .then(_ => {
           this.$Message.success('修改密码成功~')
           this.passwordPaneVisible = false
-        } else {
-          this.$Message.error(res.message)
-        }
-        this.passwordSubmitLoading = false
-      })
+        })
+        .catch(({ message }) => {
+          this.$Message.error(message)
+        })
+        .finally(_ => (this.passwordSubmitLoading = false))
     },
 
     disbleUser(usernames) {
       this.$Modal.confirm({
         title: `确定禁用用户${usernames}`,
         onOk: () => {
-          disbleUserApi({ usernames: [...usernames] }).then(res => {
-            if (res.code === 20000) {
+          disbleUserApi({ usernames: [...usernames] })
+            .then(res => {
               this.canBatch = false
               this.$Message.success('禁用用户成功~')
               this.upTableData()
-            } else {
-              this.$Message.error(res.message)
-            }
-          })
+            })
+            .catch(({ message }) => {
+              this.$Message.error(message)
+            })
         }
       })
     },
@@ -279,26 +281,26 @@ export default {
       this.$Modal.confirm({
         title: `确定删除用户${usernames}`,
         onOk: () => {
-          deleteUserApi({ usernames: [...usernames] }).then(res => {
-            if (res.code === 20000) {
+          deleteUserApi({ usernames: [...usernames] })
+            .then(res => {
               this.canBatch = false
               this.$Message.success('删除用户成功~')
               this.upTableData()
-            } else {
-              this.$Message.error(res.message)
-            }
-          })
+            })
+            .catch(({ message }) => {
+              this.$Message.error(message)
+            })
         }
       })
     },
 
     upTableData() {
       this.tableLoading = !this.spinShow
-      return this.getUserList(this.userListParams()).then(({ userList, count }) => {
-        this.tableData = userList
-        this.totalCount = count
+      return this.getUserList(this.userListParams()).then(({ list, total }) => {
+        this.tableData = list
+        this.totalCount = total
         this.tableLoading = false
-        return { userList, count }
+        return { list, total }
       })
     },
 
@@ -314,9 +316,12 @@ export default {
 
     async getUserList(params) {
       try {
-        const response = await getUserListApi(params)
-        const { userList = [], count = 0 } = response.data
-        return { userList, count }
+        const data = await getUserListApi(params)
+        const {
+          list = [],
+          pagination: { total }
+        } = data
+        return { list, total }
       } catch (err) {
         console.log(err) // eslint-disable-line
         return err
