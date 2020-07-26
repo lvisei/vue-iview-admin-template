@@ -76,8 +76,8 @@ export default {
       captchaId: '',
       captchaUrl: '',
       form: {
-        username: 'super-admin',
-        password: 'super-admin',
+        username: 'admin',
+        password: '123456',
         captchaCode: ''
       }
     }
@@ -87,7 +87,8 @@ export default {
     rules() {
       return {
         username: this.userNameRules,
-        password: this.passwordRules
+        password: this.passwordRules,
+        captchaCode: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
       }
     }
   },
