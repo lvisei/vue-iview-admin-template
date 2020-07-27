@@ -2,6 +2,17 @@
 
 ## Code Standards
 
+### Basis
+
+- [Front-End Coding Guidelines](https://guide.aotu.io/) - 编码规范由京东凹凸实验室整理。
+- CSS BEM
+  - [了解 BEM](http://getbem.com/)。
+  - CSS命名BEM规范[BEM](http://getbem.com/naming/) - [CSS BEM 书写规范](https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-%5B%E8%A7%84%E8%8C%83%5D--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83)。
+  - [使用 BEM 命名规范来组织 CSS 代码](https://zhuanlan.zhihu.com/p/46073785)。
+  - [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
+
+### Vue
+
 - 组件相关
   - 语义化命名组件。
   - 只要有能够拼接文件的构建系统，每个组件单独分成文件。
@@ -57,10 +68,6 @@
   - 调试结束，把不用的 console.log(...) 及时删掉，它会影响性能 。
 - 其他
   - `Commit` 代码之前，[要先效验与格式化代码](/#Usage) `npm run lint`，没有问题再提交。如果使用的 git 版本工具，commit 前会自动 lint code， 没有错误才会 commit 成功。
-  - [了解 BEM](http://getbem.com/)。
-  - CSS命名BEM规范[BEM](http://getbem.com/naming/) - [CSS BEM 书写规范](https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-%5B%E8%A7%84%E8%8C%83%5D--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83)
-  - [使用 BEM 命名规范来组织 CSS 代码](https://zhuanlan.zhihu.com/p/46073785)。
-  - [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
   - 更多 Standards 参考[ Vue 官方的特有代码的风格指南](https://cn.vuejs.org/v2/style-guide/)。
   - [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)
 

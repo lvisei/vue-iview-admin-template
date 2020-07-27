@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/liuvigongzuoshi/vue-iview-admin-template">
-    <img alt="vue-iview-admin-template" width="200" src="./docs/_media/logo.png">
+    <img alt="vue-iview-admin-template" width="200" src="./_media/logo.png">
   </a>
 </p>
 
@@ -8,7 +8,7 @@
 
 # vue-iview-admin-template
 
-基于第三方组件 iView 参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
+基于 View UI 组件库参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
 
 [![vue](https://img.shields.io/badge/vue-2.6.10-brightgreen.svg)](https://github.com/vuejs/vue)
 [![view-design](https://img.shields.io/badge/view_design-4.3.2-brightgreen.svg)](https://github.com/view-design/ViewUI)
