@@ -26,7 +26,7 @@
     "leaflet": "^1.6.0",
     "lodash": "^4.17.19",
     "mapbox-gl": "^1.11.1",
-    "ol": "^6.3.1",
+    "ol": "^6.4.0",
     "proj4": "^2.6.2",
     "register-service-worker": "^1.7.1",
     "v-clipboard": "^2.2.3",

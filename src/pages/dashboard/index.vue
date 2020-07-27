@@ -21,11 +21,11 @@
 <script>
 import echarts from 'echarts/lib/echarts'
 import chartTheme from '@/themes/chart-theme'
-import PanelGroup from './PanelGroup'
-import LineChart from './LineChart'
-import RaddarChart from './RaddarChart'
-import PieChart from './PieChart'
-import BarChart from './BarChart'
+import PanelGroup from './components/PanelGroup'
+import LineChart from './components/LineChart'
+import RaddarChart from './components/RaddarChart'
+import PieChart from './components/PieChart'
+import BarChart from './components/BarChart'
 import { getSysLogCountApi } from '@/api/dashboard'
 
 echarts.registerTheme('chartTheme', chartTheme)
