@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MapContainer from './MapContainer'
+import MapContainer from '@/views/OpenlayersMap/MapContainer'
 
 export default {
   name: 'Openlayers',

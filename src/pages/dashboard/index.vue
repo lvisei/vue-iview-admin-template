@@ -1,21 +1,15 @@
 <template>
   <div class="dashboard">
-    <PanelGroup :panel-data="panelData" />
+    <PanelGroup :data="panelData" />
     <i-row class="dashboard__multi-chart" :gutter="32">
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <RaddarChart />
-        </div>
+        <RaddarChart class="dashboard__chart-wrapper" />
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <PieChart />
-        </div>
+        <PieChart class="dashboard__chart-wrapper" />
       </i-col>
       <i-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <BarChart />
-        </div>
+        <BarChart class="dashboard__chart-wrapper" />
       </i-col>
     </i-row>
     <i-card class="dashboard__line-chart" shadow>
@@ -27,11 +21,11 @@
 <script>
 import echarts from 'echarts/lib/echarts'
 import chartTheme from '@/themes/chart-theme'
-import PanelGroup from './PanelGroup'
-import LineChart from './LineChart'
-import RaddarChart from './RaddarChart'
-import PieChart from './PieChart'
-import BarChart from './BarChart'
+import PanelGroup from './components/PanelGroup'
+import LineChart from './components/LineChart'
+import RaddarChart from './components/RaddarChart'
+import PieChart from './components/PieChart'
+import BarChart from './components/BarChart'
 import { getSysLogCountApi } from '@/api/dashboard'
 
 echarts.registerTheme('chartTheme', chartTheme)
@@ -71,8 +65,8 @@ export default {
   watch: {},
 
   created() {
-    getSysLogCountApi().then(res => {
-      let { online, newVisits, totalUser, messages } = res.data
+    getSysLogCountApi().then(data => {
+      let { online, newVisits, totalUser, messages } = data
       let inforCount = [online, newVisits, totalUser, messages]
       this.panelData = this.panelData.map((item, index) => {
         return { ...item, count: inforCount[index] }
@@ -104,12 +98,11 @@ export default {
 
   &__multi-chart {
     margin-top: 20px;
+  }
 
-    .chart-wrapper {
-      background: #fff;
-      padding: 16px 16px 0;
-      margin-bottom: 10px;
-    }
+  &__chart-wrapper {
+    padding: 10px 10px 0;
+    background: #fff;
   }
 }
 </style>

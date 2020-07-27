@@ -1,6 +1,6 @@
 import { setLocalstorage, getLocalstorage, removeLocalstorage } from '@/utils/index'
 
-const TokenKey = 'authenticate-token'
+const TokenKey = 'vue-iview-admin-template:authenticate-token'
 
 export function getToken() {
   return getLocalstorage(TokenKey)

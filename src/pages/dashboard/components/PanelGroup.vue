@@ -1,13 +1,12 @@
 <template>
   <i-row :gutter="40">
     <i-col
-      class="infor-item"
       :xs="12"
       :md="12"
       :lg="6"
-      v-for="(item, index) in panelData"
+      v-for="(item, index) in data"
       :key="index"
-      style="height: 120px;padding-bottom: 10px;"
+      style="height: 120px; padding-bottom: 10px;"
     >
       <info-card shadow :color="item.color" :icon="item.icon" :icon-size="36">
         <count-to :end="item.count" />
@@ -32,7 +31,7 @@ export default {
   filters: {},
 
   props: {
-    panelData: {
+    data: {
       type: Array,
       required: true
     }

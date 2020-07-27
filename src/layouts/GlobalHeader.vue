@@ -2,8 +2,8 @@
   <div class="global-header">
     <svg-icon icon-class="menu-fold" :class-name="rotateIcon" @click.native="toggleCollapse" />
     <div class="global-header__custom-content">
-      <header-user />
       <Fullscreen v-model="isFullscreen" />
+      <HeaderUser />
     </div>
   </div>
 </template>
@@ -35,7 +35,9 @@ export default {
 
   computed: {
     rotateIcon() {
-      return this.isCollapsed ? 'menu-icon rotate-icon' : 'menu-icon'
+      return this.isCollapsed
+        ? 'global-header__menu-icon global-header__menu-icon_rotate'
+        : 'global-header__menu-icon'
     }
   },
 
@@ -55,7 +57,10 @@ export default {
 
 <style lang="less">
 .global-header {
-  .menu-icon {
+  display: flex;
+  align-items: center;
+
+  &__menu-icon {
     transition: all 0.3s;
     margin-right: 30px;
     cursor: pointer;
@@ -64,18 +69,18 @@ export default {
     &:hover {
       color: #1890ff;
     }
-  }
 
-  .rotate-icon {
-    transform: rotate(-180deg);
+    &_rotate {
+      transform: rotate(-180deg);
+    }
   }
 
   &__custom-content {
-    float: right;
+    display: flex;
+    margin-left: auto;
     height: 100%;
 
     & > * {
-      float: right;
       margin-right: 20px;
     }
   }

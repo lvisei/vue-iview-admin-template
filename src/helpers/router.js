@@ -1,34 +1,36 @@
 /**
  * 是否有子路由
- * @param 	{Array} list 路由列表数组 routes
+ * @param 	{Array} route 路由 route
  * @returns {Boolean}
  */
-const hasChild = list => {
-  return list.children && list.children.length !== 0
+const hasChild = route => {
+  return route.children && route.children.length !== 0
 }
 
 /**
  * 通过路由列表得到菜单列表
- * @param 	{Array} list 路由列表数组 routes
+ * @param 	{Array} routes 路由列表数组 routes
  * @returns {Array}
  */
-export const getMenuList = list => {
-  let res = []
-  list.forEach(item => {
-    if (item.meta && !item.hidden) {
-      let obj = {
-        name: item.name,
-        icon: item.meta.icon || '',
-        title: item.meta.title
+export const getMenuList = routes => {
+  let menuList = []
+  routes.forEach(item => {
+    if (!item.hidden) {
+      const { name, meta, children } = item
+      const route = {
+        name: name,
+        icon: (meta && meta.icon) || '',
+        title: (meta && meta.title) || '',
+        children: []
       }
       if (hasChild(item)) {
-        obj.children = getMenuList(item.children)
+        route.children = getMenuList(children)
       }
-      if (item.meta && item.meta.href) obj.href = item.meta.href
-      res.push(obj)
+      if (item.meta && item.meta.href) route.href = item.meta.href
+      menuList.push(route)
     }
   })
-  return res
+  return menuList
 }
 
 /**
@@ -37,15 +39,14 @@ export const getMenuList = list => {
  * @returns {Array}
  */
 export const getBreadCrumbList = routeMetched => {
-  let res = routeMetched.map(item => {
-    return {
-      icon: item.meta.icon || '',
-      name: item.meta.title || '首页',
-      router: { name: item.name }
-    }
-  })
-  res.filter(item => {
-    return !item.hidden
-  })
-  return res
+  const list = routeMetched
+    .map(item => {
+      return {
+        icon: item.meta.icon || '',
+        name: item.meta.title || '首页',
+        router: { name: item.name }
+      }
+    })
+    .filter(item => !item.hidden)
+  return list
 }

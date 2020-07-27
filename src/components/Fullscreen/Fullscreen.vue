@@ -1,7 +1,12 @@
 <template>
   <div v-if="showFullScreenBtn" class="full-screen">
     <i-tooltip :content="value ? '退出全屏' : '全屏'" placement="bottom">
-      <i-icon @click.native="handleChange" :type="value ? 'md-contract' : 'md-expand'" :size="23" />
+      <i-icon
+        class="full-screen__icon"
+        :type="value ? 'ios-contract' : 'ios-expand'"
+        :size="23"
+        @click.native="handleChange"
+      />
     </i-tooltip>
   </div>
 </template>
@@ -85,12 +90,10 @@ export default {
 </script>
 
 <style lang="less">
-.full-screen .ivu-tooltip-rel {
-  height: 64px;
-  line-height: 56px;
-
-  i {
+.full-screen {
+  &__icon.ivu-icon {
     cursor: pointer;
+    vertical-align: middle;
   }
 }
 </style>

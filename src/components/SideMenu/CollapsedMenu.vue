@@ -2,31 +2,31 @@
   <i-dropdown
     ref="dropdown"
     @on-click="handleClick"
-    :class="hideTitle ? '' : 'collased-menu-dropdown'"
+    :class="['collapsed-menu', hideTitle ? '' : 'collased-menu-dropdown']"
     :transfer="hideTitle"
     :placement="placement"
   >
     <a
-      class="drop-menu-a"
+      class="side-menu__drop-menu-a"
       type="text"
       @mouseover="handleMousemove($event, children)"
       :style="{ textAlign: !hideTitle ? 'left' : '' }"
     >
       <i-icon :size="rootIconSize" :color="textColor" :type="parentItem.icon" />
-      <span class="menu-title" v-if="!hideTitle">{{ parentItem.title }}</span>
+      <span class="collapsed-menu__menu-title" v-if="!hideTitle">{{ parentItem.title }}</span>
       <i-icon style="float: right;" v-if="!hideTitle" type="ios-arrow-forward" :size="16" />
     </a>
     <i-dropdown-menu ref="dropdown" slot="list">
       <template v-for="(child, index) in children">
-        <collapsed-menu
+        <CollapsedMenu
           v-if="showChildren(child)"
           :icon-size="iconSize"
           :parent-item="child"
           :key="index"
-        ></collapsed-menu>
+        ></CollapsedMenu>
         <i-dropdown-item v-else :key="index" :name="child.name">
           <i-icon :size="iconSize" :type="child.icon" />
-          <span class="menu-title">{{ child.title }}</span>
+          <span class="collapsed-menu__menu-title">{{ child.title }}</span>
         </i-dropdown-item>
       </template>
     </i-dropdown-menu>
@@ -115,3 +115,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.collapsed-menu {
+  &__menu-title {
+    padding-left: 6px;
+  }
+}
+</style>

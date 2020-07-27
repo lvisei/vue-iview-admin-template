@@ -6,17 +6,17 @@
     </template>
     <template v-for="(item, index) in children">
       <template v-if="item.children && item.children.length === 1">
-        <menu-item :name="getRouteNameOrHref(item.children[0])" :key="index">
+        <i-menu-item :name="getRouteNameOrHref(item.children[0])" :key="index">
           <i-icon :type="item.children[0].icon || ''" :size="iconSize" />
           <span>{{ item.children[0].title }}</span>
-        </menu-item>
+        </i-menu-item>
       </template>
       <template v-else>
-        <side-menu-item v-if="showChildren(item)" :key="index" :parent-item="item" />
-        <menu-item v-else :name="getRouteNameOrHref(item)" :key="index">
+        <SideMenuItem v-if="showChildren(item)" :key="index" :parent-item="item" />
+        <i-menu-item v-else :name="getRouteNameOrHref(item)" :key="index">
           <i-icon :type="item.icon || ''" :size="iconSize" />
           <span>{{ item.title }}</span>
-        </menu-item>
+        </i-menu-item>
       </template>
     </template>
   </i-submenu>

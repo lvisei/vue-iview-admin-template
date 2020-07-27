@@ -48,13 +48,13 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
     // do something before request is sent
-    let urlParams = config.url + JSON.stringify(config.params)
-    if (cancelRequest.has(urlParams)) {
-      cancelRequest.get(urlParams)(repeatMsg)
-    }
-    config.cancelToken = new CancelToken(cancel => {
-      cancelRequest.set(urlParams, cancel)
-    })
+    // let urlParams = config.url + JSON.stringify(config.params)
+    // if (cancelRequest.has(urlParams)) {
+    //   cancelRequest.get(urlParams)(repeatMsg)
+    // }
+    // config.cancelToken = new CancelToken(cancel => {
+    //   cancelRequest.set(urlParams, cancel)
+    // })
 
     // Switch page to cancel request
     // https://github.com/dingFY/vue-iview3-admin/blob/master/src/api/axios.js#L72
@@ -81,12 +81,25 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   response => {
     const data = response.data
-    if (data.code !== 20000) {
-      // 20004: illegal token; 20003: Token expired;
-      if (data.code === 20004 || data.code === 20003) {
+    const { error } = data
+    if (error) {
+      const { code, message } = error
+      tip(message)
+      return Promise.reject(data)
+    }
+    return data
+  },
+  error => {
+    const { response } = error
+    const { data } = response
+    const { error: err } = data
+    if (data && err) {
+      const { code, message } = err
+      // Token expired;
+      if (code === 9999) {
         Message.info({
           content: 'Login Timeout',
-          duration: 10,
+          duration: 2,
           onClose() {
             store.dispatch('user/resetToken').then(() => {
               location.reload()
@@ -94,27 +107,32 @@ request.interceptors.response.use(
           }
         })
       } else {
-        tip(data.message)
+        const errCodeMap = {
+          401: '无数据权限',
+          // 404: '资源不存在',
+          // 405: '方法不被允许',
+          // 429: '请求过于频繁',
+          500: '服务器发生错误'
+        }
+        errCodeMap[code] && tip(message)
+
+        return Promise.reject(err)
       }
-      return Promise.reject(new Error(data.message || 'Error'))
     } else {
-      return data
+      const { statusText, status, message } = response
+      if (response) {
+        // The request has been issued, but not in the range of 2 xx
+        tip(`Status:${status},Message: ${statusText}`)
+        return Promise.reject(new Error(response || 'Error'))
+      } else if (message === repeatMsg) {
+        tip('repeat request')
+      } else {
+        // To deal with broken network
+        tip(`Broken Network, ${message}`)
+      }
+      // eslint-disable-next-line
+      console.log(`err:${error}`)
     }
-  },
-  error => {
-    const { response, message } = error
-    if (response) {
-      // The request has been issued, but not in the range of 2 xx
-      tip(`Status:${response.status},Message: ${message}`)
-      return Promise.reject(response)
-    } else if (message === repeatMsg) {
-      tip('repeat request')
-    } else {
-      // To deal with broken network
-      tip(`Broken Network, ${message}`)
-    }
-    // eslint-disable-next-line
-    console.log(`err:${error}`)
   }
 )
 

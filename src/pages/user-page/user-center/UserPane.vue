@@ -2,7 +2,7 @@
   <i-card class="user-pane" shadow>
     <div class="user-pane__avatar">
       <i-avatar :src="avatar" />
-      <p class="user-pane__avatar_name">{{ userName }}</p>
+      <p class="user-pane__avatar_name">{{ realName }}</p>
     </div>
     <div class="user-pane__description">
       <p class="user-pane__description_item">
@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userName', 'accountName', 'avatar'])
+    ...mapGetters(['userName', 'realName', 'avatar'])
   },
 
   watch: {},

@@ -33,7 +33,7 @@ export default {
   },
 
   mounted() {
-    this.initChart()
+    this.$nextTick(() => this.initChart())
     this.__resizeHandler = this.$utils.debounce(() => {
       if (this.chart) {
         this.chart.resize()

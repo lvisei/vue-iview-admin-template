@@ -8,7 +8,7 @@
       :collapsed-width="64"
       v-model="isCollapsed"
     >
-      <side-menu
+      <SideMenu
         theme="dark"
         :accordion="true"
         :active-name="$route.name"
@@ -16,13 +16,13 @@
         @on-select="turnToPage"
         :menu-list="menuList"
       >
-        <div class="logo">
+        <div class="global-layout__logo layout-logo">
           <router-link to="/">
-            <img class="logo__img" src="~@/assets/images/logo.png" />
-            <h1 v-show="!isCollapsed" class="logo__title">{{ shortSiteName }}</h1>
+            <img class="layout-logo__img" src="~@/assets/images/logo.png" />
+            <h1 v-show="!isCollapsed" class="layout-logo__title">{{ shortSiteName }}</h1>
           </router-link>
         </div>
-      </side-menu>
+      </SideMenu>
     </i-sider>
     <i-layout
       :class="[
@@ -36,19 +36,20 @@
           this.isCollapsed ? 'global-layout__header_expand-width' : ''
         ]"
       >
-        <global-header :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
+        <GlobalHeader :is-collapsed="isCollapsed" @toggleCollapse="toggleCollapse" />
       </i-header>
       <i-content class="global-layout__content">
         <slot></slot>
       </i-content>
       <i-footer class="global-layout__footer">
-        <global-footer :copyright="copyright" />
+        <GlobalFooter :copyright="copyright" />
       </i-footer>
     </i-layout>
   </i-layout>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { shortSiteName, copyright } from '@/config'
 import SideMenu from '@/components/SideMenu'
 import GlobalHeader from './GlobalHeader'
@@ -71,20 +72,24 @@ export default {
   data() {
     return {
       isCollapsed: false,
-      menuList: [],
       shortSiteName: shortSiteName,
       copyright: copyright
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapGetters(['routes']),
+
+    menuList() {
+      const routes = this.routes
+      const menuList = getMenuList(routes)
+      return menuList
+    }
+  },
 
   watch: {},
 
-  created() {
-    const list = this.$router.options.routes.find(({ name }) => name === 'MainView').children
-    this.menuList = getMenuList(list)
-  },
+  created() {},
 
   mounted() {},
 
@@ -122,30 +127,12 @@ export default {
       box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
       z-index: 9;
     }
+  }
 
-    .logo {
-      height: 64px;
-      line-height: 64px;
-      text-align: center;
-
-      &__title {
-        padding-left: 20px;
-        box-sizing: border-box;
-        font-size: 19px;
-        font-weight: 600;
-        display: inline-block;
-        height: 32px;
-        line-height: 32px;
-        vertical-align: middle;
-        text-transform: uppercase;
-        color: #1890ff;
-      }
-
-      &__img {
-        height: 34px;
-        vertical-align: middle;
-      }
-    }
+  &__logo {
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
   }
 
   &__containers {
@@ -178,6 +165,26 @@ export default {
 
   &__footer {
     text-align: center;
+  }
+}
+
+.layout-logo {
+  &__title {
+    padding-left: 20px;
+    box-sizing: border-box;
+    font-size: 19px;
+    font-weight: 600;
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #1890ff;
+  }
+
+  &__img {
+    height: 34px;
+    vertical-align: middle;
   }
 }
 </style>

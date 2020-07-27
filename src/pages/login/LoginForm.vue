@@ -20,6 +20,25 @@
         </span>
       </i-input>
     </i-form-item>
+    <i-form-item prop="captchaCode">
+      <i-row :gutter="16">
+        <i-col span="16">
+          <i-input v-model="form.captchaCode" placeholder="请输入验证码">
+            <span slot="prefix">
+              <i-icon :size="16" type="ios-image" />
+            </span>
+          </i-input>
+        </i-col>
+        <i-col span="8">
+          <img
+            class="login-form__captcha"
+            :src="captchaUrl"
+            alt="验证码"
+            @click="getCaptchaBS64('reload')"
+          />
+        </i-col>
+      </i-row>
+    </i-form-item>
     <i-form-item>
       <i-button @click="handleSubmit" type="primary" long :loading="loading">登录</i-button>
     </i-form-item>
@@ -27,6 +46,8 @@
 </template>
 
 <script>
+import { getCaptchaidApi, getCaptchaBase64 } from '@/api/personal-center/user'
+
 export default {
   name: 'LoginForm',
 
@@ -46,14 +67,18 @@ export default {
       default: () => {
         return [{ required: true, message: '密码不能为空', trigger: 'blur' }]
       }
-    }
+    },
+    reloadCaptcha: String
   },
 
   data() {
     return {
+      captchaId: '',
+      captchaUrl: '',
       form: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456',
+        captchaCode: ''
       }
     }
   },
@@ -62,18 +87,48 @@ export default {
     rules() {
       return {
         username: this.userNameRules,
-        password: this.passwordRules
+        password: this.passwordRules,
+        captchaCode: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
       }
     }
   },
 
+  watch: {
+    reloadCaptcha(val) {
+      getCaptchaidApi().then(({ captchaId }) => {
+        this.captchaId = captchaId
+        this.getCaptchaBS64()
+      })
+    }
+  },
+
+  created() {
+    getCaptchaidApi().then(({ captchaId }) => {
+      this.captchaId = captchaId
+      this.getCaptchaBS64()
+    })
+  },
+
   methods: {
+    getCaptchaBS64(reloadCaptcha) {
+      const { captchaId } = this
+      getCaptchaBase64(captchaId, reloadCaptcha)
+        .then(base64 => {
+          this.captchaUrl = base64
+        })
+        .catch(error => {
+          this.$Message.error(error.message)
+        })
+    },
+
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$emit('on-success-valid', {
+          this.$emit('on-submit', {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            captchaCode: this.form.captchaCode,
+            captchaId: this.captchaId
           })
         }
       })
@@ -90,6 +145,10 @@ export default {
     &:last-child {
       margin-bottom: 10px;
     }
+  }
+
+  &__captcha {
+    height: 33px;
   }
 }
 </style>
