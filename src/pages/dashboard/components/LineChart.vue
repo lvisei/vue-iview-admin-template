@@ -1,5 +1,5 @@
 <template>
-  <v-chart
+  <VCharts
     :options="chartOptions"
     ref="chart"
     :style="{ height: height, width: width }"
@@ -18,14 +18,10 @@ export default {
   name: 'LineChart',
 
   components: {
-    'v-chart': VCharts
+    VCharts
   },
 
   props: {
-    className: {
-      type: String,
-      default: 'chart'
-    },
     width: {
       type: String,
       default: '100%'

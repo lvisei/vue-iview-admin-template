@@ -8,10 +8,10 @@
       :key="index"
       style="height: 120px; padding-bottom: 10px;"
     >
-      <info-card shadow :color="item.color" :icon="item.icon" :icon-size="36">
-        <count-to :end="item.count" />
+      <InfoCard shadow :color="item.color" :icon="item.icon" :icon-size="36">
+        <CountTo :end="item.count" />
         <p>{{ item.title }}</p>
-      </info-card>
+      </InfoCard>
     </i-col>
   </i-row>
 </template>

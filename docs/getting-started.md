@@ -1,6 +1,6 @@
 # Quick Start
 
-> 在开始之前，推荐先学习 [Vue](https://cn.vuejs.org/) 、 [ES2015+](http://es6.ruanyifeng.com/) 、 [View UI](https://www.iviewui.com/docs/introduce) 、 [Vue CLI 3](https://cli.vuejs.org/zh/)，并正确安装和配置了 [Node.js](https://nodejs.org/) v10 或以上 、[Git](https://git-scm.com/)。提前了解和学习这些知识会非常有帮助。
+> 在开始之前，推荐先学习 [Vue](https://cn.vuejs.org/) 、 [ES2015+](http://es6.ruanyifeng.com/) 、 [View UI](https://www.iviewui.com/docs/introduce) 、 [Vue CLI 4](https://cli.vuejs.org/zh/)，并正确安装和配置了 [Node.js](https://nodejs.org/) v10 或以上 、[Git](https://git-scm.com/)。提前了解和学习这些知识会非常有帮助。
 
 ## Installation
 
