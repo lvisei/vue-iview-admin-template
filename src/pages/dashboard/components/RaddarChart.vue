@@ -1,8 +1,15 @@
 <template>
-  <div :class="className" :style="{ height: height, width: width }" />
+  <VCharts
+    :options="chartOptions"
+    ref="chart"
+    :style="{ height: height, width: width }"
+    :autoresize="autoResize"
+    theme="chartTheme"
+  />
 </template>
 
 <script>
+import VCharts from 'vue-echarts'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/radar'
 import 'echarts/lib/component/tooltip'
@@ -13,11 +20,11 @@ const animationDuration = 3000
 export default {
   name: 'RaddarChart',
 
+  components: {
+    VCharts
+  },
+
   props: {
-    className: {
-      type: String,
-      default: 'chart'
-    },
     width: {
       type: String,
       default: '100%'
@@ -25,6 +32,14 @@ export default {
     height: {
       type: String,
       default: '300px'
+    },
+    autoResize: {
+      type: Boolean,
+      default: true
+    },
+    chartData: {
+      type: Object,
+      required: false
     }
   },
 
@@ -32,30 +47,20 @@ export default {
     return {}
   },
 
-  mounted() {
-    this.$nextTick(() => this.initChart())
-    this.__resizeHandler = this.$utils.debounce(() => {
-      if (this.chart) {
-        this.chart.resize()
-      }
-    }, 100)
-    this.$utils.onEvent(window, 'resize', this.__resizeHandler)
+  computed: {
+    chartOptions() {
+      const chartData = this.chartData
+      return this.getOptions(chartData)
+    }
   },
 
-  beforeDestroy() {
-    if (!this.chart) {
-      return
-    }
-    this.$utils.offEvent(window, 'resize', this.__resizeHandler)
-    this.chart.dispose()
-    this.chart = null
-  },
+  mounted() {},
+
+  beforeDestroy() {},
 
   methods: {
-    initChart() {
-      this.chart = echarts.init(this.$el, 'chartTheme')
-
-      this.chart.setOption({
+    getOptions({ seriesData } = {}) {
+      const chartOptions = {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -121,7 +126,8 @@ export default {
             animationDuration: animationDuration
           }
         ]
-      })
+      }
+      return chartOptions
     }
   }
 }

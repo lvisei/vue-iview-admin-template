@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :style="{ height: height, width: width }" />
+  <div :style="{ height: height, width: width }" />
 </template>
 
 <script>
@@ -14,10 +14,6 @@ export default {
   name: 'BarChart',
 
   props: {
-    className: {
-      type: String,
-      default: 'chart'
-    },
     width: {
       type: String,
       default: '100%'
@@ -40,15 +36,19 @@ export default {
       }
     }, 100)
     this.$utils.onEvent(window, 'resize', this.__resizeHandler)
+    this.$once('hook:beforeDestroy', () => {
+      if (!this.chart) return
+      this.$utils.offEvent(window, 'resize', this.__resizeHandler)
+      this.chart.dispose()
+      this.chart = null
+    })
   },
 
   beforeDestroy() {
-    if (!this.chart) {
-      return
-    }
-    this.$utils.offEvent(window, 'resize', this.__resizeHandler)
-    this.chart.dispose()
-    this.chart = null
+    // if (!this.chart) return
+    // this.$utils.offEvent(window, 'resize', this.__resizeHandler)
+    // this.chart.dispose()
+    // this.chart = null
   },
 
   methods: {
