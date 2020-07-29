@@ -22,11 +22,13 @@
         ></i-input>
       </i-form-item>
     </i-form>
-    <i-button type="primary" @click="onOk" :loading="passwordSubmit">更改密码</i-button>
+    <i-button type="primary" @click="onOk" :loading="loading">更改密码</i-button>
   </div>
 </template>
 
 <script>
+import { editUserPasswordApi } from '@/api/personal-center/user'
+
 export default {
   name: 'UserSetSecurity',
 
@@ -38,7 +40,7 @@ export default {
 
   data() {
     return {
-      passwordSubmit: false,
+      loading: false,
       formData: {
         passwdOld: '',
         passwd: '',
@@ -114,16 +116,31 @@ export default {
     onOk() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let params = {
-            passwordold: this.formData.passwdOld,
-            password: this.formData.passwdCheck
-          }
-          this.passwordSubmit = true
-          this.$emit('on-submit', params)
-          this.$refs.form.resetFields()
-          this.passwordSubmit = false
+          const oldPassword = this.formData.passwdOld
+          const newPassword = this.formData.passwdCheck
+          this.editUserPassword(oldPassword, newPassword)
         }
       })
+    },
+
+    editUserPassword(oldPassword, newPassword) {
+      this.loading = true
+      editUserPasswordApi(oldPassword, newPassword)
+        .then(_ => {
+          this.$Message.success({
+            content: '修改密码成功，请重新登录！',
+            onClose: () => {
+              this.$store.dispatch('user/resetToken').then(() => {
+                location.reload()
+              })
+            }
+          })
+        })
+        .catch(error => {
+          // this.$refs.form.resetFields()
+          this.$Message.error(error.message || '修改密码失败')
+        })
+        .finally(_ => (this.loading = false))
     }
   }
 }

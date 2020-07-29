@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userName', 'realName', 'avatar'])
+    ...mapGetters(['userName', 'realName', 'avatar', 'user'])
   },
 
   watch: {},

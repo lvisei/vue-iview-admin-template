@@ -78,9 +78,18 @@ export function getUserMenutreeApi() {
 
 /**
  * 修改用户密码
+ * @param {Object} params
+ * @returns {Promise}
+ */
+export function editUserInfoApi(params) {
+  return request.put('/pub/current/user', params)
+}
+
+/**
+ * 修改用户密码
  * @param {String} oldPassword
  * @param {String} newPassword
- * @returns
+ * @returns {Promise}
  */
 export function editUserPasswordApi(oldPassword, newPassword) {
   const params = {
