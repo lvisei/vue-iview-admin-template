@@ -91,45 +91,47 @@ request.interceptors.response.use(
   },
   error => {
     const { response } = error
-    const { data } = response
-    const { error: err } = data
-    if (data && err) {
-      const { code, message } = err
-      // Token expired;
-      if (code === 9999) {
-        Message.info({
-          content: 'Login Timeout',
-          duration: 2,
-          onClose() {
-            store.dispatch('user/resetToken').then(() => {
-              location.reload()
-            })
+    if (response) {
+      const { data } = response
+      const { error: err } = data
+      if (data && err) {
+        const { code, message } = err
+        // Token expired;
+        if (code === 9999) {
+          Message.info({
+            content: 'Login Timeout',
+            duration: 2,
+            onClose() {
+              store.dispatch('user/resetToken').then(() => {
+                location.reload()
+              })
+            }
+          })
+        } else {
+          const errCodeMap = {
+            401: '无数据权限',
+            // 404: '资源不存在',
+            // 405: '方法不被允许',
+            // 429: '请求过于频繁',
+            500: '服务器发生错误'
           }
-        })
-      } else {
-        const errCodeMap = {
-          401: '无数据权限',
-          // 404: '资源不存在',
-          // 405: '方法不被允许',
-          // 429: '请求过于频繁',
-          500: '服务器发生错误'
-        }
-        errCodeMap[code] && tip(message)
+          errCodeMap[code] && tip(message)
 
-        return Promise.reject(err)
+          return Promise.reject(err)
+        }
+      } else {
+        const { statusText, status, message } = response
+        if (message === repeatMsg) {
+          tip('repeat request')
+        } else {
+          // The request has been issued, but not in the range of 2 xx
+          tip(`Status:${status},Message: ${statusText}`)
+          return Promise.reject(new Error(response || 'Error'))
+        }
       }
     } else {
-      const { statusText, status, message } = response
-      if (response) {
-        // The request has been issued, but not in the range of 2 xx
-        tip(`Status:${status},Message: ${statusText}`)
-        return Promise.reject(new Error(response || 'Error'))
-      } else if (message === repeatMsg) {
-        tip('repeat request')
-      } else {
-        // To deal with broken network
-        tip(`Broken Network, ${message}`)
-      }
+      // To deal with broken network
+      tip(`Broken Network, ${error}`)
       // eslint-disable-next-line
       console.log(`err:${error}`)
     }

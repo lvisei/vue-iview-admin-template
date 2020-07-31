@@ -8,8 +8,8 @@
       <i-card class="login__form-pane" title="账户密码登录" shadow>
         <LoginForm :loading="loading" :reload-captcha="reloadCaptcha" @on-submit="handleSubmit" />
         <p class="login__mark">
-          <span>用户名：super-admin</span>
-          <span>密码：super-admin</span>
+          <span>用户名：admin</span>
+          <span>密码：123456</span>
         </p>
       </i-card>
     </div>

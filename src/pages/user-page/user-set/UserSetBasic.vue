@@ -10,8 +10,11 @@
     >
       <i-row>
         <i-col :xs="24" :sm="24" :md="24" :lg="12" style="padding-right: 24px;">
-          <i-form-item label="中文名" prop="name">
-            <i-input v-model="formData.name" placeholder="请输入中文名"></i-input>
+          <i-form-item label="登录名称" prop="userName">
+            <i-input v-model="formData.userName" placeholder="请输入登录名称"></i-input>
+          </i-form-item>
+          <i-form-item label="真实姓名" prop="realName">
+            <i-input v-model="formData.realName" placeholder="请输入真实姓名"></i-input>
           </i-form-item>
 
           <i-form-item label="部门" prop="department">
@@ -58,11 +61,14 @@
       </i-row>
     </i-form>
 
-    <i-button type="primary" @click="onOk" :loading="editSubmit">更新基本信息</i-button>
+    <i-button type="primary" @click="onOk" :loading="loading">更新基本信息</i-button>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { editUserInfoApi } from '@/api/personal-center/user'
+
 export default {
   name: 'UserSetBasic',
 
@@ -74,7 +80,7 @@ export default {
 
   data() {
     return {
-      editSubmit: false,
+      loading: false,
       areaData: [
         {
           value: 'beijing',
@@ -90,17 +96,19 @@ export default {
         }
       ],
       ruleValidate: {
-        name: [{ required: true, message: '请输入中文名', trigger: 'blur' }],
+        userName: [{ required: true, message: '请输登录姓名', trigger: 'blur' }],
+        realName: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
         email: [{ type: 'email', message: '邮箱格式不正确', trigger: 'blur' }],
         department: [{ required: true, message: '请输入部门', trigger: 'change' }],
         areaValue: [{ required: true, type: 'array', message: '请输入省市' }]
       },
       formData: {
-        name: 'admin',
+        userName: '',
+        realName: '',
         department: '研发部',
         age: 23,
-        email: 'antdesign@alipay.com',
-        phone: '268222222',
+        email: '',
+        phone: '',
         areaValue: ['hangzhou', 'ali'],
         sex: 1,
         avatar: 'https://dummyimage.com/200x200/admin'
@@ -108,11 +116,26 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapGetters(['user'])
+  },
 
   watch: {},
 
-  created() {},
+  created() {
+    const { userName, realName, phone, email } = this.user
+    this.formData = {
+      userName: userName,
+      realName: realName,
+      department: '研发部',
+      age: 23,
+      email: email,
+      phone: phone,
+      areaValue: ['hangzhou', 'ali'],
+      sex: 1,
+      avatar: 'https://dummyimage.com/200x200/admin'
+    }
+  },
 
   mounted() {},
 
@@ -167,16 +190,32 @@ export default {
     onOk() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let params = {
-            ...this.formData
+          const params = {
+            userName: this.formData.userName,
+            realName: this.formData.realName,
+            phone: this.formData.phone,
+            email: this.formData.email
           }
-          this.editSubmit = true
-          this.editPane = false
-          this.$emit('on-submit', params)
-          this.$Message.success('信息更新成功~')
-          this.editSubmit = false
+          this.editUserInfo(params)
         }
       })
+    },
+
+    editUserInfo(params) {
+      this.loading = true
+      editUserInfoApi(params)
+        .then(_ => {
+          this.$Message.success({
+            content: '信息更新成功',
+            onClose: () => {
+              this.$store.dispatch('user/getUserInfo')
+            }
+          })
+        })
+        .catch(error => {
+          this.$Message.error(error.message || '信息更新失败')
+        })
+        .finally(_ => (this.loading = false))
     }
   }
 }
