@@ -8,6 +8,8 @@ export const loadMap = container => {
 
   const map = new mapboxgl.Map({
     container: container,
+    zoom: 2,
+    center: [106.46281299898496, 29.631357102439466],
     style: 'mapbox://styles/mapbox/streets-v11'
   })
 
