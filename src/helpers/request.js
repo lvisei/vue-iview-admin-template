@@ -116,9 +116,8 @@ request.interceptors.response.use(
             500: '服务器发生错误'
           }
           errCodeMap[code] && tip(message)
-
-          return Promise.reject(err)
         }
+        return Promise.reject(err)
       } else {
         const { statusText, status, message } = response
         if (message === repeatMsg) {

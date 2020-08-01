@@ -6,7 +6,7 @@
       ref="form"
       :model="formData"
       :rules="ruleValidate"
-      @keydown.enter.native="onOk"
+      @keydown.enter.native="onSave"
     >
       <i-row>
         <i-col :xs="24" :sm="24" :md="24" :lg="12" style="padding-right: 24px;">
@@ -49,30 +49,38 @@
           </i-form-item>
         </i-col>
         <i-col :xs="24" :sm="24" :md="24" :lg="12" style="padding-left: 24px; padding-right: 24px;">
-          <i-form-item label="头像" prop="avatar" style="float: none;">
-            <div class="user-set-basic__user-seter-avatar">
-              <i-avatar shape="square" :src="formData.avatar" />
-              <i-upload action="" :before-upload="handleAvatarUpload">
-                <i-button icon="md-arrow-up">更改头像</i-button>
-              </i-upload>
+          <i-form-item label="" prop="avatar">
+            <div class="user-set-basic__user-avatar" @click="handChangeAvatar">
+              <i-icon type="ios-cloud-upload-outline" class="user-set-basic__avatar-upload" />
+              <div class="user-set-basic__avatar-mask">
+                <i-icon type="ios-add" />
+              </div>
+              <img class="user-set-basic__avatar-img" :src="formData.avatar" />
             </div>
           </i-form-item>
         </i-col>
       </i-row>
     </i-form>
 
-    <i-button type="primary" @click="onOk" :loading="loading">更新基本信息</i-button>
+    <i-button type="primary" @click="onSave" :loading="loading">更新基本信息</i-button>
+
+    <AvatarModal
+      :modalVisible.sync="avatarModalVisible"
+      :img="formData.avatar"
+      @on-save="data => (formData.avatar = data)"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import AvatarModal from './AvatarModal'
 import { editUserInfoApi } from '@/api/personal-center/user'
 
 export default {
   name: 'UserSetBasic',
 
-  components: {},
+  components: { AvatarModal },
 
   filters: {},
 
@@ -112,7 +120,8 @@ export default {
         areaValue: ['hangzhou', 'ali'],
         sex: 1,
         avatar: 'https://dummyimage.com/200x200/admin'
-      }
+      },
+      avatarModalVisible: false
     }
   },
 
@@ -123,7 +132,7 @@ export default {
   watch: {},
 
   created() {
-    const { userName, realName, phone, email } = this.user
+    const { userName, realName, phone, email, avatar } = this.user
     this.formData = {
       userName: userName,
       realName: realName,
@@ -133,7 +142,7 @@ export default {
       phone: phone,
       areaValue: ['hangzhou', 'ali'],
       sex: 1,
-      avatar: 'https://dummyimage.com/200x200/admin'
+      avatar: avatar
     }
   },
 
@@ -148,8 +157,8 @@ export default {
   destroyed() {},
 
   methods: {
-    handleAvatarUpload() {
-      return false
+    handChangeAvatar() {
+      this.avatarModalVisible = true
     },
 
     loadData(item, callback) {
@@ -187,14 +196,15 @@ export default {
       }, 500)
     },
 
-    onOk() {
+    onSave() {
       this.$refs.form.validate(valid => {
         if (valid) {
           const params = {
             userName: this.formData.userName,
             realName: this.formData.realName,
             phone: this.formData.phone,
-            email: this.formData.email
+            email: this.formData.email,
+            avatar: this.formData.avatar
           }
           this.editUserInfo(params)
         }
@@ -244,14 +254,54 @@ export default {
     }
   }
 
-  &__user-seter-avatar {
-    width: 100%;
-    display: inline-block;
+  &__user-avatar {
+    position: relative;
+    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    box-shadow: 0px -1px 1px #ccc;
+    background-color: #ccc;
+  }
 
-    .ivu-avatar {
-      width: 100px;
-      height: 100px;
-      margin-bottom: 20px;
+  &__avatar-img,
+  &__avatar-mask {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &__avatar-upload {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    background: rgba(222, 221, 221, 0.7);
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &__avatar-mask {
+    opacity: 0;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: opacity 0.4s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .ivu-icon {
+      font-size: 2rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -1rem;
+      margin-top: -1rem;
+      color: #d6d6d6;
     }
   }
 }

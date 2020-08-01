@@ -106,8 +106,8 @@ export default {
     text-align: center;
 
     .ivu-avatar {
-      width: 70px;
-      height: 70px;
+      width: 90px;
+      height: 90px;
       line-height: 70px;
       border-radius: 50%;
     }

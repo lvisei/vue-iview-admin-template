@@ -47,8 +47,8 @@ router.beforeEach(async (to, from, next) => {
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
         } catch (error) {
+          console.log(error) // eslint-disable-line
           await store.dispatch('user/resetToken')
-          Message.error(error || 'Has Error')
           next({ name: 'Login', query: { redirectPath: to.path } })
           LoadingBar.finish()
         }

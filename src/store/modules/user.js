@@ -12,7 +12,7 @@ const defaultUser = { userId: '', userName: '', realName: '', avatar: '', roles:
 const state = {
   token: getToken(),
   user: { ...defaultUser },
-  rights: [],
+  permissions: [],
   roles: []
 }
 
@@ -25,8 +25,8 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
-  SET_RIGHTS: (state, rights) => {
-    state.rights = rights
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
   },
   SET_TOKEN: (state, token) => {
     state.token = token
@@ -53,9 +53,9 @@ const actions = {
   getUserInfo: async ({ commit }) => {
     try {
       const data = await getUserInfoApi()
-      const { userId, userName, realName, roles } = data
+      const { userId, userName, realName, roles, avatar } = data
 
-      const user = { userId, userName, realName, roles: roles || [] }
+      // const user = { userId, userName, realName, avatar, roles: roles || [] }
       commit('SET_USER', data)
       commit('SET_ROLES', roles || [])
 
@@ -99,7 +99,7 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
-      commit('SET_RIGHTS', [])
+      commit('SET_PERMISSIONS', [])
       commit('SET_ROLES', [])
       commit('SET_USER', { ...defaultUser })
       removeToken()
