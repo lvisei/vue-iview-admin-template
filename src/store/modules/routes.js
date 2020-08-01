@@ -52,6 +52,20 @@ export function generaMenu(routes, data) {
 }
 
 /**
+ * 后台查询的菜单数据生成按钮权限数据
+ * @param routes
+ */
+export function generaPermissions(permissions, data) {
+  data.forEach(({ routeName, actions, children }) => {
+    const permissionList = actions ? actions.map(({ code }) => `${routeName}.${code}`) : []
+    if (children) {
+      generaPermissions(permissions, children)
+    }
+    permissions.push(...permissionList)
+  })
+}
+
+/**
  * 路由懒加载
  * @param {String} view
  * @returns {Promise}
@@ -123,12 +137,16 @@ const actions = {
     try {
       const data = await getUserMenutreeApi()
       const { list } = data
-      const _asyncRoutes = []
+      const _asyncRoutes = [],
+        permissions = []
 
       generaMenu(_asyncRoutes, list)
+      generaPermissions(permissions, list)
+      console.log('permissions: ', permissions)
       const __asyncRoutes = _asyncRoutes.concat(asyncRoutes)
 
       commit('SET_ROUTES', __asyncRoutes)
+      commit('user/SET_PERMISSIONS', permissions, { root: true })
       return __asyncRoutes
     } catch (err) {
       console.log(err) // eslint-disable-line

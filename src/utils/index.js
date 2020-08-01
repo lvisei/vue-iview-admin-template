@@ -142,6 +142,17 @@ export const throttle = (fn, time) => {
 }
 
 /**
+ * 数据类型判断
+ * @param {String} type
+ * @param {any} data
+ * @returns
+ */
+export const isType = (type, data) => {
+  const Type = Object.prototype.toString.call(data).slice(8, -1)
+  return Type === type
+}
+
+/**
  * 列表数据转换为树数据
  * @param {Array} list
  * @param {Object} value

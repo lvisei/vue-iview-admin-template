@@ -4,9 +4,11 @@ import router from './router'
 import store from './store'
 import utils from './utils'
 import ViewUI from 'view-design'
-import request from './helpers/request'
 import SvgIcon from '@/components/SvgIcon'
 import Clipboard from 'v-clipboard'
+import permission from '@/directive/permission'
+import permissionHelper from './helpers/permission'
+import request from './helpers/request'
 import './registerServiceWorker'
 // import Mock from './mock'
 
@@ -24,11 +26,13 @@ Vue.component('svg-icon', SvgIcon)
 /* Register directive */
 
 Vue.use(Clipboard)
+Vue.use(permission)
 
 /* Use plugins */
 
 Vue.prototype.$utils = utils
 Vue.prototype.$http = request
+Vue.prototype.$permission = permissionHelper
 
 /* permission control */
 
