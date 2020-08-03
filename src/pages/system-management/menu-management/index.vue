@@ -13,7 +13,7 @@
             cancel-text="取消"
           >
             <i-button
-              :disabled="!searchValue.parentID"
+              :disabled="!$permission('MenuManagement.del') || !searchValue.parentID"
               size="small"
               icon="md-trash"
               style="margin-left: 5px"
@@ -23,7 +23,7 @@
           </i-poptip>
 
           <i-button
-            :disabled="!searchValue.parentID"
+            :disabled="!$permission('MenuManagement.edit') || !searchValue.parentID"
             size="small"
             icon="md-create"
             style="margin-left: 5px"
@@ -32,6 +32,7 @@
             编辑
           </i-button>
           <i-button
+            :disabled="!$permission('MenuManagement.add')"
             size="small"
             icon="md-add"
             type="primary"
@@ -111,13 +112,25 @@
             </p>
           </template>
           <template slot-scope="{ row }" slot="action">
-            <i-button type="primary" size="small" @click="handAdd(row)">
+            <i-button
+              v-permission="'MenuManagement.add'"
+              type="primary"
+              size="small"
+              @click="handAdd(row)"
+            >
               新增
             </i-button>
-            <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
+            <i-button
+              v-permission="'MenuManagement.edit'"
+              type="info"
+              size="small"
+              style="margin-left: 5px"
+              @click="handEdit(row)"
+            >
               编辑
             </i-button>
             <i-poptip
+              v-permission="['MenuManagement.disable', 'MenuManagement.enable']"
               confirm
               transfer
               :title="`确认${row.status === 1 ? '禁用' : '启用'}这个菜单？`"
@@ -133,6 +146,7 @@
             </i-poptip>
 
             <i-poptip
+              v-permission="'MenuManagement.del'"
               confirm
               transfer
               title="确定删除这个菜单？"

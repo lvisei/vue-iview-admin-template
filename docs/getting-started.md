@@ -19,6 +19,8 @@ cd my-project
 ├─src/                     # 源码目录
 │    ├─api/                # 数据接口目录
 │    ├─assets/             # 静态资源文件目录
+│    │   ├─icons/          # SVG 目录
+│    │   └─images/         # 业务图片目录
 │    ├─components/         # 业务无关公用组件目录
 │    ├─config/             # 项目配置目录
 │    ├─helpers/            # 全局业务相关工具方法目录
@@ -58,8 +60,12 @@ cd my-project
 ├─package-lock.json        # 用来锁定依赖的版本号（NPM 自动生成）
 ├─package.json             # package.json
 ├─README.md                # 项目介绍
-├─vue.config.js            # 项目脚手架工具配置文件
+└─vue.config.js            # 项目脚手架工具配置文件
 ```
+
+###
+
+
 
 ## Stacks
 
@@ -89,7 +95,7 @@ cd my-project
   - countup
   - canvas-nest.js
   - jsencrypt
-  - crypto-js
+  - [crypto-js](http://github.com/brix/crypto-js)
   - v-clipboard
   - codemirror
   - bpmn-js
@@ -128,13 +134,9 @@ cd my-project
 1. 进入目录安装依赖，国内用户推荐使用淘宝镜像进行加速
 
 ```bash
-yarn install
-```
-
-或者
-
-```bash
 npm install
+#或者
+yarn install
 ```
 
 2. 启动本地服务器
