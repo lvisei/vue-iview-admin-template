@@ -1,4 +1,4 @@
-# 开发建议
+# 开发者建议
 
 ## 风格指南
 
@@ -260,18 +260,18 @@ Vue 中监听的 `Dom` 事件记得垃圾回收。
   - 代码中不用的注释都删掉。
   - 调试结束，把不用的 console.log(...) 及时删掉，它会影响性能 。
 
-## Editor
+## 编辑器
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - VS Code ESLint extension.
 - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)：为 Vue 框架提供语法高亮、代码片段、Emmet、格式化、代码风格检查、智能提示、调试帮助等。文档：[vetur](https://vuejs.github.io/vetur/setup.html#extensions)。
 - [Prettier Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：使用 [Prettie](https://prettier.io/) 格式化插件，支持 JavaScript、TypeScript、Vue 等文件的格式化。
 
-## Commit
+## 提交代码
 
 `Commit` 代码之前，[要先效验与格式化代码](/#Usage) `npm run lint`，没有问题再提交。如果使用的 git 版本工具，commit 前会自动 lint code， 没有错误才会 commit 成功。
 
 
-## Others
+## 其他
   - [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)
   - [Vue进阶为什么我的代码让别人看起来头皮发麻？](https://juejin.im/post/5bd83871f265da0afa3e3204)
   - [Vue.js 父子组件通信的十种方式](https://juejin.im/post/5bd18c72e51d455e3f6e4334)
