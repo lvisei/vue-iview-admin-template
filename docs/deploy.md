@@ -40,7 +40,7 @@ server
 	{
 		listen       80;
         # 指定可访问的域名
-		server_name vue-iview-admin-temp.ywbang.top;
+		server_name vue-iview-admin-temp.ywbang.icu;
         # 编译后的文件存放的目录
 		root  /home/www/vue-iview-admin-template/dist;
 
@@ -52,7 +52,7 @@ server
 	}
 ```
 
-重启 Web server，访问 [https://vue-iview-admin-temp.ywbang.top](https://vue-iview-admin-temp.ywbang.top) 。
+重启 Web server，访问 [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu) 。
 
 ```bash
 nginx -s reload
@@ -61,7 +61,7 @@ nginx -s reload
 类似的，如果你使用 Caddy 作为 Web server，你可以在 `Caddyfile` 中这样配置：
 
 ```
-vue-iview-admin-temp.ywbang.top {
+vue-iview-admin-temp.ywbang.icu {
         gzip
         root /home/www/vue-iview-admin-template/dist
 }
