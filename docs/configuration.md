@@ -34,7 +34,9 @@ _`.env.development` 、 `.env.production`_
 
 _`src/layouts` 配置页面布局_
 
-- 待续
+- GlobalLayout：基础页面布局，包含了头部导航与侧边栏
+- MainView：基础布局，包含了面包屑，和中间内容区 `slot`
+- RouteView：空布局，专门为了二级菜单内容区自定义
 
 ## Router
 
