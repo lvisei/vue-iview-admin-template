@@ -17,5 +17,5 @@
   - [风格指南](advice/style-guide.md)
   - [开发技巧](advice/skills.md)
   - [性能优化](advice/performance.md)
-  - [其他](advice/other.md)
+  - [工程化](advice/construct.md)
 
