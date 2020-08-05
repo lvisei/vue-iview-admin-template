@@ -20,6 +20,7 @@ Vue CLI v4.4.6
 ```
 
 3. 根据项目业务需求，选择面向生产的特性，建议 `Babel`、`Linter / Formatter` 必须，其他未选择的后面也可以再安装插件使用
+
 ```bash
 Vue CLI v4.4.6
 ? Please pick a preset: Manually select features
@@ -110,7 +111,7 @@ module.exports = {
 
 - `plugins: []`：在 ESLint 中加载插件，插件可用于配置校验规则。
 
-- `extends: [ ... ]`：在 ESLint 中使用[共享规则配置](https://cn.eslint.org/docs/developer-guide/shareable-configs)，其中 `eslint:recommended` 是 ESLint 内置的推荐校验规则配置（也被称作最佳规则实践），`plugin:vue/essential` 是 Vue 官方推荐必须的校验 vue 语法规则配置，`@vue/prettier`  是基于 Prettier 封装的 代码格式规则。
+- `extends: [ ... ]`：在 ESLint 中使用[共享规则配置](https://cn.eslint.org/docs/developer-guide/shareable-configs)，其中 `eslint:recommended` 是 ESLint 内置的推荐校验规则配置（也被称作最佳规则实践）。`plugin:vue/essential` 是 Vue 官方推荐必须的校验 vue 语法规则配置，其依赖包为`eslint-plugin-vue`。`@vue/prettier`  是基于 Prettier 封装的代码格式规则，其依赖包为 `@vue/eslint-config-prettier`。
 
 - `rules: {}`：覆写某个校验规则配置。
 
@@ -121,7 +122,8 @@ module.exports = {
   "lint": "vue-cli-service lint",
 }
 ```
-`vue-cli-service lint` 是基于 ESLint 与 Prettier 的命令行接口进行格式自动修复封装而来的。
+
+`vue-cli-service lint` 是基于 ESLint  的命令行接口进行格式自动修复封装而来的。
 
 #### ESLint 插件
 
@@ -150,7 +152,7 @@ ESLint 的规则校验同时包含了**格式规则**和**质量规则**，但�
 
 在 ESLint 配置中已经集成脚手架封装 `@vue/prettier`规则包了，需要说明的是脚手架集成 prettier 中会安装配置 `eslint-config-prettier`，其 [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 用于解决 ESLint 和 Prettier 配合使用时容易产生的**格式规则**冲突问题，其作用就是关闭 ESLint 中配置的一些格式规则，除此之外还包括关闭 `eslint-plugin-babel`、`eslint-plugin-vue`、`eslint-plugin-standard` 等格式规则。
 
-Prettier的格式规则，可通过 `.prettierrc 文件进行配置，未配置的情况下使用官方默认的格式规则。
+Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置的情况下使用官方默认的格式规则。
 
 ```json
 {
@@ -176,9 +178,16 @@ Prettier的格式规则，可通过 `.prettierrc 文件进行配置，未配置�
 ### Babel
 
 - `.babel.config.js`
-
 - `@vue/cli-plugin-babel/preset`
+  - `Babel 7` 
+  - `babel-loader`
+  - [@vue/babel-preset-app](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app)
+    - [@babel/preset-env](https://new.babeljs.io/docs/en/next/babel-preset-env.html)
 
+    - [@babel/plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
+- `.browserslistrc`
+- [@babel/preset-env](https://new.babeljs.io/docs/en/next/babel-preset-env.html)
+  - [Autoprefixer](https://github.com/postcss/autoprefixer)
 - 待续
 
 ### Webpack
