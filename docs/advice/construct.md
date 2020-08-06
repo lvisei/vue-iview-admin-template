@@ -255,6 +255,8 @@ Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置
 - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)：为 Vue 框架提供语法高亮、代码片段、Emmet、格式化、代码风格检查、智能提示、调试帮助等。文档：[vetur](https://vuejs.github.io/vetur/setup.html#extensions)。
 - [Prettier Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：使用 [Prettie](https://prettier.io/) 格式化插件，支持 JavaScript、TypeScript、Vue 等文件的格式化。
 
+
+
 ###  参考链接
 
   - [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)

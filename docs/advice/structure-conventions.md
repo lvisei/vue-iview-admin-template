@@ -1,20 +1,20 @@
 # 结构约定
 
-_文件结构目录化、项目业务模块化、文件结构遵循就近原则_
+_文件目录结构化、项目业务模块化、文件结构遵循就近原则_
 
 ## 1. JS 文件
 
-所有的 `.js` 文件都遵循横线连接 (kebab-case)。
+所有的 `.js` 文件都遵循横线连接 `kebab-case`。
 
 例子：
 
 - `@/src/utils/open-window.js`
-- `@/src/views/svg-icons/require-icons.js`
-- `@/src/components/MarkdownEditor/default-options.js`
+- `@/src/components/SvgIcon/require-icons.js`
+- `@/src/views/LeafletMap/default-options.js`
 
-## 2. Components 与 views
+## 2. components 与 views
 
-所有的 `components` 文件都是以大写开头 (PascalCase)，这也是官方所 [推荐的](https://cn.vuejs.org/v2/style-guide/index.html#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%86%99-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90)。
+所有的 `components` 文件都是以大写开头 `PascalCase`，这也是官方所 [推荐的](https://cn.vuejs.org/v2/style-guide/index.html#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%86%99-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90)。
 
 但除了 `index.vue`。
 
@@ -28,7 +28,7 @@ _文件结构目录化、项目业务模块化、文件结构遵循就近原则_
 
 ## 3. Pages
 
-在 `pages` 目录下，代表路由的 `.vue` 文件都使用横线连接 (kebab-case)，代表路由的文件夹也是使用同样的规则。
+在 `pages` 目录下，代表路由的 `.vue` 文件都使用横线连接 `kebab-case`，代表路由的文件夹也是使用同样的规则。
 
 例子：
 
@@ -68,7 +68,7 @@ _文件结构目录化、项目业务模块化、文件结构遵循就近原则_
 
 ## 5. helpers、utils
 
-`helpers` 与 `utils` 的区别在于是否是系统业务工具方法，`helpers` 可理解为业务相关的方法助手，`utils` 则是脱离业务的可复用的方法。
+`helpers` 与 `utils` 的区别在于是否是系统业务工具方法，`helpers` 可理解为业务相关的方法助手，`utils` 则是脱离业务的可复用的工具。
 
 ## 6. assets
 

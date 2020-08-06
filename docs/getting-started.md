@@ -89,7 +89,7 @@ cd my-project
 
   - axios
   - echarts
-  - vue-echarts
+  - [vue-echarts](https://github.com/ecomfe/vue-echarts)
   - lodash
   - js-cookie
   - countup

@@ -114,6 +114,7 @@
           <template slot-scope="{ row }" slot="action">
             <i-button
               v-permission="'MenuManagement.add'"
+              ghost
               type="primary"
               size="small"
               @click="handAdd(row)"
@@ -122,6 +123,7 @@
             </i-button>
             <i-button
               v-permission="'MenuManagement.edit'"
+              ghost
               type="info"
               size="small"
               style="margin-left: 5px"
@@ -137,6 +139,7 @@
               @on-ok="handEditStatus(row)"
             >
               <i-button
+                ghost
                 :type="row.status === 1 ? 'warning' : 'success'"
                 size="small"
                 style="margin-left: 5px"
@@ -154,7 +157,7 @@
               ok-text="确定"
               cancel-text="取消"
             >
-              <i-button type="error" size="small" style="margin-left: 5px">
+              <i-button ghost type="error" size="small" style="margin-left: 5px">
                 删除
               </i-button>
             </i-poptip>
