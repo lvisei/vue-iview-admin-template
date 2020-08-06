@@ -11,7 +11,7 @@
 
 ### 3. 新增 api
 
-最后在 [@/api](https://github.com/PanJiaChen/vue-element-admin/tree/master/src/api) 文件夹下创建本模块对应的 api 服务。
+最后在 `@/api` 文件夹下创建本模块对应的 api 服务。
 
 ## 提交代码
 

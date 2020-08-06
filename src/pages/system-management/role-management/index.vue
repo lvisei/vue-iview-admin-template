@@ -36,7 +36,13 @@
       </i-form-item>
     </i-form>
     <div class="role-management__batch">
-      <i-button class="role-management__batch-btn" type="primary" icon="md-add" @click="handAdd">
+      <i-button
+        v-permission="'RoleManagement.add'"
+        class="role-management__batch-btn"
+        type="primary"
+        icon="md-add"
+        @click="handAdd"
+      >
         添加角色
       </i-button>
       <!-- <i-button
@@ -88,16 +94,25 @@
         </p>
       </template>
       <template slot-scope="{ row }" slot="action">
-        <i-button type="info" size="small" style="margin-left: 5px" @click="handEdit(row)">
+        <i-button
+          v-permission="'RoleManagement.edit'"
+          ghost
+          type="info"
+          size="small"
+          style="margin-left: 5px"
+          @click="handEdit(row)"
+        >
           编辑
         </i-button>
         <i-poptip
+          v-permission="['RoleManagement.disable', 'RoleManagement.enable']"
           confirm
           transfer
           :title="`确认${row.status === 1 ? '禁用' : '启用'}这个角色？`"
           @on-ok="handEditStatus(row)"
         >
           <i-button
+            ghost
             :type="row.status === 1 ? 'warning' : 'success'"
             size="small"
             style="margin-left: 5px"
@@ -107,6 +122,7 @@
         </i-poptip>
 
         <i-poptip
+          v-permission="'RoleManagement.del'"
           confirm
           transfer
           title="确定删除这个角色？"
@@ -114,7 +130,7 @@
           ok-text="确定"
           cancel-text="取消"
         >
-          <i-button type="error" size="small" style="margin-left: 5px">
+          <i-button ghost type="error" size="small" style="margin-left: 5px">
             删除
           </i-button>
         </i-poptip>

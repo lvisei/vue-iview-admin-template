@@ -4,9 +4,9 @@
 
 ### 一、组件相关
 
-1、**`@hook` **
+1、生命周期 `@hook` 
 
-有时在一些业务场景下，需要在父组件监听子组件挂载后`mounted`, 做一些逻辑处理，一般我们会在每个子组件中去`this.$emit`事件，我们也可以使用**`@hook` **来方便的做这个事情。
+有时在一些业务场景下，需要在父组件监听子组件挂载后`mounted`, 做一些逻辑处理，一般我们会在每个子组件中去`this.$emit`事件，我们也可以使用 `@hook`  来方便的做这个事情。
 
 子组件
 
@@ -319,7 +319,44 @@ export default {
 </script>
 ```
 
-11、broadcast 与 dispatch
+11、watch监听多个变量
+
+watch本身无法监听多个变量。但我们可以将需要监听的多个变量通过计算属性返回对象，再监听这个对象来实现监听多个变量
+
+```javascript
+export default {
+    data() {
+        return {
+            msg1: 'apple',
+            msg2: 'banana'
+        }
+    },
+    compouted: {
+        msgObj() {
+            const { msg1, msg2 } = this
+            return {
+                msg1,
+                msg2
+            }
+        }
+    },
+    watch: {
+        msgObj: {
+            handler(newVal, oldVal) {
+                if (newVal.msg1 != oldVal.msg1) {
+                    console.log('msg1 is change')
+                }
+                if (newVal.msg2 != oldVal.msg2) {
+                    console.log('msg2 is change')
+                }
+            },
+            deep: true
+        }
+    }
+}
+```
+
+12、broadcast 与 dispatch
 
 高阶组件可使用的事件广播和派发
 
@@ -358,42 +395,6 @@ export default {
 }
 ```
 
-12、watch监听多个变量
-
-watch本身无法监听多个变量。但我们可以将需要监听的多个变量通过计算属性返回对象，再监听这个对象来实现监听多个变量
-
-```javascript
-export default {
-    data() {
-        return {
-            msg1: 'apple',
-            msg2: 'banana'
-        }
-    },
-    compouted: {
-        msgObj() {
-            const { msg1, msg2 } = this
-            return {
-                msg1,
-                msg2
-            }
-        }
-    },
-    watch: {
-        msgObj: {
-            handler(newVal, oldVal) {
-                if (newVal.msg1 != oldVal.msg1) {
-                    console.log('msg1 is change')
-                }
-                if (newVal.msg2 != oldVal.msg2) {
-                    console.log('msg2 is change')
-                }
-            },
-            deep: true
-        }
-    }
-}
-```
 
 ### 二、路由相关
 
@@ -444,7 +445,8 @@ const router = new VueRouter({
 this.$router.push({ name: 'ToRouteName', query: { new: new Date().getTime() } })
 ```
 
+
+
 ## 链接
 
-  - [Vue进阶为什么我的代码让别人看起来头皮发麻？](https://juejin.im/post/5bd83871f265da0afa3e3204)
   - [Vue.js 父子组件通信的十种方式](https://juejin.im/post/5bd18c72e51d455e3f6e4334)
