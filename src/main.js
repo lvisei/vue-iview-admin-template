@@ -41,6 +41,7 @@ import '@/permission'
 /* Config */
 
 Vue.config.productionTip = false
+Vue.config.performance = process.env.NODE_ENV === 'development'
 
 /* Initial */
 
