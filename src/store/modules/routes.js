@@ -40,7 +40,7 @@ export function generaMenu(routes, data) {
       path: item.routePath,
       component: loadComponent(item.component),
       redirect: item.children ? { name: item.children[0].routeName } : null,
-      hidden: item.showStatus === 0,
+      hidden: item.showStatus === 2,
       children: [],
       meta: { title: item.name, icon: item.icon }
     }
@@ -142,7 +142,6 @@ const actions = {
 
       generaMenu(_asyncRoutes, list)
       generaPermissions(permissions, list)
-      console.log('permissions: ', permissions)
       const __asyncRoutes = _asyncRoutes.concat(asyncRoutes)
 
       commit('SET_ROUTES', __asyncRoutes)
