@@ -249,7 +249,7 @@ Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置
 }
 ```
 
-##PART 3:  编辑器
+## PART 3:  编辑器
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - VS Code ESLint extension.
 - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)：为 Vue 框架提供语法高亮、代码片段、Emmet、格式化、代码风格检查、智能提示、调试帮助等。文档：[vetur](https://vuejs.github.io/vetur/setup.html#extensions)。
