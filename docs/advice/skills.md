@@ -175,7 +175,7 @@ export default {
 
 我们可以利用这个 [Vue.observable( object )](https://cn.vuejs.org/v2/api/#Vue-observable) 来应对一些简单的跨组件数据状态共享的情况
 
-```
+```javascript
 // myStore
 import Vue from "vue";
  
@@ -273,7 +273,7 @@ export default {
 
 子组件触发
 
-```vue
+```javascript
 this.$emit('update:modalVisible', false)
 ```
 
@@ -319,7 +319,7 @@ export default {
 </script>
 ```
 
-11、watch监听多个变量
+11、`watch` 监听多个变量
 
 watch本身无法监听多个变量。但我们可以将需要监听的多个变量通过计算属性返回对象，再监听这个对象来实现监听多个变量
 
@@ -430,7 +430,7 @@ const router = new VueRouter({
 
 2、按需 keep-alive 与强制刷新路由
 
-```
+```vue
 <keep-alive>
 		<router-view v-if="$route.meta.keepAlive" name="content" />
 </keep-alive>
@@ -441,7 +441,7 @@ const router = new VueRouter({
 
 有时候会复用相同的路由组件，但业务需要再次路由刷新，我们可以在路由组件上加`key`，在跳转的时候我们给路由加上随机的`query`参数
 
-```
+```javascript
 this.$router.push({ name: 'ToRouteName', query: { new: new Date().getTime() } })
 ```
 
