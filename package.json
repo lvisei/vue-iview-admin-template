@@ -34,7 +34,7 @@
     "vue": "^2.6.10",
     "vue-cropper": "^0.5.5",
     "vue-echarts": "^4.1.0",
-    "vue-router": "^3.4.1",
+    "vue-router": "^3.4.2",
     "vue2-leaflet": "^2.5.2",
     "vuelayers": "^0.11.27",
     "vuex": "^3.5.1"
