@@ -1,12 +1,17 @@
 <template>
-  <i-card class="count-to" shadow>CountTo</i-card>
+  <i-card class="count-to-demo" shadow>
+    CountTo
+    <CountTo :end="100" />
+  </i-card>
 </template>
 
 <script>
-export default {
-  name: 'CountTo',
+import CountTo from '@/components/CountTo'
 
-  components: {},
+export default {
+  name: 'CounToDemo',
+
+  components: { CountTo },
 
   filters: {},
 

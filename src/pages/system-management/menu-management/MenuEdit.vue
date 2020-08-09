@@ -37,7 +37,13 @@
         <i-input v-model.trim="formData.component" placeholder="请输入组件路径"></i-input>
       </i-form-item>
       <i-form-item label="菜单图标" prop="icon">
-        <i-input v-model.trim="formData.icon" placeholder="请选择菜单图标"></i-input>
+        <i-select v-model="formData.icon" filterable placeholder="请选择菜单图标">
+          <i-icon :type="formData.icon" slot="prefix" size="18" />
+          <i-option v-for="item in iconList" :value="item" :key="item">
+            <i-icon :type="item" size="20" />
+            {{ item }}
+          </i-option>
+        </i-select>
       </i-form-item>
       <i-form-item label="菜单状态" prop="status">
         <i-radio-group v-model="formData.status">
@@ -97,6 +103,7 @@
 
 <script>
 import TreeSelect from '@/components/TreeSelect'
+import { ICONS } from './helper'
 import { getMenu } from '@/api/system-management/menu-management'
 
 export default {
@@ -165,7 +172,8 @@ export default {
           slot: 'code'
         },
         { title: '操作', slot: 'action', width: 100, align: 'center' }
-      ]
+      ],
+      iconList: Object.freeze(ICONS)
     }
   },
 

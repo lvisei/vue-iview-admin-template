@@ -100,6 +100,9 @@
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>
+          <template slot-scope="{ row }" slot="icon">
+            <i-icon :type="row.icon" size="18" />
+          </template>
           <template slot-scope="{ row }" slot="status">
             <i-badge
               :status="row.status === 1 ? 'success' : 'warning'"
@@ -215,7 +218,7 @@ export default {
       tableLoading: false,
       columns: [
         { title: '菜单名称', key: 'name', slot: 'name' },
-        { title: '菜单图标', key: 'icon' },
+        { title: '菜单图标', key: 'icon', slot: 'icon', align: 'center' },
         { title: '访问地址', key: 'routePath' },
         { title: '状态', key: 'status', slot: 'status' },
         { title: '可见', key: 'showStatus', slot: 'showStatus' },
