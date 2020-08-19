@@ -18,9 +18,9 @@
 
 </div>
 
-**Live demo one:** [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu) 
+**Live demo one:** [https://vue-iview-admin-template.ywbang.icu](https://vue-iview-admin-template.ywbang.icu)
 
-**Live demo two:** [https://vue-iview-admin-template.ywbang.icu](https://vue-iview-admin-template.ywbang.icu)
+**Live demo two:** [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu) 
 
 ## Usage
 
@@ -44,16 +44,18 @@ npm run build:r
 npm run lint
 ```
 
-## Demo
+## Screenshot
 
-- 待续
+|                                        |                                        |                                        |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| ![](./docs/_media/20200819-091956.png) | ![](./docs/_media/20200819-092352.png) | ![](./docs/_media/20200819-092201.png) |
+| ![](./docs/_media/20200819-092217.png) | ![](./docs/_media/20200819-092320.png) | ![](./docs/_media/20200819-092416.png) |
 
 ## Links
 
-- [Live demo one](https://vue-iview-admin-temp.ywbang.icu)
-- [Live demo two](https://vue-iview-admin-template.ywbang.icu)
+- [Live demo one](https://vue-iview-admin-template.ywbang.icu)
+- [Live demo two](https://vue-iview-admin-temp.ywbang.icu)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
-- 待续
 
 ## Browsers support
 
