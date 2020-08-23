@@ -216,12 +216,13 @@ export const scrollToTop = () => {
 }
 
 /**
- * formatDate 时间日期格式转换
+ * getFormatDate 时间日期格式转换
+ * @param {String} dateString  "1995-12-17T03:24:00"
  * @param {String} format  "yyyy-MM-dd hh:mm:ss"
  * @returns "2020-05-29 12:32:12"
  */
-export const formatDate = format => {
-  const date = new Date()
+export const getFormatDate = (dateString = null, format) => {
+  const date = new Date(dateString)
   const o = {
     'M+': date.getMonth() + 1, //month
     'd+': date.getDate(), //day
@@ -244,11 +245,11 @@ export const formatDate = format => {
 }
 
 /**
- * timeFormat 时间个性化输出
+ * getTimeFormat 时间个性化输出
  * @param {String} time
  * @returns “XX分钟前”
  */
-export const timeFormat = time => {
+export const getTimeFormat = time => {
   // 1、< 60s, 显示为“刚刚”
   // 2、>= 1min && < 60 min, 显示与当前时间差“XX分钟前”
   // 3、>= 60min && < 1day, 显示与当前时间差“今天 XX:XX”

@@ -1,4 +1,7 @@
 const path = require('path')
+const defaultSettings = require('./src/config/index.js')
+
+const name = defaultSettings.siteName || 'vue-iview-admin-template'
 const resolve = dir => path.join(__dirname, '.', dir)
 
 module.exports = {
@@ -96,12 +99,20 @@ module.exports = {
             minChunks: 3,
             priority: 0,
             reuseExistingChunk: true
+          },
+          viewDesign: {
+            // 单独将 view-design 拆包
+            name: 'chunk-view-design',
+            // 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?view-design(.*)/
           }
         }
       })
     )
   },
   configureWebpack: config => {
+    config.name = name
     const plugins = []
     return {
       plugins: plugins

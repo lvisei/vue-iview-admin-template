@@ -125,7 +125,7 @@ cd my-project
   - prettier
   - postcss
     - autoprefixer
-  - vue-cli @3+
+  - vue-cli @4+
   - mockjs
   - lint-staged
 
