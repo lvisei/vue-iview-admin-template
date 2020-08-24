@@ -221,7 +221,7 @@ export const scrollToTop = () => {
  * @param {String} format  "yyyy-MM-dd hh:mm:ss"
  * @returns "2020-05-29 12:32:12"
  */
-export const getFormatDate = (dateString = null, format) => {
+export const getFormatDate = (dateString = null, format = 'yyyy-MM-dd hh:mm:ss') => {
   const date = new Date(dateString)
   const o = {
     'M+': date.getMonth() + 1, //month
