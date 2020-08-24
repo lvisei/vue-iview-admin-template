@@ -1,7 +1,7 @@
 const path = require('path')
-const defaultSettings = require('./src/config/index.js')
+const defaultSettings = require('./src/config')
 
-const name = defaultSettings.siteName || 'vue-iview-admin-template'
+const siteName = defaultSettings.siteName || 'vue-iview-admin-template'
 const resolve = dir => path.join(__dirname, '.', dir)
 
 module.exports = {
@@ -74,24 +74,35 @@ module.exports = {
         name: true,
         cacheGroups: {
           default: false,
+          common: {
+            name: 'chunk-common',
+            chunks: 'initial',
+            minChunks: 2,
+            maxInitialRequests: 5,
+            minSize: 0,
+            priority: 1,
+            reuseExistingChunk: true
+          },
           vendors: {
             name: 'chunk-vendors',
             test: /[\\/]node_modules[\\/]/,
-            priority: -10,
-            chunks: 'initial'
-          },
-          common: {
-            name: 'chunk-common',
-            minChunks: 2,
-            priority: -20,
+            chunks: 'initial',
+            priority: 2,
             reuseExistingChunk: true
           },
-          cesium: {
-            name: 'chunk-cesium',
-            test: /[\\/]node_modules[\\/]cesium[\\/]/,
+          viewDesign: {
+            name: 'chunk-view-design',
+            test: /[\\/]node_modules[\\/]view-design[\\/]/,
             chunks: 'all',
-            // 默认组的优先级为负数，以允许任何自定义缓存组具有更高的优先级（默认值为0）
-            priority: -5
+            priority: 3,
+            reuseExistingChunk: true
+          },
+          echarts: {
+            name: 'chunk-echarts',
+            test: /[\\/]node_modules[\\/](vue-)?echarts[\\/]/,
+            chunks: 'all',
+            priority: 4,
+            reuseExistingChunk: true
           },
           components: {
             name: 'chunk-components',
@@ -100,19 +111,19 @@ module.exports = {
             priority: 0,
             reuseExistingChunk: true
           },
-          viewDesign: {
-            // 单独将 view-design 拆包
-            name: 'chunk-view-design',
-            // 数字大权重到，满足多个 cacheGroups 的条件时候分到权重高的
-            priority: 20,
-            test: /[\\/]node_modules[\\/]_?view-design(.*)/
+          cesium: {
+            name: 'chunk-cesium',
+            test: /[\\/]node_modules[\\/]cesium[\\/]/,
+            chunks: 'all',
+            // 默认组的优先级为负数，以允许任何自定义缓存组具有更高的优先级（默认值为0）
+            priority: -5
           }
         }
       })
     )
   },
   configureWebpack: config => {
-    config.name = name
+    config.name = siteName
     const plugins = []
     return {
       plugins: plugins
