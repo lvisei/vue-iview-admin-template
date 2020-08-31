@@ -214,7 +214,7 @@ export default {
     editUserInfo(params) {
       this.loading = true
       editUserInfoApi(params)
-        .then(_ => {
+        .then(() => {
           this.$Message.success({
             content: '信息更新成功',
             onClose: () => {
@@ -225,7 +225,7 @@ export default {
         .catch(error => {
           this.$Message.error(error.message || '信息更新失败')
         })
-        .finally(_ => (this.loading = false))
+        .finally(() => (this.loading = false))
     }
   }
 }

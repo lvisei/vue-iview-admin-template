@@ -126,7 +126,7 @@ export default {
     editUserPassword(oldPassword, newPassword) {
       this.loading = true
       editUserPasswordApi(oldPassword, newPassword)
-        .then(_ => {
+        .then(() => {
           this.$Message.success({
             content: '修改密码成功，请重新登录！',
             onClose: () => {
@@ -140,7 +140,7 @@ export default {
           // this.$refs.form.resetFields()
           this.$Message.error(error.message || '修改密码失败')
         })
-        .finally(_ => (this.loading = false))
+        .finally(() => (this.loading = false))
     }
   }
 }

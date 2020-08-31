@@ -75,7 +75,7 @@ const loadComponent = component => {
     (component.startsWith('/layouts/')
       ? import(`@/layouts/${component.split('/layouts/')[1]}.vue`)
       : import(`@/pages${component}/index.vue`)
-    ).catch(_ => Page404)
+    ).catch(() => Page404)
 }
 
 /**

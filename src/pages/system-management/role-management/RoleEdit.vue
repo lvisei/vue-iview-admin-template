@@ -235,7 +235,7 @@ export default {
           }
           this.formData = formData
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('获取角色数据失败')
         })
     },

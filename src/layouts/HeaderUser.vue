@@ -49,7 +49,7 @@ export default {
           this.$router.push({ name: 'UserSet' })
           break
         case 'logout':
-          this.userLogOut().then(_ => {
+          this.userLogOut().then(() => {
             this.$Message.success({
               content: '退出登陆成功~',
               onClose: () => {

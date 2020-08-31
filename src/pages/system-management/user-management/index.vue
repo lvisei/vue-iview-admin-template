@@ -265,11 +265,11 @@ export default {
         this.searchRolesLoading = true
         getAllRoles(query)
           .then(({ list }) => (this.roleList = list))
-          .finally(_ => (this.searchRolesLoading = false))
+          .finally(() => (this.searchRolesLoading = false))
       } else {
         getAllRoles()
           .then(({ list }) => (this.roleList = list))
-          .finally(_ => (this.searchRolesLoading = false))
+          .finally(() => (this.searchRolesLoading = false))
       }
     },
 
@@ -317,7 +317,7 @@ export default {
 
       if (isAddUser) {
         addUsers(data)
-          .then(_ => {
+          .then(() => {
             this.editUserVisible = false
             this.$Message.success('添加成功')
             this.upTableData()
@@ -325,11 +325,11 @@ export default {
           .catch(({ message }) => {
             this.$Message.error(`编辑失败: ${message}`)
           })
-          .finally(_ => (this.editUserLoading = false))
+          .finally(() => (this.editUserLoading = false))
       } else {
         const { id } = this.editorUser
         editUsers(id, data)
-          .then(_ => {
+          .then(() => {
             this.editUserVisible = false
             this.$Message.success('编辑成功')
             this.upTableData()
@@ -337,28 +337,28 @@ export default {
           .catch(({ message }) => {
             this.$Message.error(`编辑失败: ${message}`)
           })
-          .finally(_ => (this.editUserLoading = false))
+          .finally(() => (this.editUserLoading = false))
       }
     },
 
     handRemove({ id }) {
       deleteUser(id)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('删除成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('删除失败')
         })
     },
 
     handEditStatus({ id, status }) {
       editUsersStatus(id, status === 1 ? 2 : 1)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('编辑成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('编辑失败')
         })
     },
@@ -372,15 +372,15 @@ export default {
       this.editUserLoading = true
       const { id } = this.editorUser
       restUsersPassword(id, password)
-        .then(_ => {
+        .then(() => {
           this.editPasswordVisible = false
           this.$Message.success('重置密码成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('重置密码失败')
         })
-        .finally(_ => (this.editUserLoading = false))
+        .finally(() => (this.editUserLoading = false))
     },
 
     upTableData() {

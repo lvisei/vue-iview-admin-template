@@ -264,48 +264,48 @@ export default {
 
       if (isAddRole) {
         addRoles(data)
-          .then(_ => {
+          .then(() => {
             this.editRoleVisible = false
             this.$Message.success('添加成功')
             this.upTableData()
           })
-          .catch(_ => {
+          .catch(() => {
             this.$Message.error('添加失败')
           })
-          .finally(_ => (this.editRoleLoading = false))
+          .finally(() => (this.editRoleLoading = false))
       } else {
         const { id } = this.editorRole
         editRoles(id, data)
-          .then(_ => {
+          .then(() => {
             this.editRoleVisible = false
             this.$Message.success('编辑成功')
             this.upTableData()
           })
-          .catch(_ => {
+          .catch(() => {
             this.$Message.error('编辑失败')
           })
-          .finally(_ => (this.editRoleLoading = false))
+          .finally(() => (this.editRoleLoading = false))
       }
     },
 
     handRemove({ id }) {
       deleteRole(id)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('删除成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('删除失败')
         })
     },
 
     handEditStatus({ id, status }) {
       editRolesStatus(id, status === 1 ? 2 : 1)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('编辑成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('编辑失败')
         })
     },
