@@ -10,7 +10,7 @@
 
 基于 View UI 组件库参考 Ant Design Pro 的 vue 2.0 后台管理系统模板
 
-[![vue](https://img.shields.io/badge/vue-2.6.10-brightgreen.svg)](https://github.com/vuejs/vue)
+[![vue](https://img.shields.io/badge/vue-2.6.12-brightgreen.svg)](https://github.com/vuejs/vue)
 [![view-design](https://img.shields.io/badge/view_design-4.3.2-brightgreen.svg)](https://github.com/view-design/ViewUI)
 [![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
@@ -56,6 +56,7 @@ npm run lint
 - [Live demo one](https://vue-iview-admin-template.ywbang.icu)
 - [Live demo two](https://vue-iview-admin-temp.ywbang.icu)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
+- [BackEnd Admin Template](https://github.com/liuvigongzuoshi/gin-admin-template)
 
 ## Browsers support
 

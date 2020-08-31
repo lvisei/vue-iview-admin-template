@@ -206,7 +206,7 @@ export default {
     onAddSubmit(userInfo) {
       this.addSubmitLoading = true
       addUserApi(userInfo)
-        .then(_ => {
+        .then(() => {
           this.addPaneVisible = false
           this.$Message.success('添加用户成功~')
           this.upTableData()
@@ -214,7 +214,7 @@ export default {
         .catch(({ message }) => {
           this.$Message.error(message)
         })
-        .finally(_ => (this.addSubmitLoading = false))
+        .finally(() => (this.addSubmitLoading = false))
     },
 
     editUser(row) {
@@ -225,7 +225,7 @@ export default {
     onEditSubmit(newUserInfo) {
       this.editSubmitLoading = true
       updateUserApi(newUserInfo)
-        .then(_ => {
+        .then(() => {
           this.editPaneVisible = false
           this.$Message.success('修改用户信息成功~')
           this.upTableData()
@@ -235,7 +235,7 @@ export default {
         .catch(({ message }) => {
           this.$Message.error(message)
         })
-        .finally(_ => (this.editSubmitLoading = false))
+        .finally(() => (this.editSubmitLoading = false))
     },
 
     changeUserPassword(row) {
@@ -250,14 +250,14 @@ export default {
         passwordold: oldPassword,
         password: newPassword
       })
-        .then(_ => {
+        .then(() => {
           this.$Message.success('修改密码成功~')
           this.passwordPaneVisible = false
         })
         .catch(({ message }) => {
           this.$Message.error(message)
         })
-        .finally(_ => (this.passwordSubmitLoading = false))
+        .finally(() => (this.passwordSubmitLoading = false))
     },
 
     disbleUser(usernames) {

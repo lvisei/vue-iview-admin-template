@@ -310,51 +310,51 @@ export default {
 
       if (isAddMenu) {
         addMenus(data)
-          .then(_ => {
+          .then(() => {
             this.editMenuVisible = false
             this.$Message.success('添加成功')
             this.upTableData()
             this.getMenusTree()
           })
-          .catch(_ => {
+          .catch(() => {
             this.$Message.error('添加失败')
           })
-          .finally(_ => (this.editMenuLoading = false))
+          .finally(() => (this.editMenuLoading = false))
       } else {
         const { id } = this.editorMenu
         editMenus(id, data)
-          .then(_ => {
+          .then(() => {
             this.editMenuVisible = false
             this.$Message.success('编辑成功')
             this.upTableData()
             this.getMenusTree()
           })
-          .catch(_ => {
+          .catch(() => {
             this.$Message.error('编辑失败')
           })
-          .finally(_ => (this.editMenuLoading = false))
+          .finally(() => (this.editMenuLoading = false))
       }
     },
 
     handRemove({ id }) {
       deleteMenu(id)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('删除成功')
           this.upTableData()
           this.getMenusTree()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('删除失败')
         })
     },
 
     handEditStatus({ id, status }) {
       editMenusStatus(id, status === 1 ? 2 : 1)
-        .then(_ => {
+        .then(() => {
           this.$Message.success('编辑成功')
           this.upTableData()
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('编辑失败')
         })
     },

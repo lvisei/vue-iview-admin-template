@@ -225,7 +225,7 @@ export default {
           }
           this.formData = formData
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('获取菜单数据失败')
         })
     },

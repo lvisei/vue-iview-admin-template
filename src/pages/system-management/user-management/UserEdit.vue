@@ -206,7 +206,7 @@ export default {
           }
           this.formData = formData
         })
-        .catch(_ => {
+        .catch(() => {
           this.$Message.error('获取用户数据失败')
         })
     },
@@ -216,11 +216,11 @@ export default {
         this.searchRolesLoading = true
         getAllRoles(query)
           .then(({ list }) => (this.roleList = list))
-          .finally(_ => (this.searchRolesLoading = false))
+          .finally(() => (this.searchRolesLoading = false))
       } else {
         getAllRoles()
           .then(({ list }) => (this.roleList = list))
-          .finally(_ => (this.searchRolesLoading = false))
+          .finally(() => (this.searchRolesLoading = false))
       }
     },
 

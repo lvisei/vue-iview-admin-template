@@ -19,7 +19,7 @@
     "core-js": "^3.6.5",
     "countup": "^1.8.2",
     "crypto-js": "^4.0.0",
-    "echarts": "^4.8.0",
+    "echarts": "^4.9.0",
     "esri-loader": "^2.15.0",
     "jsencrypt": "^3.0.0-rc.1",
     "leaflet": "^1.6.0",
