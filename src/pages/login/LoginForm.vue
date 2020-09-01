@@ -9,7 +9,7 @@
     <i-form-item prop="username">
       <i-input v-model="form.username" placeholder="请输入用户名">
         <span slot="prefix">
-          <i-icon :size="16" type="ios-person" />
+          <i-icon :size="16" type="md-person" />
         </span>
       </i-input>
     </i-form-item>
@@ -25,7 +25,7 @@
         <i-col span="16">
           <i-input v-model="form.captchaCode" placeholder="请输入验证码">
             <span slot="prefix">
-              <i-icon :size="16" type="ios-image" />
+              <i-icon :size="16" type="md-image" />
             </span>
           </i-input>
         </i-col>
