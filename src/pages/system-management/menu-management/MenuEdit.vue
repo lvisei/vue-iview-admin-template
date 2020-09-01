@@ -28,10 +28,17 @@
         />
       </i-form-item>
       <i-form-item label="路由名称" prop="routeName">
-        <i-input v-model.trim="formData.routeName" placeholder="请输入组件路径"></i-input>
+        <span slot="label">
+          路由名称
+        </span>
+        <i-input v-model.trim="formData.routeName" placeholder="请输入组件名称">
+          <i-tooltip slot="suffix" content="路由名称应保持唯一值">
+            <i-icon type="ios-help" />
+          </i-tooltip>
+        </i-input>
       </i-form-item>
       <i-form-item label="路由地址" prop="routePath">
-        <i-input v-model.trim="formData.routePath" placeholder="请输入组件路径"></i-input>
+        <i-input v-model.trim="formData.routePath" placeholder="请输入路由地址"></i-input>
       </i-form-item>
       <i-form-item label="组件路径" prop="component">
         <i-input v-model.trim="formData.component" placeholder="请输入组件路径"></i-input>

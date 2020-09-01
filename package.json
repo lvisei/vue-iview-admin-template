@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@turf/turf": "^5.1.6",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "bpmn-js": "^6.5.1",
     "canvas-nest.js": "^2.0.4",
     "core-js": "^3.6.5",
