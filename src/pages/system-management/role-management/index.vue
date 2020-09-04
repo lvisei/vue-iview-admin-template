@@ -80,7 +80,7 @@
       :data="tableData"
     >
       <template slot-scope="{ row }" slot="name">
-        <strong>{{ row.name }}</strong>
+        <span>{{ row.name }}</span>
       </template>
       <template slot-scope="{ row }" slot="status">
         <i-badge
@@ -313,7 +313,9 @@ export default {
     upTableData() {
       this.tableLoading = !this.spinShow
       return this.getRoleList().then(({ list, total }) => {
-        this.tableData = list
+        this.tableData = list.map(item =>
+          Object.assign(item, { createdAt: this.$utils.getFormatDate(item.createdAt) })
+        )
         this.totalCount = total
         this.tableLoading = false
         return { list, total }
