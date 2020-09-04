@@ -98,7 +98,7 @@
           :data="tableData"
         >
           <template slot-scope="{ row }" slot="name">
-            <strong>{{ row.name }}</strong>
+            <span>{{ row.name }}</span>
           </template>
           <template slot-scope="{ row }" slot="icon">
             <i-icon :type="row.icon" size="18" />
@@ -219,14 +219,14 @@ export default {
       columns: [
         { title: '菜单名称', key: 'name', slot: 'name' },
         { title: '菜单图标', key: 'icon', slot: 'icon', align: 'center' },
-        { title: '访问地址', key: 'routePath' },
+        { title: '访问地址', key: 'routePath', width: 180 },
         { title: '状态', key: 'status', slot: 'status' },
         { title: '可见', key: 'showStatus', slot: 'showStatus' },
         { title: '排序值', key: 'sequence', sortable: true },
-        { title: '创建时间', key: 'createdAt', sortable: true },
-        { title: '创建者', key: 'creator' },
-        { title: '备注', key: 'memo' },
-        { title: '操作', slot: 'action', width: 250, align: 'center' }
+        { title: '创建时间', key: 'createdAt', sortable: true, width: 170 },
+        { title: '创建者', key: 'creator', width: 100, ellipsis: true, tooltip: true },
+        { title: '备注', key: 'memo', ellipsis: true, tooltip: true },
+        { title: '操作', slot: 'action', width: 230, align: 'center' }
       ],
       tableData: [],
       editMenuVisible: false,
@@ -362,7 +362,9 @@ export default {
     upTableData() {
       this.tableLoading = !this.spinShow
       return this.getMenuList().then(({ list, total }) => {
-        this.tableData = list
+        this.tableData = list.map(item =>
+          Object.assign(item, { createdAt: this.$utils.getFormatDate(item.createdAt) })
+        )
         this.totalCount = total
         this.tableLoading = false
         return { list, total }
@@ -420,13 +422,15 @@ export default {
   &__left {
     padding: 20px 10px;
     border: 1px solid #4a506621;
+    border-radius: 2px;
     margin-right: 30px;
-    flex: 0 0 300px;
+    flex: 0 0 250px;
   }
 
   &__right {
     padding: 20px;
     border: 1px solid #4a506621;
+    border-radius: 2px;
     flex: 1;
   }
 

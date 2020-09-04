@@ -293,5 +293,6 @@ export default {
   onEvent,
   offEvent,
   debounce,
-  throttle
+  throttle,
+  getFormatDate
 }
