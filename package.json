@@ -22,7 +22,7 @@
     "echarts": "^4.9.0",
     "esri-loader": "^2.15.0",
     "jsencrypt": "^3.0.0-rc.1",
-    "leaflet": "^1.6.0",
+    "leaflet": "^1.7.1",
     "lodash": "^4.17.20",
     "mapbox-gl": "^1.12.0",
     "ol": "^6.4.3",

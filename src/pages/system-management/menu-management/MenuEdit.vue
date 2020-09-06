@@ -75,10 +75,34 @@
       <i-form-item class="menu-edit__actions" label="按钮管理">
         <i-table border size="small" :columns="btnColumns" :data="formData.actions">
           <template slot-scope="{ index }" slot="name">
-            <i-input v-model="formData.actions[index].name" placeholder="请输入按钮名称" />
+            <i-input
+              v-model="formData.actions[index].name"
+              size="small"
+              placeholder="请输入按钮名称"
+            />
           </template>
           <template slot-scope="{ index }" slot="code">
-            <i-input v-model="formData.actions[index].code" placeholder="请输入权限编号" />
+            <i-input
+              v-model="formData.actions[index].code"
+              size="small"
+              placeholder="请输入权限编号"
+            />
+          </template>
+          <template slot-scope="{ index }" slot="resources">
+            <i-select
+              v-model="formData.actions[index].resources"
+              multiple
+              filterable
+              :max-tag-count="1"
+              size="small"
+              placeholder="请选择按钮资源"
+            >
+              <i-option-group v-for="item in resourceList" :label="item.group" :key="item.group">
+                <i-option v-for="resource in item.children" :value="resource.id" :key="resource.id">
+                  {{ item.group + ' : ' + resource.method }}
+                </i-option>
+              </i-option-group>
+            </i-select>
           </template>
           <template slot-scope="{ index }" slot="action">
             <i-button
@@ -95,10 +119,26 @@
           long
           type="default"
           size="small"
-          @click="formData.actions.push({ name: '', code: '' })"
+          @click="formData.actions.push({ name: '', code: '', resources: [] })"
         >
           新增
         </i-button>
+      </i-form-item>
+
+      <i-form-item class="menu-edit__resources" label="资源管理">
+        <i-select
+          v-model="formData.resources"
+          multiple
+          filterable
+          :max-tag-count="3"
+          placeholder="请选择菜单资源"
+        >
+          <i-option-group v-for="item in resourceList" :label="item.group" :key="item.group">
+            <i-option v-for="resource in item.children" :value="resource.id" :key="resource.id">
+              {{ resource.method + ' : ' + resource.path }}
+            </i-option>
+          </i-option-group>
+        </i-select>
       </i-form-item>
     </i-form>
     <div slot="footer">
@@ -112,6 +152,7 @@
 import TreeSelect from '@/components/TreeSelect'
 import { ICONS } from './helper'
 import { getMenu } from '@/api/system-management/menu-management'
+import { getAllResources } from '@/api/system-management/resource-management'
 
 export default {
   name: 'MenuEdit',
@@ -165,7 +206,8 @@ export default {
         status: '',
         showStatus: '',
         memo: '',
-        actions: []
+        actions: [],
+        resources: []
       },
       btnColumns: [
         {
@@ -178,9 +220,16 @@ export default {
           key: 'code',
           slot: 'code'
         },
+        {
+          title: '资源',
+          minWidth: 150,
+          key: 'resources',
+          slot: 'resources'
+        },
         { title: '操作', slot: 'action', width: 100, align: 'center' }
       ],
-      iconList: Object.freeze(ICONS)
+      iconList: Object.freeze(ICONS),
+      resourceList: []
     }
   },
 
@@ -195,6 +244,7 @@ export default {
       if (value) {
         const { id } = this.menu
         this.isEditMenu && this.getMenuData(id)
+        this.getAllResources()
       } else {
         this.$refs.form.resetFields()
       }
@@ -228,13 +278,40 @@ export default {
             status: data.status,
             showStatus: data.showStatus,
             memo: data.memo,
-            actions: data.actions || []
+            actions: data.actions
+              ? data.actions.map(item =>
+                  Object.assign(item, {
+                    resources: item.resources
+                      ? item.resources.map(({ resourceId }) => resourceId)
+                      : []
+                  })
+                )
+              : [],
+            resources: data.resources ? data.resources.map(({ resourceId }) => resourceId) : []
           }
           this.formData = formData
         })
         .catch(() => {
           this.$Message.error('获取菜单数据失败')
         })
+    },
+
+    getAllResources() {
+      if (this.resourceList.length) return
+      getAllResources().then(({ list }) => {
+        const groupMap = {}
+        list.forEach(item => {
+          if (groupMap[item.group]) {
+            groupMap[item.group].push(item)
+          } else {
+            groupMap[item.group] = [item]
+          }
+        })
+        this.resourceList = Object.keys(groupMap).map(group => ({
+          group,
+          children: groupMap[group]
+        }))
+      })
     },
 
     onSubmit() {
@@ -252,7 +329,12 @@ export default {
             status: formData.status,
             showStatus: formData.showStatus,
             memo: formData.memo,
-            actions: formData.actions
+            actions: formData.actions.map(item =>
+              Object.assign({}, item, {
+                resources: item.resources.map(resourceId => ({ resourceId }))
+              })
+            ),
+            resources: formData.resources.map(resourceId => ({ resourceId }))
           }
           this.$emit('on-edit-submit', data)
         }
@@ -272,7 +354,7 @@ export default {
     /deep/ .ivu-form-item-label {
       float: none;
       display: inline-block;
-      padding: 0 0 10px;
+      // padding: 0 0 10px;
     }
 
     /deep/ .ivu-form-item-content {
