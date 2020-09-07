@@ -1,24 +1,3 @@
-export const formatMenusTree = (menusTree, tileKey, expandAll = true) => {
-  const _menusTree = []
-  for (let index = 0; index < menusTree.length; index++) {
-    const item = menusTree[index]
-
-    if (item.children) {
-      _menusTree.push(
-        Object.assign({}, item, {
-          expand: expandAll,
-          title: item[tileKey],
-          children: formatMenusTree(item.children, tileKey, expandAll)
-        })
-      )
-    } else {
-      _menusTree.push(Object.assign({}, item, { expand: expandAll, title: item[tileKey] }))
-    }
-  }
-
-  return _menusTree
-}
-
 export const ICONS = [
   'ios-add-circle-outline',
   'ios-add-circle',

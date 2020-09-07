@@ -43,7 +43,7 @@ const tip = (msg, type = 'info') => {
 /**
  * Exception interception processing
  * @param {*} response
- * @returns
+ * @returns {Promise}
  */
 const errorHandler = response => {
   const { data } = response
@@ -134,7 +134,7 @@ request.interceptors.response.use(
     const { response, message } = error
 
     if (response) {
-      errorHandler(response)
+      return errorHandler(response)
     } else {
       if (message === REPEATREQUEST) {
         tip('数据请求中，请稍后')

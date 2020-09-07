@@ -24,7 +24,7 @@ export const getAllResources = queryValue => {
  * @param {Object} params
  * @returns {Promise}
  */
-export const addResources = params => {
+export const addResource = params => {
   return request.post(`/resources`, params)
 }
 
@@ -33,7 +33,7 @@ export const addResources = params => {
  * @param {String} id 资源ID
  * @returns {Promise}
  */
-export const getMenu = id => {
+export const getResource = id => {
   return request.get(`/resources/${id}`)
 }
 
@@ -43,7 +43,7 @@ export const getMenu = id => {
  * @param {Object} params
  * @returns {Promise}
  */
-export const editResources = (id, params) => {
+export const editResource = (id, params) => {
   return request.put(`/resources/${id}`, params)
 }
 
@@ -52,6 +52,6 @@ export const editResources = (id, params) => {
  * @param {String} id 资源ID
  * @returns {Promise}
  */
-export const deleteMenu = id => {
+export const deleteResource = id => {
   return request.delete(`/resources/${id}`)
 }
