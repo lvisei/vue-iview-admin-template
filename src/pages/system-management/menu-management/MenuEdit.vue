@@ -32,16 +32,29 @@
           路由名称
         </span>
         <i-input v-model.trim="formData.routeName" placeholder="请输入组件名称">
-          <i-tooltip slot="suffix" content="路由名称应保持唯一值">
-            <i-icon type="ios-help" />
+          <i-tooltip
+            slot="suffix"
+            transfer
+            max-width="500"
+            content="路由名称应保持唯一值，路由切换与模块权限集成时使用，ExampleDemo"
+          >
+            <i-icon type="ios-help-circle-outline" />
           </i-tooltip>
         </i-input>
       </i-form-item>
       <i-form-item label="路由地址" prop="routePath">
-        <i-input v-model.trim="formData.routePath" placeholder="请输入路由地址"></i-input>
+        <i-input v-model.trim="formData.routePath" placeholder="请输入路由地址">
+          <i-tooltip slot="suffix" transfer max-width="500" content="URL子路径，/example">
+            <i-icon type="ios-help-circle-outline" />
+          </i-tooltip>
+        </i-input>
       </i-form-item>
       <i-form-item label="组件路径" prop="component">
-        <i-input v-model.trim="formData.component" placeholder="请输入组件路径"></i-input>
+        <i-input v-model.trim="formData.component" placeholder="请输入组件路径">
+          <i-tooltip slot="suffix" transfer max-width="500" content="路由组件路径，/example-demo">
+            <i-icon type="ios-help-circle-outline" />
+          </i-tooltip>
+        </i-input>
       </i-form-item>
       <i-form-item label="菜单图标" prop="icon">
         <i-select v-model="formData.icon" filterable placeholder="请选择菜单图标">
