@@ -228,8 +228,8 @@ export default {
             this.$Message.success('添加成功')
             this.upTableData()
           })
-          .catch(() => {
-            this.$Message.error('添加失败')
+          .catch(({ message = '添加失败' }) => {
+            this.$Message.error(message)
           })
           .finally(() => (this.editResourceLoading = false))
       } else {
@@ -240,8 +240,8 @@ export default {
             this.$Message.success('编辑成功')
             this.upTableData()
           })
-          .catch(() => {
-            this.$Message.error('编辑失败')
+          .catch(({ message = '编辑失败' }) => {
+            this.$Message.error(message)
           })
           .finally(() => (this.editResourceLoading = false))
       }

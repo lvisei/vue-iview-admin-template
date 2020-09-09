@@ -140,8 +140,11 @@ const actions = {
       const _asyncRoutes = [],
         permissions = []
 
+      // 根据获取的数据生成路由
       generaMenu(_asyncRoutes, list)
+      // 根据获取的数据生成各模块的权限编码
       generaPermissions(permissions, list)
+      // 将后备路由添加到动态路由后面
       const __asyncRoutes = _asyncRoutes.concat(asyncRoutes)
 
       commit('SET_ROUTES', __asyncRoutes)

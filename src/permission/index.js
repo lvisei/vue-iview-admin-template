@@ -37,12 +37,11 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 获取用户信息
           await store.dispatch('user/getUserInfo')
+          // 不需要动态注册路由，注释下面两行代码即可
           // generate accessible routes map based
           const accessRoutes = await store.dispatch('routes/getUserMenutree')
-
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
-
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
