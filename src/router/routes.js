@@ -118,20 +118,38 @@ const syncRoutes = [
         name: 'CountTo',
         component: () =>
           import(/* webpackChunkName: "count-to" */ '@/pages/components-demo/count-to'),
-        meta: { title: 'CountTo' }
+        meta: { title: 'count to' }
       },
       {
         path: 'back-to-top',
         name: 'BackToTop',
         component: () =>
           import(/* webpackChunkName: "back-to-top" */ '@/pages/components-demo/back-to-top'),
-        meta: { title: '返回顶部' }
+        meta: { title: 'back to top' }
       },
       {
         path: 'bpmn',
         name: 'Bpmn',
         component: () => import(/* webpackChunkName: "bpmn" */ '@/pages/components-demo/bpmn'),
-        meta: { title: 'Bpmn' }
+        meta: { title: 'bpmn' }
+      },
+      {
+        path: 'el-form-generator',
+        name: 'ElFormGenerator',
+        component: () =>
+          import(
+            /* webpackChunkName: "form-generator" */ '@/pages/components-demo/el-form-generator'
+          ),
+        meta: { title: 'el form generator' }
+      },
+      {
+        path: 'table-form-generator',
+        name: 'TableFormGenerator',
+        component: () =>
+          import(
+            /* webpackChunkName: "table-form-generator" */ '@/pages/components-demo/table-form-generator'
+          ),
+        meta: { title: 'table form generator' }
       }
     ]
   },

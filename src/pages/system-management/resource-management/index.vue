@@ -82,7 +82,7 @@
                 v-permission="'ResourceManagement.del'"
                 confirm
                 transfer
-                title="确定删除这个菜单？"
+                title="确定删除这个资源？"
                 @on-ok="handRemove(row)"
                 ok-text="确定"
                 cancel-text="取消"
