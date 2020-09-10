@@ -99,6 +99,7 @@ request.interceptors.request.use(
 
     // Switch page to cancel request
     // https://github.com/dingFY/vue-iview3-admin/blob/master/src/api/axios.js#L72
+    // https://github.com/chunpu/blog/issues/98
 
     // token
     const token = store.state.user.token

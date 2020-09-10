@@ -82,7 +82,7 @@
                 v-permission="'ResourceManagement.del'"
                 confirm
                 transfer
-                title="确定删除这个菜单？"
+                title="确定删除这个资源？"
                 @on-ok="handRemove(row)"
                 ok-text="确定"
                 cancel-text="取消"
@@ -228,8 +228,8 @@ export default {
             this.$Message.success('添加成功')
             this.upTableData()
           })
-          .catch(() => {
-            this.$Message.error('添加失败')
+          .catch(({ message = '添加失败' }) => {
+            this.$Message.error(message)
           })
           .finally(() => (this.editResourceLoading = false))
       } else {
@@ -240,8 +240,8 @@ export default {
             this.$Message.success('编辑成功')
             this.upTableData()
           })
-          .catch(() => {
-            this.$Message.error('编辑失败')
+          .catch(({ message = '编辑失败' }) => {
+            this.$Message.error(message)
           })
           .finally(() => (this.editResourceLoading = false))
       }
