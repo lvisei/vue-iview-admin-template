@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import { getType } from '@turf/turf'
-import terraformerArcgisParser from 'terraformer-arcgis-parser'
+import { geoJson2graphics, graphics2geoJson } from './helper'
 import MapContainer from '../MapContainer'
 import MapPosition from '../MapPosition'
 import SketchGraphicAttribute from './Attribute'
@@ -145,7 +144,6 @@ export default {
 
       if (this.geoJson) {
         const graphics = this.loadGraphics(this.geoJson)
-        // console.log('JSON.stringify(graphics): ', JSON.stringify(graphics))
         this.sketchGraphicLayer.addMany(graphics)
         this.view.goTo(graphics)
       }
@@ -164,43 +162,16 @@ export default {
     },
 
     loadGraphics(geoJson) {
-      const { projection, SpatialReference, Graphic } = this.arcGisApi
+      const { Graphic } = this.arcGisApi
       const featureCollection = JSON.parse(geoJson)
-      const spatialReferenceWkid = '4490'
-      const graphics = []
-      // const graphicAttributesList = []
 
-      for (const currentFeature of featureCollection.features) {
-        const graphicJson = terraformerArcgisParser.convert(currentFeature, {
-          sr: spatialReferenceWkid
-        })
-        // console.log('graphicJson: ', graphicJson)
-        const {
-          attributes: { _symbol }
-        } = graphicJson
-        if (_symbol) {
-          graphicJson.symbol = _symbol
-        }
-
-        const graphic = Graphic.fromJSON(graphicJson)
-
-        if (!_symbol) {
-          const featureType = getType(currentFeature)
-          // console.log('featureType: ', featureType)
-          const symbol =
-            featureType === 'Point' || featureType === 'MultiPoint'
-              ? this.pointSymbol
-              : featureType === 'LineString' || featureType === 'MultiLineString'
-              ? this.polylineSymbol
-              : featureType === 'Polygon' || featureType === 'MultiPolygon'
-              ? this.polygonSymbol
-              : null
-          graphic.symbol = symbol
-        }
-
-        graphics.push(graphic)
-        // console.log('graphic: ', graphic)
+      const option = {
+        pointSymbol: this.pointSymbol,
+        polylineSymbol: this.polylineSymbol,
+        polygonSymbol: this.polygonSymbol,
+        spatialReferenceWkid: '4490'
       }
+      const graphics = geoJson2graphics(featureCollection, Graphic, option)
 
       return graphics
     },
@@ -220,9 +191,11 @@ export default {
         }
       })
 
-      sketch.viewModel.pointSymbol = this.pointSymbol
-      sketch.viewModel.polylineSymbol = this.polylineSymbol
-      sketch.viewModel.polygonSymbol = this.polygonSymbol
+      Object.assign(sketch.viewModel, {
+        pointSymbol: this.pointSymbol,
+        polylineSymbol: this.polylineSymbol,
+        polygonSymbol: this.polygonSymbol
+      })
 
       sketch.on(['create', 'update'], event => {
         const { state, type, graphics } = event
@@ -259,24 +232,8 @@ export default {
 
     getSketchGeoJson() {
       const { sketchGraphicLayer } = this
-      const features = sketchGraphicLayer.graphics.items.map(graphic => {
-        const graphicJson = graphic.toJSON()
-        // console.log('graphicJson: ', JSON.stringify(graphicJson))
-        const { symbol } = graphicJson
-        const feature = terraformerArcgisParser.parse(graphicJson)
-        // feature.id = graphic.uid
-        feature.properties._symbol = symbol
-        const _feature = JSON.parse(JSON.stringify(feature))
-        // hack: Geojson rfc794
-        delete _feature.geometr
-        // console.log('_feature: ', _feature)
-        return _feature
-      })
-      const geoJson = {
-        type: 'FeatureCollection',
-        features
-      }
-
+      const graphics = sketchGraphicLayer.graphics.items
+      const geoJson = graphics2geoJson(graphics)
       return geoJson
     },
 
