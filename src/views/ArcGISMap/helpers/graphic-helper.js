@@ -37,7 +37,13 @@ const getSymbol = (symbolColor = [51, 204, 51, 0.3]) => {
 
   return { pointSymbol, polylineSymbol, polygonSymbol }
 }
-
+/**
+ * GeoJson 数据转换为 ArcGI 的 Graphic
+ * @param {Object} featureCollection
+ * @param {Class} Graphic
+ * @param {Class} color
+ * @returns graphics
+ */
 export const featureCollectionToGraphics = (featureCollection, Graphic, color) => {
   const graphics = []
 
@@ -49,6 +55,13 @@ export const featureCollectionToGraphics = (featureCollection, Graphic, color) =
   return graphics
 }
 
+/**
+ * Feature 数据转换为 ArcGI 的 Graphic
+ * @param {Object} feature
+ * @param {Class} Graphic
+ * @param {Class} color
+ * @returns graphic
+ */
 export const featureToGraphic = (feature, Graphic, color) => {
   const { pointSymbol, polylineSymbol, polygonSymbol } = getSymbol(color)
 
