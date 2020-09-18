@@ -12,11 +12,18 @@ import {
 import terraformerArcgisParser from 'terraformer-arcgis-parser'
 import {
   geometryProjection,
-  isGeographicCoordinateSystems,
   isProjectedCoordinateSystems,
   isSupportedProjection
 } from './geometry-projection'
 
+/**
+ * 基于ArcGIS API GeoJson投影坐标转地理坐标
+ * @param {Object} featureCollection
+ * @param {string} wkt
+ * @param {Class} projection
+ * @param {Class} SpatialReference
+ * @returns { featureCollection, error }
+ */
 export const featureCollectionProjection = async (
   featureCollection,
   wkt,
@@ -58,6 +65,11 @@ export const featureCollectionProjection = async (
   }
 }
 
+/**
+ * 简化多点/线/面的 GeoJson 数据
+ * @param {*} featureCollection
+ * @returns featureCollection
+ */
 export const multiFeatureCollectionToFeature = featureCollection => {
   const features = []
   featureEach(featureCollection, (currentFeature, featureIndex) => {
@@ -97,6 +109,11 @@ export const multiFeatureCollectionToFeature = featureCollection => {
   return featureCollection
 }
 
+/**
+ * 多面 multiPolygon 转 GeoJson 数据
+ * @param {string} multiPolygon_geometry_string
+ * @returns featureCollection
+ */
 export const multiPolygonToFeatureCollection = multiPolygon_geometry_string => {
   const _multiPolygon_geometry = JSON.parse(multiPolygon_geometry_string)
   const { coordinates } = _multiPolygon_geometry
@@ -106,6 +123,11 @@ export const multiPolygonToFeatureCollection = multiPolygon_geometry_string => {
   return JSON.stringify(_featureCollection)
 }
 
+/**
+ * GeoJson 转多面 multiPolygon 数据
+ * @param {Object} featureCollection
+ * @returns multiPolygon_geometry
+ */
 export const featureCollectionToMultiPolygon = featureCollection => {
   const multiPolygon_coords = []
   featureEach(featureCollection, function(currentPolygonFeature, featureIndex) {
@@ -122,6 +144,11 @@ export const featureCollectionToMultiPolygon = featureCollection => {
   return _multiPolygon_geometry
 }
 
+/**
+ * Feature 转多面 multiPolygon 数据
+ * @param {Object} feature
+ * @returns multiPolygon_geometry
+ */
 export const featureToMultiPolygon = feature => {
   const multiPolygon_coords = []
   if (getType(feature) === 'Polygon') {

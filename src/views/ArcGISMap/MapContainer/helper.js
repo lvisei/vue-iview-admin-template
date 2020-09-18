@@ -1,5 +1,5 @@
 import { setDefaultOptions, loadScript, loadModules } from 'esri-loader'
-import { loadTdtVecLayer, loadTdtImgLayer } from './../helpers/base-layer'
+import { getTdtVecLayers, getTdtImgLayers } from './../helpers/base-layer'
 
 // NOTE: module, not global scope
 let _ArcgisApi
@@ -17,6 +17,7 @@ export function loadArcgisApi() {
       'esri/Basemap',
       'esri/widgets/BasemapToggle',
       'esri/layers/WebTileLayer',
+      'esri/layers/WMTSLayer',
       'esri/layers/support/TileInfo',
       'esri/widgets/Home',
       'esri/widgets/ScaleBar',
@@ -33,6 +34,7 @@ export function loadArcgisApi() {
       Basemap,
       BasemapToggle,
       WebTileLayer,
+      WMTSLayer,
       TileInfo,
       Home,
       ScaleBar,
@@ -47,6 +49,7 @@ export function loadArcgisApi() {
         Basemap,
         BasemapToggle,
         WebTileLayer,
+        WMTSLayer,
         TileInfo,
         Home,
         ScaleBar,
@@ -78,6 +81,7 @@ export async function loadMap(element, { search }) {
     BasemapToggle,
     WebTileLayer,
     TileInfo,
+    WMTSLayer,
     Home,
     ScaleBar,
     Compass,
@@ -86,13 +90,13 @@ export async function loadMap(element, { search }) {
   } = await loadArcgisApi()
 
   const basemap_tdt_vec = new Basemap({
-    baseLayers: [...loadTdtVecLayer(_ArcgisApi)],
+    baseLayers: [...getTdtVecLayers({ WebTileLayer, TileInfo })],
     thumbnailUrl: 'http://lbs.tianditu.gov.cn/images/vec_c.png',
     title: 'basemap_tdt_vec',
     id: 'basemap_tdt_vec'
   })
   const basemaptdt_img = new Basemap({
-    baseLayers: [...loadTdtImgLayer(_ArcgisApi)],
+    baseLayers: [...getTdtImgLayers({ WebTileLayer, TileInfo })],
     thumbnailUrl: 'http://lbs.tianditu.gov.cn/images/img_c.png',
     title: 'basemaptdt_img',
     id: 'basemaptdt_img'
@@ -115,14 +119,12 @@ export async function loadMap(element, { search }) {
     map: map,
     zoom: 3,
     center: new Point({
-      x: 106.6274,
-      y: 26.693,
-      spatialReference: 4490
+      x: 106.46281299898496,
+      y: 29.631357102439466,
+      spatialReference: { wkid: 4490 }
     }),
     extent: gzs_extent,
-    spatialReference: {
-      wkid: 4490
-    },
+    spatialReference: { wkid: 4490 },
     logo: false
   })
 
