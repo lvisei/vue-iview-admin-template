@@ -1,0 +1,367 @@
+{
+  "category": "复垦责任范围内单个片块详情表",
+  "children": [
+    {
+      "type": "plotTable",
+      "span": 24,
+      "field": "plotList",
+      "props": { "size": "small", "border": false, "height": "400" },
+      "suffix": "hm²",
+      "upload": { "action": "" },
+      "spans": false,
+      "columns": [
+        {
+          "title": "片块编号",
+          "key": "landCode",
+          "align": "center",
+          "width": 150,
+          "fixed": "left",
+          "customize": {
+            "type": "text",
+            "props": {
+              "type": "text",
+              "disabled": false,
+              "readonly": true,
+              "placeholder": "请输入片块编号"
+            },
+            "validate": []
+          }
+        },
+        {
+          "title": "土地权属单位",
+          "key": "belongtoUnit",
+          "align": "center",
+          "minWidth": 100,
+          "maxWidth": 270,
+          "customize": {
+            "type": "text",
+            "props": {
+              "type": "text",
+              "disabled": false,
+              "readonly": false,
+              "placeholder": "请输入土地权属单位"
+            },
+            "validate": [{ "required": true, "message": "请输入土地权属单位", "trigger": "blur" }]
+          }
+        },
+        {
+          "title": "片块面积",
+          "key": "landArea",
+          "align": "center",
+          "minWidth": 100,
+          "customize": {
+            "type": "number",
+            "props": {
+              "disabled": false,
+              "readonly": false,
+              "min": 0,
+              "placeholder": "请输入片块面积（hm²）"
+            },
+            "validate": [{ "required": false, "type": "number", "message": "请输入片块面积（hm²）", "trigger": "blur" }]
+          }
+        },
+        {
+          "title": "面积（hm²）",
+          "align": "center",
+          "children": [
+            {
+              "title": "耕地",
+              "align": "center",
+              "children": [
+                {
+                  "title": "水田",
+                  "key": "arableWaterfield",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入水田面积（hm²）"
+                    },
+                    "validate": [
+                      { "required": false, "type": "number", "message": "请输入水田面积（hm²）", "trigger": "blur" }
+                    ]
+                  }
+                },
+                {
+                  "title": "旱地",
+                  "key": "arableDryland",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入旱地面积（hm²）"
+                    },
+                    "validate": [
+                      { "required": false, "type": "number", "message": "请输入旱地面积（hm²）", "trigger": "blur" }
+                    ]
+                  }
+                },
+                {
+                  "title": "水浇地",
+                  "key": "arableWaterland",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入水浇地面积（hm²）"
+                    },
+                    "validate": [
+                      { "required": false, "type": "number", "message": "请输入水浇地面积（hm²）", "trigger": "blur" }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "title": "园地",
+              "key": "gardenLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入园地面积（hm²）"
+                },
+                "validate": [
+                  { "required": false, "type": "number", "message": "请输入园地面积（hm²）", "trigger": "blur" }
+                ]
+              }
+            },
+            {
+              "title": "林地",
+              "key": "woodLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入林地面积（hm²）"
+                },
+                "validate": [
+                  { "required": false, "type": "number", "message": "请输入林地面积（hm²）", "trigger": "blur" }
+                ]
+              }
+            },
+            {
+              "title": "草地",
+              "key": "grassLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入草地面积（hm²）"
+                },
+                "validate": [
+                  { "required": false, "type": "number", "message": "请输入草地面积（hm²）", "trigger": "blur" }
+                ]
+              }
+            },
+            {
+              "title": "水域及水利设施用地",
+              "key": "waterandequipmentLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入水域及水利设施用地面积（hm²）"
+                },
+                "validate": [
+                  {
+                    "required": false,
+                    "type": "number",
+                    "message": "请输入水域及水利设施用地面积（hm²）",
+                    "trigger": "blur"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "交通运输用地",
+              "key": "transporttationLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入交通运输用地面积（hm²）"
+                },
+                "validate": [
+                  { "required": false, "type": "number", "message": "请输入交通运输用地面积（hm²）", "trigger": "blur" }
+                ]
+              }
+            },
+            {
+              "title": "城镇村及工矿用地",
+              "key": "townandworkLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入城镇村及工矿用地面积（hm²）"
+                },
+                "validate": [
+                  {
+                    "required": false,
+                    "type": "number",
+                    "message": "请输入城镇村及工矿用地面积（hm²）",
+                    "trigger": "blur"
+                  }
+                ]
+              }
+            },
+            {
+              "title": "其它土地",
+              "key": "otherLand",
+              "align": "center",
+              "minWidth": 80,
+              "customize": {
+                "type": "number",
+                "props": {
+                  "disabled": false,
+                  "readonly": false,
+                  "min": 0,
+                  "placeholder": "请输入其它土地面积（hm²）"
+                },
+                "validate": [
+                  { "required": false, "type": "number", "message": "请输入其它土地面积（hm²）", "trigger": "blur" }
+                ]
+              }
+            },
+            {
+              "title": "占永久基本农田",
+              "align": "center",
+              "children": [
+                {
+                  "title": "水田",
+                  "key": "basicFarmlandWaterfield",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入占基本农田水田面积（hm²）"
+                    },
+                    "validate": [
+                      {
+                        "required": false,
+                        "type": "number",
+                        "message": "请输入占基本农田水田面积（hm²）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "旱地",
+                  "key": "basicFarmlandDryland",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入占基本农田旱地面积（hm²）"
+                    },
+                    "validate": [
+                      {
+                        "required": false,
+                        "type": "number",
+                        "message": "请输入占基本农田旱地面积（hm²）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "水浇地",
+                  "key": "basicFarmlandWaterland",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入占基本农田水浇地面积（hm²）"
+                    },
+                    "validate": [
+                      {
+                        "required": false,
+                        "type": "number",
+                        "message": "请输入占基本农田水浇地面积（hm²）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "其他",
+                  "key": "basicFarmlandOther",
+                  "align": "center",
+                  "minWidth": 80,
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入占基本农田其他面积（hm²）"
+                    },
+                    "validate": [
+                      {
+                        "required": false,
+                        "type": "number",
+                        "message": "请输入占基本农田其他面积（hm²）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        { "fixed": "right", "title": "操作", "align": "center", "width": 80, "slot": "action" }
+      ]
+    }
+  ]
+}
