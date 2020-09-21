@@ -99,6 +99,7 @@ cd my-project
   - v-clipboard
   - codemirror
   - bpmn-js
+  - [monaco-editor](https://github.com/Microsoft/monaco-editor)
 
 - Frame
 
