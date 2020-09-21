@@ -1,5 +1,6 @@
 const path = require('path')
 const defaultSettings = require('./src/config')
+const MonacoEditorPlugin = require('monaco-editor-webpack-plugin')
 
 const siteName = defaultSettings.siteName || 'vue-iview-admin-template'
 const resolve = dir => path.join(__dirname, '.', dir)
@@ -111,6 +112,12 @@ module.exports = {
             priority: 0,
             reuseExistingChunk: true
           },
+          monacoEditor: {
+            name: 'chunk-monaco-editor',
+            test: /[\\/]node_modules[\\/]monaco-editor[\\/]/,
+            chunks: 'all',
+            priority: -5
+          },
           cesium: {
             name: 'chunk-cesium',
             test: /[\\/]node_modules[\\/]cesium[\\/]/,
@@ -124,7 +131,16 @@ module.exports = {
   },
   configureWebpack: config => {
     config.name = siteName
-    const plugins = []
+    const plugins = [
+      new MonacoEditorPlugin({
+        // https://github.com/Microsoft/monaco-editor-webpack-plugin#options
+        // Include a subset of languages support
+        // Some language extensions like typescript are so huge that may impact build performance
+        // e.g. Build full languages support with webpack 4.0 takes over 80 seconds
+        // Languages are loaded on demand at runtime
+        languages: ['json']
+      })
+    ]
     return {
       plugins: plugins
     }
