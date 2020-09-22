@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <FormItemWrap :preview="preview" :schema="schema">
     <template v-if="preview">
       {{
         schema.options.length
@@ -25,16 +25,17 @@
         {{ option.label }}
       </i-option>
     </i-select>
-  </div>
+  </FormItemWrap>
 </template>
 
 <script>
+import FormItemWrap from '../FormItemWrap'
 const getDictionaryValueListApi = () => Promise.resolve({ data: [] })
 
 export default {
   name: 'GridFormSelect',
 
-  components: {},
+  components: { FormItemWrap },
 
   props: {
     model: Object,

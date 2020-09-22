@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import GridFormItem from './GridFormItem'
+import GridFormItem from '../GridFormItem'
 
 export default {
   name: 'GridFormGroup',

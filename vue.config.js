@@ -79,18 +79,19 @@ module.exports = {
             name: 'chunk-common',
             chunks: 'initial',
             minChunks: 2,
-            maxInitialRequests: 5,
+            maxInitialRequests: 8,
             minSize: 0,
+            // 默认组的优先级为负数，以允许任何自定义缓存组具有更高的优先级（默认值为0）
             priority: 1,
             reuseExistingChunk: true
           },
-          vendors: {
-            name: 'chunk-vendors',
-            test: /[\\/]node_modules[\\/]/,
-            chunks: 'initial',
-            priority: 2,
-            reuseExistingChunk: true
-          },
+          // vendors: {
+          //   name: 'chunk-vendors',
+          //   test: /[\\/]node_modules[\\/]/,
+          //   chunks: 'initial',
+          //   priority: 2,
+          //   reuseExistingChunk: true
+          // },
           viewDesign: {
             name: 'chunk-view-design',
             test: /[\\/]node_modules[\\/]view-design[\\/]/,
@@ -116,14 +117,13 @@ module.exports = {
             name: 'chunk-monaco-editor',
             test: /[\\/]node_modules[\\/]monaco-editor[\\/]/,
             chunks: 'all',
-            priority: -5
+            priority: 4
           },
           cesium: {
             name: 'chunk-cesium',
             test: /[\\/]node_modules[\\/]cesium[\\/]/,
             chunks: 'all',
-            // 默认组的优先级为负数，以允许任何自定义缓存组具有更高的优先级（默认值为0）
-            priority: -5
+            priority: 5
           }
         }
       })
