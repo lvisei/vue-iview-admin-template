@@ -1,104 +1,136 @@
 <script>
 import { formatDate } from '../utils'
 import FormItemWrap from './FormItemWrap'
-import GridFormSelect from '../GridFormSelect'
+import GridFormSelect from './FormSelect'
 import GridDynamicTable from '../GridDynamicTable'
 import GridFormTable from '../GridFormTable'
 // import GridFormPlot from './GridFormPlot'
 
-const GridFormInput = (createElement, preview, model, schema) => {
-  return createElement(
-    FormItemWrap,
-    { props: { preview, schema } },
-    preview
-      ? model[schema.field]
-      : createElement('Input', {
-          props: Object.assign({ value: model[schema.field] }, schema.props),
-          on: { 'on-change': date => (model[schema.field] = date) }
-        })
-  )
-}
-
-const GridFormInputNumber = (createElement, preview, model, schema) => {
-  return createElement(
-    FormItemWrap,
-    { props: { preview, schema } },
-    preview
-      ? model[schema.field]
-      : createElement('InputNumber', {
-          style: { width: '100%' },
-          props: Object.assign({ value: model[schema.field] }, schema.props),
-          on: { 'on-change': date => (model[schema.field] = date) }
-        })
-  )
-}
-
-const GridFormDatePicker = (createElement, preview, model, schema) => {
-  return createElement(
-    FormItemWrap,
-    { props: { preview, schema } },
-    preview
-      ? model[schema.field]
-      : createElement('DatePicker', {
-          style: { width: '100%' },
-          props: Object.assign({ value: model[schema.field] }, schema.props),
-          on: {
-            'on-change': date => (model[schema.field] = date),
-            'hook:mounted': () => {
-              if (schema.props.initDate) {
-                const { format } = schema.props
-                model[schema.field] = format ? formatDate(format) : formatDate('yyyy-MM-dd')
-              }
-            }
-          }
-        })
-  )
-}
-
-const GridFormRadioGroup = (createElement, preview, model, schema) => {
-  return createElement(
-    FormItemWrap,
-    { props: { preview, schema } },
-    preview
-      ? model[schema.field]
-      : createElement(
-          'RadioGroup',
-          {
-            style: { width: '100%' },
-            props: Object.assign({ value: model[schema.field] }, schema.props),
-            on: { 'on-change': date => (model[schema.field] = date) }
-          },
-          schema.options.map((option, index) => {
-            createElement(
-              'radio',
-              { props: { key: index, label: option.label, disabled: option.disabled } },
-              option.description || option.label
-            )
-          })
-        )
-  )
-}
-
-const GridFormCheckboxGroup = (createElement, preview, model, schema) => {
-  return createElement(
-    FormItemWrap,
-    { props: { preview, schema } },
-    preview
-      ? model[schema.field]
-      : createElement(
-          'CheckboxGroup',
-          {
-            style: { width: '100%' },
-            props: Object.assign({ value: model[schema.field] }, schema.props),
-            on: { 'on-change': date => (model[schema.field] = date) }
-          },
-          schema.options.map((option, index) => {
-            createElement('Checkbox', {
-              props: { key: index, label: option.label, disabled: option.disabled }
+const GridFormInput = {
+  name: 'GridFormInput',
+  props: ['preview', 'model', 'schema'],
+  render(createElement) {
+    return createElement(
+      FormItemWrap,
+      { props: { preview: this.preview, schema: this.schema } },
+      this.preview
+        ? this.model[this.schema.field]
+        : [
+            createElement('Input', {
+              props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
+              on: { 'on-change': date => (this.model[this.schema.field] = date) }
             })
-          })
-        )
-  )
+          ]
+    )
+  }
+}
+
+const GridFormInputNumber = {
+  name: 'GridFormInputNumber',
+  props: ['preview', 'model', 'schema'],
+  render(createElement) {
+    return createElement(
+      FormItemWrap,
+      { props: { preview: this.preview, schema: this.schema } },
+      this.preview
+        ? this.model[this.schema.field]
+        : [
+            createElement('InputNumber', {
+              style: { width: '100%' },
+              props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
+              on: { 'on-change': date => (this.model[this.schema.field] = date) }
+            })
+          ]
+    )
+  }
+}
+
+const GridFormDatePicker = {
+  name: 'GridFormDatePicker',
+  props: ['preview', 'model', 'schema'],
+  render(createElement) {
+    return createElement(
+      FormItemWrap,
+      { props: { preview: this.preview, schema: this.schema } },
+      this.preview
+        ? this.model[this.schema.field]
+        : [
+            createElement('DatePicker', {
+              style: { width: '100%' },
+              props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
+              on: {
+                'on-change': date => (this.model[this.schema.field] = date),
+                'hook:mounted': () => {
+                  if (this.schema.props.initDate) {
+                    const { format } = this.schema.props
+                    this.model[this.schema.field] = format
+                      ? formatDate(format)
+                      : formatDate('yyyy-MM-dd')
+                  }
+                }
+              }
+            })
+          ]
+    )
+  }
+}
+
+const GridFormRadioGroup = {
+  name: 'GridFormRadioGroup',
+  props: ['preview', 'model', 'schema'],
+  render(createElement) {
+    return createElement(
+      FormItemWrap,
+      { props: { preview: this.preview, schema: this.schema } },
+      this.preview
+        ? this.model[this.schema.field]
+        : [
+            createElement(
+              'RadioGroup',
+              {
+                style: { width: '100%' },
+                props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
+                'on-change': date => (this.model[this.schema.field] = date)
+              },
+              this.schema.options.map((option, index) => {
+                return createElement(
+                  'Radio',
+                  { props: { key: index, label: option.label, disabled: option.disabled } },
+                  option.description || option.label
+                )
+              })
+            )
+          ]
+    )
+  }
+}
+
+const GridFormCheckboxGroup = {
+  name: 'GridFormCheckboxGroup',
+  props: ['preview', 'model', 'schema'],
+  render(createElement) {
+    return createElement(
+      FormItemWrap,
+      { props: { preview: this.preview, schema: this.schema } },
+      this.preview
+        ? this.model[this.schema.field]
+        : [
+            createElement(
+              'CheckboxGroup',
+              {
+                style: { width: '100%' },
+                props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
+                on: { 'on-change': date => (this.model[this.schema.field] = date) }
+              },
+              this.schema.options.map((option, index) => {
+                return createElement('Checkbox', {
+                  props: { key: index, label: option.label, disabled: option.disabled }
+                })
+              })
+            )
+          ]
+    )
+  }
 }
 
 export default {
@@ -130,21 +162,17 @@ export default {
     const { type, className } = schema
     let formComponent
     if (type === 'text') {
-      formComponent = GridFormInput(h, preview, model, schema)
+      formComponent = GridFormInput
     } else if (type === 'number') {
-      formComponent = GridFormInputNumber(h, preview, model, schema)
+      formComponent = GridFormInputNumber
     } else if (type === 'select') {
-      formComponent = h(
-        FormItemWrap,
-        { props: { preview, schema } },
-        h(GridFormSelect, { props: { preview, schema, model } })
-      )
+      formComponent = GridFormSelect
     } else if (type === 'date') {
-      formComponent = GridFormDatePicker(h, preview, model, schema)
+      formComponent = GridFormDatePicker
     } else if (type === 'radio') {
-      formComponent = GridFormRadioGroup(h, preview, model, schema)
+      formComponent = GridFormRadioGroup
     } else if (type === 'checkbox') {
-      formComponent = GridFormCheckboxGroup(h, preview, model, schema)
+      formComponent = GridFormCheckboxGroup
     } else if (type === 'annex') {
       // formComponent = FormItemWrap
     } else if (type === 'geoRange') {

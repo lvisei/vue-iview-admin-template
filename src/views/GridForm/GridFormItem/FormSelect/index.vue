@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <FormItemWrap :preview="preview" :schema="schema">
     <template v-if="preview">
       {{
         schema.options.length
@@ -25,16 +25,26 @@
         {{ option.label }}
       </i-option>
     </i-select>
-  </div>
+  </FormItemWrap>
 </template>
 
 <script>
-const getDictionaryValueListApi = () => Promise.resolve({ data: [] })
+import FormItemWrap from '../FormItemWrap'
+const getDictionaryListApi = url => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.responseType = 'json'
+    xhr.open('GET', url)
+    xhr.onload = () => resolve(xhr.response)
+    xhr.onerror = () => reject(xhr.statusText)
+    xhr.send()
+  })
+}
 
 export default {
   name: 'GridFormSelect',
 
-  components: {},
+  components: { FormItemWrap },
 
   props: {
     model: Object,
@@ -62,16 +72,19 @@ export default {
 
   methods: {
     onSelectMounted() {
-      const { dictionary } = this.schema.props
+      const { dynamic } = this.schema
+      const { url } = dynamic
       this.selectLoading = true
-      getDictionaryValueListApi(dictionary).then(({ data }) => {
-        this.selectLoading = false
-        this.schema.options = data ? data.map(({ desc }) => ({ label: desc, value: desc })) : []
-      })
+      getDictionaryListApi(url)
+        .then(({ data }) => {
+          this.schema.options = data ? data.map(({ label, value }) => ({ label, value })) : []
+        })
+        .catch(err => console.log(err))
+        .finally(() => (this.selectLoading = false))
     },
 
     onSelectOpenChange(status) {
-      if (!this.schema.props.dictionary || !status || this.schema.options.length) return
+      if (!this.schema.dynamic || !status || this.schema.options.length) return
       this.onSelectMounted()
     },
 

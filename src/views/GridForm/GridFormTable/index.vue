@@ -1,7 +1,7 @@
 <template>
   <div class="grid-form-table">
     <i-table
-      :class="['grid-form-table__table', preview ? '' : 'grid-form-table__table_medium']"
+      :class="['grid-form-table__table']"
       :columns="columns"
       :data="model[schema.field]"
       v-bind="schema.props"
@@ -29,9 +29,10 @@ export default {
 
   computed: {
     columns() {
-      const { columns, field } = this.schema
+      const { columns, field, props } = this.schema
       const model = this.model
-      const _columns = this.generateColumns(columns, field, model)
+      const { size } = props
+      const _columns = this.generateColumns(columns, field, model, size)
 
       return Object.freeze(_columns)
     }
@@ -52,18 +53,18 @@ export default {
   beforeDestroy() {},
 
   methods: {
-    generateColumns(columns, field, model) {
+    generateColumns(columns, field, model, size) {
       const _columns = columns.map(column => {
         const isCustomize = column.customize
         const isCustomizeHeader = column.customizeHeader
         const hasChild = column.children
 
         if (hasChild) {
-          column.children = this.generateColumns(column.children, field, model)
+          column.children = this.generateColumns(column.children, field, model, size)
         }
 
         if (isCustomize) {
-          column.render = this.preview ? null : this.getColumnRender(model, field, column)
+          column.render = this.preview ? null : this.getColumnRender(model, field, column, size)
         }
 
         if (isCustomizeHeader) {
@@ -96,7 +97,7 @@ export default {
       return render
     },
 
-    getColumnRender(model, field, column) {
+    getColumnRender(model, field, column, size = 'default') {
       const { key, customize } = column
       const { type, props, validate, keys } = customize
       const _model = model[field]
@@ -125,13 +126,13 @@ export default {
             : [
                 type === 'number'
                   ? h('InputNumber', {
-                      props: { ...props, value: row[key] },
+                      props: { ...props, value: row[key], size },
                       style: { width: '100%' },
                       on: { input: val => (_row[key] = val) }
                     })
                   : type === 'text'
                   ? h('Input', {
-                      props: { ...props, value: row[key] },
+                      props: { ...props, value: row[key], size },
                       on: { input: val => (_row[key] = val.trim()) }
                     })
                   : type === 'sum-number'
@@ -216,12 +217,6 @@ export default {
   position: relative;
 
   &__table {
-    &_medium {
-      .ivu-table-small .ivu-table-summary {
-        font-size: 14px;
-      }
-    }
-
     .ivu-table th:not(:last-child),
     .ivu-table td:not(:last-child) {
       border-right: 1px solid #e8eaec;

@@ -6,7 +6,7 @@
     >
       <span
         v-if="!preview"
-        v-show="schema.validate.find(({ required }) => required === true)"
+        v-show="schema.validate && schema.validate.find(({ required }) => required === true)"
         class="grid-form-item-wrap__label_required"
       >
         *

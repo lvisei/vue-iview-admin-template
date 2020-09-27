@@ -1,0 +1,1392 @@
+{
+  "formTitle": "项目基本信息表",
+  "formExtra": {
+    "downloadTemplate": [{ "url": "", "name": "" }],
+    "uploadTable": { "url": "", "data": {} },
+    "exportTable": { "url": "", "data": {} }
+  },
+  "formModel": {
+    "projectName": "",
+    "projectType": "",
+    "obligor": "",
+    "unitAddress": "",
+    "contactPhone": "",
+    "projectGrade": "",
+    "region": "",
+    "projectAddress": "",
+    "projectArea": null,
+    "investmentScale": null,
+    "projectAddressNumber": "",
+
+    "preparationName": "",
+    "corporateRepresentative": "",
+    "certificateName": "",
+    "qualificationLevel": "",
+    "certificationAuthority": "",
+    "number": "",
+    "contacts": "",
+    "contactNumber": "",
+    "mainStaff": [{ "name": "", "duty": "", "profession": "", "institution": "" }],
+
+    "landUseStatus": [
+      {
+        "firstLeve": "耕地",
+        "secondLeve": "水田",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "耕地",
+        "secondLeve": "旱地",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "耕地",
+        "secondLeve": "水浇地",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      },
+      {
+        "_type": "sub-sum",
+        "_keys": ["damaged", "toBeDamaged", "occupy", "count"],
+        "_range": [0, 1, 2],
+        "firstLeve": "耕地",
+        "secondLeve": "小计",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "交通运输用地",
+        "secondLeve": "-",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "其它土地",
+        "secondLeve": "-",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "occupy": 0,
+        "count": 0
+      }
+    ],
+
+    "areaLandDamaged": [
+      {
+        "firstLeve": "损毁",
+        "secondLeve": "挖损",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "损毁",
+        "secondLeve": "塌陷",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "损毁",
+        "secondLeve": "压占",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "损毁",
+        "secondLeve": "污染",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      },
+      {
+        "_type": "sub-sum",
+        "_keys": ["damaged", "toBeDamaged", "count"],
+        "_range": [0, 1, 2],
+        "firstLeve": "损毁",
+        "secondLeve": "小计",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      },
+      {
+        "firstLeve": "占用",
+        "secondLeve": "-",
+        "damaged": 0,
+        "toBeDamaged": 0,
+        "count": 0
+      }
+    ],
+    "reclamationRate": 0,
+    "staticInvestment": 0,
+    "staticInvestmentUnitArea": 0,
+    "dynamicInvestment": 0,
+    "dynamicInvestmentUnitArea": 0,
+    "soilInvestment": 0,
+    "amountOfTopsoilStripping": [
+      {
+        "strippedAllArea": null,
+        "strippedAllCount": null,
+        "soilTransportDistance": null,
+        "soilReplyArea": null,
+        "soilReplyCount": null,
+        "soilReplyGuestCount": null
+      }
+    ],
+
+    "reclamationTask": "",
+    "reclamationProjectsQuality": "",
+    "landOwnership": [],
+
+    "handleConclusion": "",
+    "handleMan": "",
+    "handleDate": ""
+  },
+  "formSchema": [
+    {
+      "category": "项目概况",
+      "children": [
+        {
+          "label": "项目名称",
+          "type": "text",
+          "field": "projectName",
+          "span": 12,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入项目名称"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "项目名称不能为空",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "项目类型",
+          "type": "select",
+          "field": "projectType",
+          "span": 6,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请选择项目类型"
+          },
+          "options": [
+            {
+              "value": "1001",
+              "label": "建设项目",
+              "disabled": false
+            },
+            {
+              "value": "1003",
+              "label": "一般项目",
+              "disabled": false
+            }
+          ],
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请选择项目类型",
+              "trigger": "change"
+            }
+          ]
+        },
+        {
+          "label": "单位地址",
+          "type": "text",
+          "field": "unitAddress",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入单位地址"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入单位地址",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "联系电话",
+          "type": "text",
+          "field": "contactPhone",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入手机号"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入手机号",
+              "trigger": "blur"
+            },
+            {
+              "validator": "function(rule, value, callback, source, options){ if (new RegExp('^1[3|4|5|7|8]\\\\d{9}$').test(value)) {callback()}else{callback('手机号格式不正确');}}",
+              "message": "手机号格式不正确",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "项目级别",
+          "type": "select",
+          "field": "projectGrade",
+          "span": 6,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请选择项目级别"
+          },
+          "options": [
+            {
+              "value": "市级",
+              "label": "市级",
+              "disabled": false
+            },
+            {
+              "value": "区县级",
+              "label": "区县级",
+              "disabled": false
+            }
+          ],
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请选择项目级别",
+              "trigger": "change"
+            }
+          ]
+        },
+        {
+          "label": "所在区县",
+          "type": "select",
+          "field": "region",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "filterable": true,
+            "placeholder": "请输入所在区县"
+          },
+          "dynamic": {
+            "url": "https://getman.cn/mock/dynamic-dictionary?code=D004"
+          },
+          "options": [],
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入所在区县",
+              "trigger": "change"
+            }
+          ]
+        },
+        {
+          "label": "项目位置",
+          "type": "text",
+          "field": "projectAddress",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入项目位置"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入项目位置",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "项目面积",
+          "type": "number",
+          "field": "projectArea",
+          "suffix": "hm²",
+          "span": 6,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入项目面积"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入项目面积",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "投资规模",
+          "type": "number",
+          "field": "investmentScale",
+          "suffix": "万元",
+          "span": 6,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入投资规模"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入投资规模",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "项目位置现状图幅号",
+          "type": "text",
+          "field": "projectAddressNumber",
+          "span": 12,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入项目位置现状图幅号"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入项目位置现状图幅号",
+              "trigger": "blur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "方案单位",
+      "children": [
+        {
+          "label": "单位名称",
+          "type": "text",
+          "field": "preparationName",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入单位名称"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "单位名称不能为空",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "法人代表",
+          "type": "text",
+          "field": "corporateRepresentative",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入法人代表"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入法人代表",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "资质证书名称",
+          "type": "text",
+          "field": "certificateName",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入资质证书"
+          },
+          "validate": [
+            {
+              "required": false,
+              "type": "string",
+              "message": "请输入资质证书",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "资质等级",
+          "type": "text",
+          "field": "qualificationLevel",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入资质等级"
+          },
+          "validate": [
+            {
+              "required": false,
+              "type": "string",
+              "message": "请输入资质等级",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "发证机关",
+          "type": "text",
+          "field": "certificationAuthority",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入发证机关"
+          },
+          "validate": [
+            {
+              "required": false,
+              "type": "string",
+              "message": "请输入发证机关",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "编号",
+          "type": "text",
+          "field": "number",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入编号"
+          },
+          "validate": [
+            {
+              "required": false,
+              "type": "string",
+              "message": "请输入编号",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "联系人",
+          "type": "text",
+          "field": "contacts",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入联系人"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入联系人",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "联系电话",
+          "type": "text",
+          "field": "contactNumber",
+          "span": 6,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入手机号"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "请输入手机号",
+              "trigger": "blur"
+            },
+            {
+              "validator": "function(rule, value, callback, source, options){ if (new RegExp('^1[3|4|5|7|8]\\\\d{9}$').test(value)) {callback()}else{callback('手机号格式不正确');}}",
+              "message": "手机号格式不正确",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "type": "classification",
+          "title": "主要编制人员",
+          "span": 24,
+          "children": [
+            {
+              "type": "dynamicTable",
+              "span": 24,
+              "field": "mainStaff",
+              "props": { "size": "small", "border": false, "addName": "新增编制人员" },
+              "columns": [
+                {
+                  "type": "index",
+                  "title": "序号",
+                  "width": 80,
+                  "align": "center"
+                },
+                {
+                  "title": "姓名",
+                  "key": "name",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "text",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "placeholder": "请输入姓名"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "string",
+                        "message": "请输入姓名",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "职务/职称",
+                  "key": "duty",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "text",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "placeholder": "请输入职务/职称"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "string",
+                        "message": "请输入职务/职称",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "专业",
+                  "key": "profession",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "text",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "placeholder": "请输入专业"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "string",
+                        "message": "请输入专业",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "单位",
+                  "key": "institution",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "text",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "placeholder": "请输入单位"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "string",
+                        "message": "请输入单位",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultData": { "name": "", "duty": "", "profession": "", "institution": "" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "利用现状",
+      "children": [
+        {
+          "type": "formTable",
+          "span": 24,
+          "field": "landUseStatus",
+          "props": {
+            "size": "small",
+            "border": false,
+            "showSummary": true
+          },
+          "suffix": "",
+          "spans": [
+            { "rowIndex": 0, "columnIndex": 0, "rowspan": 4, "colspan": 1 },
+            { "rowIndex": 1, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 2, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 3, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 4, "columnIndex": 0, "rowspan": 1, "colspan": 2 },
+            { "rowIndex": 4, "columnIndex": 1, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 5, "columnIndex": 0, "rowspan": 1, "colspan": 2 },
+            { "rowIndex": 5, "columnIndex": 1, "rowspan": 0, "colspan": 0 }
+          ],
+          "columns": [
+            {
+              "title": "地类",
+              "key": "firstLeve",
+              "align": "center",
+              "maxWidth": 270,
+              "className": "header-border-right-none",
+              "customizeHeader": {}
+            },
+            {
+              "key": "secondLeve",
+              "align": "center",
+              "maxWidth": 270,
+              "customizeHeader": {}
+            },
+            {
+              "title": "面积（hm²）",
+              "align": "center",
+              "children": [
+                {
+                  "title": "已损毁",
+                  "key": "damaged",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入已损毁面积"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入已损毁面积",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "拟损毁",
+                  "key": "toBeDamaged",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入拟损毁面积"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入拟损毁面积",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "占用",
+                  "key": "occupy",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入占用面积（hm²）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入占用面积（hm²）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "小计",
+                  "key": "count",
+                  "align": "center",
+                  "maxWidth": 130,
+                  "customize": {
+                    "type": "sum-number",
+                    "keys": ["damaged", "toBeDamaged", "occupy"]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "损毁及占用面积",
+      "children": [
+        {
+          "type": "formTable",
+          "span": 24,
+          "field": "areaLandDamaged",
+          "props": {
+            "size": "small",
+            "border": false,
+            "showSummary": true
+          },
+          "suffix": "",
+          "spans": [
+            { "rowIndex": 0, "columnIndex": 0, "rowspan": 5, "colspan": 1 },
+            { "rowIndex": 1, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 2, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 3, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 4, "columnIndex": 0, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 5, "columnIndex": 0, "rowspan": 1, "colspan": 2 },
+            { "rowIndex": 5, "columnIndex": 1, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 6, "columnIndex": 1, "rowspan": 0, "colspan": 0 },
+            { "rowIndex": 6, "columnIndex": 1, "rowspan": 0, "colspan": 0 }
+          ],
+          "columns": [
+            {
+              "title": "类型",
+              "key": "firstLeve",
+              "align": "center",
+              "maxWidth": 270,
+              "className": "header-border-right-none",
+              "customizeHeader": {}
+            },
+            {
+              "key": "secondLeve",
+              "align": "center",
+              "maxWidth": 270,
+              "customizeHeader": {}
+            },
+            {
+              "title": "面积（hm²）",
+              "align": "center",
+              "children": [
+                {
+                  "title": "已损毁或占用",
+                  "key": "damaged",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入已损毁或占用"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入已损毁或占用",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "拟损毁或占用",
+                  "key": "toBeDamaged",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入拟损毁或占用"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入拟损毁或占用",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "小计",
+                  "key": "count",
+                  "align": "center",
+                  "maxWidth": 130,
+                  "customize": {
+                    "type": "sum-number",
+                    "keys": ["damaged", "toBeDamaged"]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "损毁及占用率",
+          "labelStyle": { "width": "540px" },
+          "type": "number",
+          "field": "reclamationRate",
+          "suffix": "％",
+          "span": 24,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入土地复垦率"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入土地复垦率",
+              "trigger": "blur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "投资估算",
+      "children": [
+        {
+          "label": "静态总投资",
+          "type": "number",
+          "field": "staticInvestment",
+          "suffix": "万元",
+          "span": 12,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入静态总投资"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入静态总投资",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "单位面积静态投资",
+          "type": "number",
+          "field": "staticInvestmentUnitArea",
+          "suffix": "万元/亩",
+          "span": 12,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入单位面积静态投资"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入单位面积静态投资",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "动态总投资",
+          "type": "number",
+          "field": "dynamicInvestment",
+          "suffix": "万元",
+          "span": 12,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入动态总投资"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入动态总投资",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "单位面积动态投资",
+          "type": "number",
+          "field": "dynamicInvestmentUnitArea",
+          "suffix": "万元/亩",
+          "span": 12,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入单位面积动态投资"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入单位面积动态投资",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "其中：工程投资",
+          "type": "number",
+          "field": "soilInvestment",
+          "suffix": "万元",
+          "span": 24,
+          "props": {
+            "disabled": false,
+            "readonly": false,
+            "min": 0,
+            "placeholder": "请输入工程投资"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "number",
+              "message": "请输入工程投资",
+              "trigger": "blur"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "预估工程量",
+      "children": [
+        {
+          "type": "formTable",
+          "span": 24,
+          "field": "amountOfTopsoilStripping",
+          "props": { "size": "small", "border": false },
+          "columns": [
+            {
+              "title": "表土剥离",
+              "align": "center",
+              "children": [
+                {
+                  "title": "总面积(m²)",
+                  "suffix": "m²",
+                  "key": "strippedAllArea",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入总面积（m²）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入总面积（m²）",
+                        "trigger": "blur"
+                      },
+                      {
+                        "type": "number",
+                        "min": 0.0000001,
+                        "message": "总面积大于零",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "总方量(m³)",
+                  "key": "strippedAllCount",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入总方量（m³）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入总方量（m³）",
+                        "trigger": "blur"
+                      },
+                      {
+                        "type": "number",
+                        "min": 0.0000001,
+                        "message": "总方量大于零",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "title": "表土运输",
+              "align": "center",
+              "children": [
+                {
+                  "title": "平均运距（m）",
+                  "key": "soilTransportDistance",
+                  "align": "center",
+                  "suffix": "m",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入平均运距（m）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入平均运距（m）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "title": "表土回覆",
+              "align": "center",
+              "children": [
+                {
+                  "title": "总面积(m²)",
+                  "key": "soilReplyArea",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入总面积（m²）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入总面积（m²）",
+                        "trigger": "blur"
+                      },
+                      {
+                        "type": "number",
+                        "min": 0.0000001,
+                        "message": "总面积大于零",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "总方量(m³)",
+                  "key": "soilReplyCount",
+                  "align": "center",
+                  "suffix": "m³",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入总方量（m³）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入总方量（m³）",
+                        "trigger": "blur"
+                      },
+                      {
+                        "type": "number",
+                        "min": 0.0000001,
+                        "message": "总方量大于零",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "客土总方量(m³)",
+                  "key": "soilReplyGuestCount",
+                  "align": "center",
+                  "customizeHeader": {},
+                  "customize": {
+                    "type": "number",
+                    "props": {
+                      "disabled": false,
+                      "readonly": false,
+                      "min": 0,
+                      "placeholder": "请输入客土总方量（m³）"
+                    },
+                    "validate": [
+                      {
+                        "required": true,
+                        "type": "number",
+                        "message": "请输入客土总方量（m³）",
+                        "trigger": "blur"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "初验情况",
+      "children": [
+        {
+          "label": "任务是否完成",
+          "type": "radio",
+          "field": "reclamationTask",
+          "span": 8,
+          "options": [
+            {
+              "label": "是",
+              "disabled": false
+            },
+            {
+              "label": "否",
+              "disabled": false
+            }
+          ],
+          "props": {
+            "size": "default"
+          },
+          "validate": [
+            {
+              "required": true,
+              "message": "请选择任务是否完成",
+              "trigger": "change"
+            }
+          ]
+        },
+        {
+          "label": "质量是否合格",
+          "type": "radio",
+          "field": "reclamationProjectsQuality",
+          "span": 8,
+          "options": [
+            {
+              "label": "是",
+              "disabled": false
+            },
+            {
+              "label": "否",
+              "disabled": false
+            }
+          ],
+          "props": {
+            "size": "default"
+          },
+          "validate": [
+            {
+              "required": true,
+              "message": "请选择质量是否合格",
+              "trigger": "change"
+            }
+          ]
+        },
+        {
+          "label": "初验类型",
+          "type": "checkbox",
+          "field": "landOwnership",
+          "span": 8,
+          "options": [
+            {
+              "label": "技术人员",
+              "disabled": false
+            },
+            {
+              "label": "质检人员",
+              "disabled": false
+            },
+            {
+              "label": "生产人员",
+              "disabled": false
+            }
+          ],
+          "props": {
+            "size": "default"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "array",
+              "message": "请选择权属类型",
+              "trigger": "change"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "审核意见",
+      "children": [
+        {
+          "label": "审核意见",
+          "type": "text",
+          "field": "handleConclusion",
+          "span": 24,
+          "props": {
+            "type": "textarea",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入审核意见"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "审核意见不能为空",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "审核人",
+          "type": "text",
+          "field": "handleMan",
+          "span": 12,
+          "props": {
+            "type": "text",
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请输入审核人"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "审核人不能为空",
+              "trigger": "blur"
+            }
+          ]
+        },
+        {
+          "label": "日期",
+          "type": "date",
+          "field": "handleDate",
+          "span": 12,
+          "props": {
+            "type": "date",
+            "initDate": true,
+            "disabled": false,
+            "readonly": false,
+            "placeholder": "请选择日期"
+          },
+          "validate": [
+            {
+              "required": true,
+              "type": "string",
+              "message": "日期不能为空",
+              "trigger": "blur"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

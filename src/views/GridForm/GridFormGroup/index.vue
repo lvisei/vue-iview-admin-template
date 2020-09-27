@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import GridFormItem from './GridFormItem'
+import GridFormItem from '../GridFormItem'
 
 export default {
   name: 'GridFormGroup',
@@ -153,7 +153,8 @@ export default {
 
     .ivu-form-item-error-tip {
       padding-top: 0;
-      top: 60%;
+      top: unset;
+      bottom: 0px;
     }
 
     .ivu-form-item-content {
