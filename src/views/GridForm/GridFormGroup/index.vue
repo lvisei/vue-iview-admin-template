@@ -153,7 +153,8 @@ export default {
 
     .ivu-form-item-error-tip {
       padding-top: 0;
-      top: 60%;
+      top: unset;
+      bottom: 0px;
     }
 
     .ivu-form-item-content {

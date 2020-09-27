@@ -93,8 +93,8 @@ const GridFormRadioGroup = {
                 'on-change': date => (this.model[this.schema.field] = date)
               },
               this.schema.options.map((option, index) => {
-                createElement(
-                  'radio',
+                return createElement(
+                  'Radio',
                   { props: { key: index, label: option.label, disabled: option.disabled } },
                   option.description || option.label
                 )
@@ -123,7 +123,7 @@ const GridFormCheckboxGroup = {
                 on: { 'on-change': date => (this.model[this.schema.field] = date) }
               },
               this.schema.options.map((option, index) => {
-                createElement('Checkbox', {
+                return createElement('Checkbox', {
                   props: { key: index, label: option.label, disabled: option.disabled }
                 })
               })

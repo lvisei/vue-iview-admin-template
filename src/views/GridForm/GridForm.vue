@@ -3,25 +3,28 @@
     <p v-if="title" class="grid-form__title">{{ title }}</p>
     <div v-if="formExtra" class="grid-form__tools">
       <i-button
-        v-if="formExtra.downloadTable"
+        v-if="formExtra.exportTable"
         class="grid-form__tools-btn"
         size="default"
         icon="md-download"
-        :to="formExtra.downloadTable"
+        :to="formExtra.exportTable.url"
         target="_blank"
       >
         导出表格
       </i-button>
-      <i-button
-        v-if="formExtra.downloadTemplate"
-        class="grid-form__tools-btn"
-        size="default"
-        icon="md-download"
-        :to="formExtra.downloadTemplate"
-        target="_blank"
-      >
-        模版下载
-      </i-button>
+      <template v-if="formExtra.downloadTemplate">
+        <i-button
+          v-for="(item, index) in formExtra.downloadTemplate"
+          :key="index"
+          class="grid-form__tools-btn"
+          size="default"
+          icon="md-download"
+          :to="item.url"
+          target="_blank"
+        >
+          {{ item.name }}
+        </i-button>
+      </template>
       <i-upload
         v-if="formExtra.uploadTable"
         class="grid-form__upload-table"

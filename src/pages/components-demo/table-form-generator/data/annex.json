@@ -1,0 +1,213 @@
+{
+  "formTitle": "附件",
+  "formAlias": "方案附件",
+  "formModel": {
+    "planReport": null,
+    "planForm": null,
+    "internalAuditOpinion": null,
+    "statusMap": null,
+    "planMap": null,
+    "qualificaCerti": null,
+    "otherAttachments": null
+  },
+  "formSchema": [
+    {
+      "category": "",
+      "children": [
+        {
+          "type": "classification",
+          "title": "一、方案资料",
+          "span": 24,
+          "children": [
+            {
+              "label": "1、报告书",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "planReport",
+              "span": 12,
+              "props": {
+                "placeholder": "请上传附件",
+                "type": "file",
+                "format": ["pdf", "doc", "docx"]
+              },
+              "validate": [
+                {
+                  "required": true,
+                  "type": "object",
+                  "message": "请上传报告书",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": {
+                    "format": ["pdf", "doc", "docx"]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "2、报告表",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "planForm",
+              "span": 12,
+              "props": {
+                "placeholder": "请上传附件",
+                "type": "file",
+                "format": ["tif", "gif", "pdf", "doc", "jpg", "docx"]
+              },
+              "validate": [
+                {
+                  "required": true,
+                  "type": "object",
+                  "message": "请上传报告表",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": {
+                    "format": ["tif", "gif", "pdf", "doc", "jpg", "docx"]
+                  }
+                }
+              ]
+            },
+            {
+              "label": "3、负责人审意见",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "internalAuditOpinion",
+              "span": 24,
+              "props": {
+                "placeholder": "请上传附件",
+                "type": "file",
+                "format": ["tif", "gif", "pdf", "doc", "jpg", "docx"]
+              },
+              "validate": [
+                {
+                  "required": false,
+                  "type": "object",
+                  "message": "请上传负责人审意见",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": { "format": ["tif", "gif", "pdf", "doc", "jpg", "docx"] }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "classification",
+          "title": "二、附图",
+          "span": 24,
+          "children": [
+            {
+              "label": "4、现状图",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "statusMap",
+              "span": 12,
+              "props": {
+                "placeholder": "请上传图件",
+                "type": "file",
+                "multiple": true,
+                "max-size": 102400,
+                "format": ["tif", "gif", "pdf", "dwg", "jpg"]
+              },
+              "validate": [
+                {
+                  "required": true,
+                  "type": "object",
+                  "message": "请上传现状图",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": {
+                    "format": ["tif", "gif", "pdf", "dwg", "jpg"],
+                    "max-size": 102400
+                  }
+                }
+              ]
+            },
+            {
+              "label": "6、规划图",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "planMap",
+              "span": 12,
+              "props": {
+                "placeholder": "请上传图件",
+                "type": "file",
+                "multiple": true,
+                "max-size": 102400,
+                "format": ["tif", "gif", "dwg", "jpg"]
+              },
+              "validate": [
+                {
+                  "required": true,
+                  "type": "object",
+                  "message": "请上传垦规划图",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": {
+                    "format": ["tif", "gif", "dwg", "jpg"],
+                    "max-size": 102400
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "classification",
+          "title": "四、其它附件资料",
+          "span": 24,
+          "children": [
+            {
+              "label": "7、方案编制单位<br/>资质证书①",
+              "tooltip": "注：根据项目具体情况而定，具有该资料的需提供",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "qualificaCerti",
+              "span": 12,
+              "props": {
+                "placeholder": "请上传附件",
+                "type": "file",
+                "format": ["gif", "pdf", "tif", "jpg"]
+              },
+              "validate": [
+                {
+                  "required": false,
+                  "type": "object",
+                  "message": "请上传方案编制单位资质证书",
+                  "trigger": "change"
+                },
+                {
+                  "trigger": "blur",
+                  "customize": { "format": ["gif", "pdf", "tif", "jpg"] }
+                }
+              ]
+            },
+            {
+              "label": "22、其它",
+              "labelStyle": { "width": "230px" },
+              "type": "annex",
+              "field": "otherAttachments",
+              "span": 24,
+              "props": {
+                "placeholder": "请上传附件",
+                "type": "file",
+                "multiple": true
+              },
+              "validate": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

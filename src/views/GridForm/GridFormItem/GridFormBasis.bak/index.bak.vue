@@ -52,67 +52,8 @@
           :rules="getValidateRules(schema.type, schema.validate)"
           :show-message="true"
         >
-          <i-input
-            v-if="schema.type === 'text'"
-            v-model.trim="model[schema.field]"
-            v-bind="schema.props"
-          />
-          <i-input-number
-            v-else-if="schema.type === 'number'"
-            v-model="model[schema.field]"
-            v-bind="schema.props"
-            style="width: 100%"
-          />
-          <i-select
-            v-else-if="schema.type === 'select'"
-            v-model="model[schema.field]"
-            v-bind="schema.props"
-            :loading="selectLoading"
-            @on-create="onCreate"
-            @on-open-change="onSelectOpenChange"
-            @hook:mounted="schema.props.dictionary && onSelectMounted()"
-          >
-            <i-option
-              v-for="(option, index) in schema.options"
-              :value="option.value"
-              :key="index"
-              :disabled="option.disabled"
-            >
-              {{ option.label }}
-            </i-option>
-          </i-select>
-          <i-date-picker
-            v-else-if="schema.type === 'date'"
-            :value="model[schema.field]"
-            v-bind="schema.props"
-            style="width: 100%;"
-            @on-change="date => (model[schema.field] = date)"
-            @hook:mounted="schema.props.initDate && onDatePickerMounted()"
-          ></i-date-picker>
-          <i-radio-group
-            v-else-if="schema.type === 'radio'"
-            v-model="model[schema.field]"
-            v-bind="schema.props"
-          >
-            <i-radio
-              v-for="(option, index) in schema.options"
-              :key="index"
-              :label="option.label"
-              :disabled="option.disabled"
-            >
-              {{ option.description || option.label }}
-            </i-radio>
-          </i-radio-group>
-          <i-checkbox-group v-else-if="schema.type === 'checkbox'" v-model="model[schema.field]">
-            <i-checkbox
-              v-for="(option, index) in schema.options"
-              :key="index"
-              :label="option.label"
-              :disabled="option.disabled"
-            ></i-checkbox>
-          </i-checkbox-group>
           <UploadAnnex
-            v-else-if="schema.type === 'annex'"
+            v-if="schema.type === 'annex'"
             :file="model[schema.field]"
             v-bind="schema.props"
             @on-delete="onItemAnnexDelete"
@@ -132,10 +73,6 @@
 </template>
 
 <script>
-import AnnexList from '../components/AnnexList'
-import UploadAnnex from '../components/UploadAnnex'
-import UploadGeoRange from '../components/UploadGeoRange'
-import { getDictionaryValueListApi } from '@/api/common'
 import { formatDate } from './helper'
 
 export default {
@@ -143,7 +80,7 @@ export default {
 
   inject: ['validateField'],
 
-  components: { AnnexList, UploadAnnex, UploadGeoRange },
+  components: {},
 
   props: {
     model: Object,
@@ -176,32 +113,6 @@ export default {
   beforeDestroy() {},
 
   methods: {
-    onSelectMounted() {
-      const { dictionary } = this.schema.props
-      this.selectLoading = true
-      getDictionaryValueListApi(dictionary).then(({ data }) => {
-        this.selectLoading = false
-        this.schema.options = data ? data.map(({ desc }) => ({ label: desc, value: desc })) : []
-      })
-    },
-
-    onSelectOpenChange(status) {
-      if (!this.schema.props.dictionary || !status || this.schema.options.length) return
-      this.onSelectMounted()
-    },
-
-    onDatePickerMounted() {
-      const { format } = this.schema.props
-      this.model[this.schema.field] = format ? formatDate(format) : formatDate('yyyy-MM-dd')
-    },
-
-    onCreate(val) {
-      this.schema.options.push({
-        value: val,
-        label: val
-      })
-    },
-
     getValidateRules(type, rules) {
       if (!rules) return null
       if (type === 'annex') {
