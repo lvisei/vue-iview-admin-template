@@ -7,17 +7,19 @@
           :key="index + new Date().getTime()"
           :schema="schema"
           :model="gridForm.formModel"
+          :preview="formPattern === 'preview'"
         />
       </GridForm>
     </div>
-    <i-button
-      class="table-form-generator__config"
-      type="primary"
-      shape="circle"
-      @click="handClickCongfig"
-    >
-      表单配置
-    </i-button>
+    <div class="table-form-generator__config">
+      <i-radio-group v-model="formPattern">
+        <i-radio label="fill">填报模式</i-radio>
+        <i-radio label="preview">预览模式</i-radio>
+      </i-radio-group>
+      <i-button type="primary" shape="circle" @click="handClickCongfig">
+        表单配置
+      </i-button>
+    </div>
     <i-modal
       class-name="table-form-generator__edit-form-pane"
       :fullscreen="false"
@@ -59,6 +61,7 @@ export default {
     return {
       // gridForm: { formTitle: '', formAlias: '', formExtra: {}, formModel: {}, formSchema: [] },
       gridForm: defaultForm,
+      formPattern: 'fill',
       modalVisible: false,
       gridFormJson: '{}'
     }

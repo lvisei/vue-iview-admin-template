@@ -18,7 +18,7 @@ const GridFormInput = {
         : [
             createElement('Input', {
               props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
-              on: { 'on-change': date => (this.model[this.schema.field] = date) }
+              on: { input: data => (this.model[this.schema.field] = data) }
             })
           ]
     )
@@ -90,7 +90,7 @@ const GridFormRadioGroup = {
               {
                 style: { width: '100%' },
                 props: Object.assign({ value: this.model[this.schema.field] }, this.schema.props),
-                'on-change': date => (this.model[this.schema.field] = date)
+                on: { 'on-change': date => (this.model[this.schema.field] = date) }
               },
               this.schema.options.map((option, index) => {
                 return createElement(
