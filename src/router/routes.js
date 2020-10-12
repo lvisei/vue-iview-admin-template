@@ -34,6 +34,12 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/500',
+    component: () => import(/* webpackChunkName: "error-page-500" */ '@/pages/error-page/500'),
+    meta: { title: '500' },
+    hidden: true
+  },
+  {
     path: '/redirect',
     component: MainView,
     hidden: true,
