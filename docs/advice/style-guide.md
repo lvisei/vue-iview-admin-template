@@ -8,8 +8,7 @@
 - CSS BEM
   - CSS 命名 [BEM](http://getbem.com/naming/) 规范。
   - [CSS BEM 书写规范](https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-%5B%E8%A7%84%E8%8C%83%5D--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83)。
-  - [使用 BEM 命名规范来组织 CSS 代码](https://zhuanlan.zhihu.com/p/46073785)。
-  - [如何看待 CSS 中 BEM 的命名方式](https://www.zhihu.com/question/21935157)。
+  - [BEM CHEAT SHEET](https://9elements.com/bem-cheat-sheet/) - BEM 命名示范。
 - JavaScript
   - [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript?utm_source=gold_browser_extension) - [作者](https://github.com/ryanmcdermott)根据 Robert C. Martin [_《代码整洁之道》_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)总结了适用于 JavaScript 的软件工程原则[《Clean Code JavaScript》](https://github.com/ryanmcdermott/clean-code-javascript)。
   - [Airbnb javascript](https://github.com/airbnb/javascript) - Airbnb javascript 风格指南。

@@ -2,7 +2,7 @@
   <FormItemWrap :preview="preview" :schema="schema">
     <template v-if="preview">
       {{
-        schema.options.length
+        model[schema.field] && schema.options.length
           ? schema.options.find(({ value }) => value === model[schema.field]).label
           : model[schema.field]
       }}

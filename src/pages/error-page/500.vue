@@ -1,17 +1,15 @@
 <template>
-  <div class="page-401">
-    <div class="page-401__image"></div>
-    <div class="page-401__title">401</div>
-    <div class="page-401__subtitle">抱歉，您无相关权限访问该页面!</div>
-    <div class="page-401__extra">
-      <i-button type="primary" to="/">返回首页</i-button>
-    </div>
+  <div class="page-500">
+    <div class="page-500__image"></div>
+    <div class="page-500__title">500</div>
+    <div class="page-500__subtitle">抱歉，服务器出现异常!</div>
+    <div class="page-500__extra"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Page401',
+  name: 'Page500',
 
   components: {},
 
@@ -38,7 +36,7 @@ export default {
 </script>
 
 <style lang="less">
-.page-404 {
+.page-500 {
   &__title {
     color: rgba(0, 0, 0, 0.85);
     font-size: 24px;
@@ -50,11 +48,6 @@ export default {
     color: rgba(0, 0, 0, 0.45);
     font-size: 14px;
     line-height: 1.6;
-    text-align: center;
-  }
-
-  &__extra {
-    margin-top: 32px;
     text-align: center;
   }
 }

@@ -1259,7 +1259,7 @@
             {
               "required": true,
               "message": "请选择任务是否完成",
-              "trigger": "change"
+              "trigger": "blur"
             }
           ]
         },
@@ -1285,7 +1285,7 @@
             {
               "required": true,
               "message": "请选择质量是否合格",
-              "trigger": "change"
+              "trigger": "blur"
             }
           ]
         },
