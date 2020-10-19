@@ -321,6 +321,7 @@ export default {
 <style lang="less">
 .resource-management {
   &__batch {
+    overflow: auto;
     padding: 10px 0 25px;
   }
 

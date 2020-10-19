@@ -42,8 +42,8 @@
           placeholder="请选择状态"
           style="width: 250px"
         >
-          <Option :value="1">启用</Option>
-          <Option :value="2">禁用</Option>
+          <i-option :value="1">启用</i-option>
+          <i-option :value="2">禁用</i-option>
         </i-select>
       </i-form-item>
       <i-form-item :label-width="10">
@@ -421,6 +421,7 @@ export default {
 <style lang="less">
 .user-management {
   &__batch {
+    overflow: auto;
     padding: 10px 0 25px;
   }
 
