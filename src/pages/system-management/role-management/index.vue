@@ -347,6 +347,7 @@ export default {
 <style lang="less">
 .role-management {
   &__batch {
+    overflow: auto;
     padding: 10px 0 25px;
   }
 

@@ -105,6 +105,7 @@
             <i-select
               v-model="formData.actions[index].resources"
               multiple
+              transfer
               filterable
               :max-tag-count="1"
               size="small"
@@ -112,7 +113,7 @@
             >
               <i-option-group v-for="item in resourceList" :label="item.group" :key="item.group">
                 <i-option v-for="resource in item.children" :value="resource.id" :key="resource.id">
-                  {{ item.group + ' : ' + resource.method }}
+                  {{ `${item.group} : ${resource.description || resource.method}` }}
                 </i-option>
               </i-option-group>
             </i-select>
@@ -148,7 +149,7 @@
         >
           <i-option-group v-for="item in resourceList" :label="item.group" :key="item.group">
             <i-option v-for="resource in item.children" :value="resource.id" :key="resource.id">
-              {{ resource.method + ' : ' + resource.path }}
+              {{ `${item.group} : ${resource.description || resource.method}` }}
             </i-option>
           </i-option-group>
         </i-select>
@@ -225,17 +226,19 @@ export default {
       btnColumns: [
         {
           title: '按钮名称',
+          width: 130,
           key: 'name',
           slot: 'name'
         },
         {
           title: '权限编号',
+          width: 110,
           key: 'code',
           slot: 'code'
         },
         {
           title: '资源',
-          minWidth: 150,
+          minWidth: 180,
           key: 'resources',
           slot: 'resources'
         },
