@@ -156,6 +156,13 @@ const syncRoutes = [
             /* webpackChunkName: "table-form-generator" */ '@/pages/components-demo/table-form-generator'
           ),
         meta: { title: 'table form generator' }
+      },
+      {
+        path: 'code-sandbox',
+        name: 'CodeSandbox',
+        component: () =>
+          import(/* webpackChunkName: "code-sandbox" */ '@/pages/components-demo/code-sandbox'),
+        meta: { title: 'code sandbox' }
       }
     ]
   },
