@@ -1,11 +1,5 @@
 <template>
-  <i-split
-    class="code-editor-online"
-    v-model="split"
-    min="100px"
-    max="100px"
-    @on-moving="onSplitMoving"
-  >
+  <i-split class="code-editor-online" v-model="split" @on-moving="onSplitMoving">
     <div slot="left" class="code-editor-online__split-pane code-editor-online__left">
       <MonacoEditor
         ref="editor"
@@ -17,15 +11,8 @@
         @change="onEditorChange"
       />
     </div>
-    <div slot="right" class="code-editor-online__split-pane code-editor-online__preview">
-      <iframe
-        class="code-editor-online__iframe"
-        ref="iframe"
-        frameborder="0"
-        width="100%"
-        height="100%"
-        scrolling="no"
-      ></iframe>
+    <div slot="right" class="code-editor-online__split-pane code-editor-online__right">
+      <div ref="iframeContainer" class="code-editor-online__preview"></div>
     </div>
   </i-split>
 </template>
@@ -56,6 +43,7 @@ export default {
       h1,
       h2 {
         font-family: Lato;
+        text-align: center;
       }
     </style>
   </head>
@@ -98,12 +86,20 @@ export default {
     },
 
     updateIframe(vDom) {
-      const iframe = this.$refs.iframe
-      iframe.srcdoc = vDom
+      const iframeContainer = this.$refs.iframeContainer
+      iframeContainer.innerHTML = ''
+      const iframe = document.createElement('iframe')
+      iframe.id = 'iframe'
+      iframe.sandbox = 'allow-forms allow-popups allow-scripts allow-same-origin allow-modals'
+      iframe.frameBorder = '0'
+      iframe.scrolling = 'yes'
+      iframe.style.width = '100%'
+      iframe.style.height = '100%'
+      iframeContainer.append(iframe)
 
-      // iframe.contentWindow.document.open()
-      // iframe.contentWindow.document.write(vDom)
-      // iframe.contentWindow.document.close()
+      iframe.contentWindow.document.open()
+      iframe.contentWindow.document.write(vDom)
+      iframe.contentWindow.document.close()
     }
   }
 }
@@ -118,6 +114,10 @@ export default {
 
   &__editor {
     width: calc(100% - 5px);
+    height: 100%;
+  }
+
+  &__preview {
     height: 100%;
   }
 }
