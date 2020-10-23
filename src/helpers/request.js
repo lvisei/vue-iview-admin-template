@@ -1,6 +1,8 @@
 import axios from 'axios'
 import store from '@/store'
 import { Message } from 'view-design'
+import { BaseURL } from '@/config'
+import StatusCode from '@/config/status-code'
 
 const REPEATREQUEST = 'REPEATREQUEST'
 const { CancelToken } = axios
@@ -22,7 +24,7 @@ const paramsSerializer = params => {
 
 // create an axios instance
 const request = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: BaseURL,
   timeout: 10000 // request timeout
   // withCredentials: true, // send cookies when cross-domain requests
   // paramsSerializer: paramsSerializer
@@ -62,14 +64,7 @@ const errorHandler = response => {
         }
       })
     } else {
-      const errCodeMap = {
-        401: '无数据权限',
-        404: '资源不存在',
-        405: '方法不被允许',
-        429: '请求过于频繁',
-        500: '服务器发生错误'
-      }
-      errCodeMap[code] && tip(message)
+      StatusCode[code] && tip(message)
     }
     return Promise.reject(error)
   } else {
@@ -122,14 +117,14 @@ request.interceptors.request.use(
  */
 request.interceptors.response.use(
   response => {
-    const data = response.data
-    const { error } = data
+    const { data: responseData } = response
+    const { error } = responseData
     if (error) {
       const { message } = error
       tip(message)
-      return Promise.reject(data)
+      return Promise.reject(responseData)
     }
-    return data
+    return responseData
   },
   error => {
     const { response, message } = error
