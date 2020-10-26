@@ -15,6 +15,9 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
+        modifyVars: {
+          hack: `true; @import "~@/themes/variables.less";`
+        },
         javascriptEnabled: true
       }
     }
@@ -45,17 +48,6 @@ module.exports = {
       .options({
         prefix: true
       })
-
-    const addLessResource = rule => {
-      rule
-        .use('style-resource')
-        .loader('style-resources-loader')
-        .options({
-          patterns: [resolve('src/themes/variables.less')]
-        })
-    }
-    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
-    types.forEach(type => addLessResource(config.module.rule('less').oneOf(type)))
 
     // SplitChunksPlugin https://webpack.js.org/plugins/split-chunks-plugin/
     const splitOptions = config.optimization.get('splitChunks')
