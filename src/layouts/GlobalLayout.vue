@@ -161,6 +161,8 @@ export default {
 
   &__content {
     margin: 88px 24px 0px;
+    display: flex;
+    flex-direction: column;
   }
 
   &__footer {

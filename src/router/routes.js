@@ -140,15 +140,6 @@ const syncRoutes = [
         meta: { title: 'bpmn' }
       },
       {
-        path: 'el-form-generator',
-        name: 'ElFormGenerator',
-        component: () =>
-          import(
-            /* webpackChunkName: "form-generator" */ '@/pages/components-demo/el-form-generator'
-          ),
-        meta: { title: 'el form generator' }
-      },
-      {
         path: 'table-form-generator',
         name: 'TableFormGenerator',
         component: () =>
@@ -156,6 +147,15 @@ const syncRoutes = [
             /* webpackChunkName: "table-form-generator" */ '@/pages/components-demo/table-form-generator'
           ),
         meta: { title: 'table form generator' }
+      },
+      {
+        path: 'el-form-generator',
+        name: 'ElFormGenerator',
+        component: () =>
+          import(
+            /* webpackChunkName: "form-generator" */ '@/pages/components-demo/el-form-generator'
+          ),
+        meta: { title: 'el form generator' }
       },
       {
         path: 'code-sandbox',
