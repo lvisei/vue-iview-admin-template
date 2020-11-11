@@ -4,7 +4,7 @@
       <MonacoEditor
         ref="editor"
         class="code-editor-online__editor"
-        v-model="sourceCode"
+        :value="value"
         :options="monacoEditorOption"
         language="html"
         theme="vs-dark"
@@ -21,19 +21,8 @@
 import MonacoEditor from '@/components/MonacoEditor'
 import { debounce } from '@/utils'
 
-export default {
-  name: 'CodeEditorOnline',
-
-  components: { MonacoEditor },
-
-  props: {},
-
-  data() {
-    return {
-      split: 0.5,
-      monacoEditorOption: { automaticLayout: true },
-      sourceCode:
-        `<!DOCTYPE html>
+const defaultSourceCode =
+  `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -54,8 +43,29 @@ export default {
     const appDiv = document.getElementById("app");
     appDiv.innerHTML = "<h1>Hello Word</h1>";
   </` +
-        `script>
+  `script>
 </html>`
+
+export default {
+  name: 'CodeEditorOnline',
+
+  components: { MonacoEditor },
+
+  props: {
+    value: {
+      type: String,
+      default: defaultSourceCode
+    }
+  },
+
+  model: {
+    event: 'change'
+  },
+
+  data() {
+    return {
+      split: 0.5,
+      monacoEditorOption: { automaticLayout: true }
     }
   },
 
@@ -68,7 +78,7 @@ export default {
   },
 
   mounted() {
-    this.debounce_updateIframe(this.sourceCode)
+    this.debounce_updateIframe(this.value)
   },
 
   updated() {},
@@ -77,6 +87,7 @@ export default {
 
   methods: {
     onEditorChange(value) {
+      this.$emit('change', value)
       this.debounce_updateIframe(value)
     },
 

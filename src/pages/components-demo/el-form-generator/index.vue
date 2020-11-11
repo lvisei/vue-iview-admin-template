@@ -43,11 +43,13 @@ export default {
 
 <style lang="less" scoped>
 .el-form-generator {
-  height: 100%;
+  flex: 1;
+  // fixed Safari height bug
+  display: flex;
 
   &__iframe {
     width: 100%;
-    height: 100%;
+    flex: 1;
   }
 }
 </style>
