@@ -15,8 +15,8 @@ import { initMap } from './helpers/init-map'
 export default {
   name: 'MapContainer',
 
-  provide: {
-    mapInstance: null
+  provide() {
+    return { mapInstance: null }
   },
 
   components: { GeoJsonLayer },
@@ -52,6 +52,10 @@ export default {
     this._provided.mapInstance = map
     this.bindEvent(map)
     this.loading = false
+    this.$once('hook:beforeDestroy', () => {
+      map.setTarget(null)
+      this._provided.mapInstance = null
+    })
   },
 
   updated() {},
