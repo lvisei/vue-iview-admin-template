@@ -12,9 +12,8 @@ import { loadMap } from './helper'
 export default {
   name: 'MapContainer',
 
-  provide: {
-    map: null,
-    arcGisApi: null
+  provide() {
+    return { map: null, arcGisApi: null }
   },
 
   components: {},
