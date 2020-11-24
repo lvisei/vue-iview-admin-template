@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import { Message } from 'view-design'
-import { BaseURL } from '@/config'
+import { Base_URL } from '@/config'
 import StatusCode from '@/config/status-code'
 
 const REPEATREQUEST = 'REPEATREQUEST'
@@ -24,7 +24,7 @@ const paramsSerializer = params => {
 
 // create an axios instance
 const request = axios.create({
-  baseURL: BaseURL,
+  baseURL: Base_URL,
   timeout: 10000 // request timeout
   // withCredentials: true, // send cookies when cross-domain requests
   // paramsSerializer: paramsSerializer
