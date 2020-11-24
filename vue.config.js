@@ -24,6 +24,11 @@ module.exports = {
   },
   transpileDependencies: ['vue-echarts', 'resize-detector'],
   chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      args[0].title = siteName
+      return args
+    })
+
     config.module
       .rule('svg')
       .exclude.add(resolve('src/assets/icons/svg'))
@@ -122,7 +127,6 @@ module.exports = {
     )
   },
   configureWebpack: config => {
-    config.name = siteName
     const plugins = [
       new MonacoEditorPlugin({
         // https://github.com/Microsoft/monaco-editor-webpack-plugin#options
