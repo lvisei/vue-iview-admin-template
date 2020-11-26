@@ -141,9 +141,9 @@ export default {
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '资源组', key: 'group', tree: true },
+        { title: '资源组', key: 'group', minWidth: 150, tree: true },
         { title: '请求方式', key: 'method', width: 150 },
-        { title: '请求路径', key: 'path' },
+        { title: '请求路径', key: 'path', minWidth: 120 },
         { title: '资源描述', key: 'description', ellipsis: true },
         { title: '创建时间', key: 'createdAt', sortable: true, width: 170 },
         { title: '操作', slot: 'action', width: 150, align: 'center' }
