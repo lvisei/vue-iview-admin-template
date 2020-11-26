@@ -217,12 +217,12 @@ export default {
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '菜单名称', key: 'name', slot: 'name' },
-        { title: '菜单图标', key: 'icon', slot: 'icon', align: 'center' },
+        { title: '菜单名称', key: 'name', minWidth: 100, slot: 'name' },
+        { title: '菜单图标', key: 'icon', minWidth: 100, slot: 'icon', align: 'center' },
         { title: '访问地址', key: 'routePath', width: 180 },
-        { title: '状态', key: 'status', slot: 'status' },
-        { title: '可见', key: 'showStatus', slot: 'showStatus' },
-        { title: '排序值', key: 'sequence', sortable: true },
+        { title: '状态', key: 'status', minWidth: 80, slot: 'status' },
+        { title: '可见', key: 'showStatus', minWidth: 80, slot: 'showStatus' },
+        { title: '排序值', key: 'sequence', minWidth: 100, sortable: true },
         { title: '创建时间', key: 'createdAt', sortable: true, width: 170 },
         { title: '创建者', key: 'creator', width: 100, ellipsis: true, tooltip: true },
         { title: '备注', key: 'memo', ellipsis: true, tooltip: true },
@@ -432,6 +432,7 @@ export default {
     border: 1px solid #4a506621;
     border-radius: 2px;
     flex: 1;
+    overflow: hidden;
   }
 
   &__page {

@@ -221,12 +221,12 @@ export default {
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '登录名称', key: 'userName', slot: 'userName' },
-        { title: '真实姓名', key: 'realName' },
-        { title: '用户状态', key: 'status', slot: 'status' },
-        { title: '邮箱', key: 'email' },
-        { title: '电话号码', key: 'phone' },
-        { title: '创建时间', key: 'createdAt', sortable: true },
+        { title: '登录名称', key: 'userName', minWidth: 120, slot: 'userName' },
+        { title: '真实姓名', key: 'realName', minWidth: 120 },
+        { title: '用户状态', key: 'status', minWidth: 100, slot: 'status' },
+        { title: '邮箱', key: 'email', minWidth: 150 },
+        { title: '电话号码', key: 'phone', minWidth: 120 },
+        { title: '创建时间', key: 'createdAt', width: 170, sortable: true },
         { title: '操作', slot: 'action', width: 320, align: 'center' }
       ],
       tableData: [],

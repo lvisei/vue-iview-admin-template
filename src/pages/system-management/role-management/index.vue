@@ -182,12 +182,12 @@ export default {
       totalCount: 0,
       tableLoading: false,
       columns: [
-        { title: '角色名称', key: 'name', slot: 'name' },
-        { title: '状态', key: 'status', slot: 'status' },
-        { title: '排序值', key: 'sequence', sortable: true },
-        { title: '创建时间', key: 'createdAt', sortable: true },
-        { title: '创建者', key: 'creator' },
-        { title: '备注', key: 'memo' },
+        { title: '角色名称', key: 'name', minWidth: 100, slot: 'name' },
+        { title: '状态', key: 'status', minWidth: 80, slot: 'status' },
+        { title: '排序值', key: 'sequence', minWidth: 100, sortable: true },
+        { title: '创建时间', key: 'createdAt', sortable: true, width: 170 },
+        { title: '创建者', key: 'creator', minWidth: 100 },
+        { title: '备注', key: 'memo', minWidth: 100 },
         { title: '操作', slot: 'action', width: 250, align: 'center' }
       ],
       tableData: [],
