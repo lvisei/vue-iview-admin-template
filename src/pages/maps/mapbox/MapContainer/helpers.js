@@ -1,4 +1,5 @@
 import mapboxgl from 'mapbox-gl'
+import { extentControl } from './controls'
 
 const accessToken =
   'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p1dHRybDR5MGJuZjQzcGhrZ2doeGgwNyJ9.a-vxW4UaxOoUMWUTGnEArw'
@@ -13,9 +14,10 @@ export const loadMap = container => {
     style: 'mapbox://styles/mapbox/streets-v11'
   })
 
-  const nav = new mapboxgl.NavigationControl()
+  // const nav = new mapboxgl.NavigationControl()
+  // map.addControl(nav, 'top-left')
 
-  map.addControl(nav, 'top-left')
+  extentControl(map)
 
   return map
 }
