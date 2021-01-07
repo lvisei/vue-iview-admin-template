@@ -21,6 +21,7 @@ export default {
     }
   },
 
+  // eslint-disable-next-line no-unused-vars
   render(h) {
     const { size, move, bar } = this
 
@@ -82,6 +83,7 @@ export default {
       this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize]) / 100
     },
 
+    // eslint-disable-next-line no-unused-vars
     mouseUpDocumentHandler(e) {
       this.cursorDown = false
       this[this.bar.axis] = 0

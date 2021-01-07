@@ -26,6 +26,10 @@ export function getCaptchaBase64(id, reload) {
           const base64 = reader.result
           resolve(base64)
         }
+        reader.onerror = () => {
+          reader.abort()
+          reject(reader.error)
+        }
         reader.readAsDataURL(blob)
       })
     })

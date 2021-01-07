@@ -51,12 +51,15 @@ npm run lint
 | ![](./docs/_media/20200819-091956.png) | ![](./docs/_media/20200819-092352.png) | ![](./docs/_media/20200819-092201.png) |
 | ![](./docs/_media/20200819-092217.png) | ![](./docs/_media/20200819-092320.png) | ![](./docs/_media/20200819-092416.png) |
 
+## Related projects
+- [vue-cli-plugin-viewui-admin](https://github.com/liuvigongzuoshi/vue-cli-plugin-viewui-admin) - ViewUI(iView) admin template plugin for @vue/cli 4
+- [gin-admin-template](https://github.com/liuvigongzuoshi/gin-admin-template) - BackEnd Admin Template
+
 ## Links
 
 - [Live demo one](https://vue-iview-admin-template.ywbang.icu)
 - [Live demo two](https://vue-iview-admin-temp.ywbang.icu)
 - [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
-- [BackEnd Admin Template](https://github.com/liuvigongzuoshi/gin-admin-template)
 
 ## Browsers support
 
