@@ -149,6 +149,7 @@ export default {
 
   &__captcha {
     height: 33px;
+    cursor: pointer;
   }
 }
 </style>
