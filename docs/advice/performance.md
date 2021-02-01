@@ -132,3 +132,4 @@ module.exports = {
 ## 链接
 
   - [vue-9-perf-secrets](https://slides.com/akryum/vueconfus-2019)
+  - [揭秘 Vue.js 九个性能优化技巧](https://juejin.cn/post/6922641008106668045)
