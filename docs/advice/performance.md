@@ -58,6 +58,250 @@ component: () => import('@/components/HelloWorld')
 
 UI 组件库与其它第三方库建议按需引入，第三方库比如 `Echart`
 
+7、延时渲染
+
+当遇到渲染耗时的组件，使用延时渲染的方式做渐进式渲染，它能避免一次 render 由于 JS 执行时间过长导致渲染卡住的现象。
+
+```vue
+<template>
+  <div class="deferred-on">
+    <VueIcon icon="fitness_center" class="gigantic"/>
+
+    <h2>I'm an heavy page</h2>
+
+    <template v-if="defer(2)">
+      <Heavy v-for="n in 8" :key="n"/>
+    </template>
+
+    <Heavy v-if="defer(3)" class="super-heavy" :n="9999999"/>
+  </div>
+</template>
+
+<script>
+import Defer from '@/mixins/Defer'
+
+export default {
+  mixins: [
+    Defer(),
+  ],
+}
+</script>
+
+```
+
+Defer 这个 mixin 代码
+
+```js
+export default function (count = 10) {
+  return {
+    data () {
+      return {
+        displayPriority: 0
+      }
+    },
+
+    mounted () {
+      this.runDisplayPriority()
+    },
+
+    methods: {
+      runDisplayPriority () {
+        const step = () => {
+          requestAnimationFrame(() => {
+            this.displayPriority++
+            if (this.displayPriority < count) {
+              step()
+            }
+          })
+        }
+        step()
+      },
+
+      defer (priority) {
+        return this.displayPriority >= priority
+      }
+    }
+  }
+}
+```
+
+
+8、 时间分片
+
+JS是单线程，当遇到数据量较大的处理时，JS 执行时间过长，会阻塞 UI 线程的响应，如果时间片切割技术来分批次处理可以避免页面卡死的情况。
+
+```js
+async function work (list, splitCount) {
+  const queue = new JobQueue()
+  splitArray(list, splitCount).forEach(
+    chunk => queue.addJob(done => {
+      // 分时间片提交数据
+      requestAnimationFrame(() => {
+        commit('addItems', chunk)
+        done()
+      })
+    })
+  )
+  await queue.start()
+}
+
+function splitArray (list, chunkLength) {
+  const chunks = []
+  let chunk = []
+  let i = 0
+  let l = 0
+  let n = list.length
+  while (i < n) {
+    chunk.push(list[i])
+    l++
+    if (l === chunkLength) {
+      chunks.push(chunk)
+      chunk = []
+      l = 0
+    }
+    i++
+  }
+  chunk.length && chunks.push(chunk)
+  return chunks
+}
+```
+
+<details>
+<summary>JobQueue</summary>
+
+```js
+class JobQueue {
+  constructor ({ autoStart = false } = {}) {
+    this.autoStart = autoStart
+
+    this._queue = []
+    this._running = false
+    this._results = []
+    this._resolves = []
+    this._rejects = []
+    this._runId = 0
+  }
+
+  get length () {
+    return this._queue.length
+  }
+
+  addJob (func) {
+    this._queue.push(async () => {
+      try {
+        const runId = this._runId
+        const result = func(() => {
+          // Run not cancelled
+          if (runId === this._runId) {
+            this._results.push(result)
+            this._next()
+          }
+        })
+      } catch (error) {
+        this._reject(error)
+      }
+    })
+
+    if (this.autoStart && this.length === 1) {
+      this.start()
+    }
+  }
+
+  clear () {
+    this._running = false
+    this._queue.length = 0
+    this._resolves.length = 0
+    this._rejects.length = 0
+    this._results.length = 0
+    this._runId++
+  }
+
+  cancel () {
+    this._resolve()
+    this.clear()
+  }
+
+  start () {
+    return new Promise((resolve, reject) => {
+      if (!this._running && this.length > 0) {
+        this._running = true
+        this._queue[0]()
+        this._resolves.push(resolve)
+        this._rejects.push(reject)
+      } else {
+        resolve()
+      }
+    })
+  }
+
+  _next () {
+    if (this._running && this.length > 0) {
+      this._queue.shift()
+
+      if (this.length === 0) {
+        this._resolve()
+      } else {
+        this._queue[0]()
+      }
+    }
+  }
+
+  _resolve () {
+    this._resolves.forEach(f => f(this._results))
+    this.clear()
+  }
+
+  _reject (error) {
+    this._rejects.forEach(f => f(error))
+    this.clear()
+  }
+}
+```
+</details>
+
+
+9、  非响应式数据
+
+对于不需要响应式的变量，应避免进行数据劫持。
+
+复杂嵌套的对象：
+
+```js
+const data = list.map(
+  item => optimizeItem(item)
+)
+
+function optimizeItem (item) {
+  const itemData = {
+    id: uid++,
+    vote: 0
+  }
+  Object.defineProperty(itemData, 'data', {
+    // 标记为非响应式
+    configurable: false,
+    value: item
+  })
+  // 或者
+  // itemData['data'] = Object.freeze(item)
+  return itemData
+}
+```
+
+
+比如实例对象：
+```js
+export default {
+  created() {
+    this.scroll = null
+  },
+  mounted() {
+    this.scroll = new BScroll(this.$el)
+  }
+}
+```
+
+
+
 ## 生成环境
 
 1、分块打包公共代码
@@ -132,3 +376,4 @@ module.exports = {
 ## 链接
 
   - [vue-9-perf-secrets](https://slides.com/akryum/vueconfus-2019)
+  - [揭秘 Vue.js 九个性能优化技巧](https://juejin.cn/post/6922641008106668045)
