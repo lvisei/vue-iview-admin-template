@@ -2,7 +2,7 @@ import mapboxgl from 'mapbox-gl'
 import { extentControl } from './controls'
 
 const accessToken =
-  'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p1dHRybDR5MGJuZjQzcGhrZ2doeGgwNyJ9.a-vxW4UaxOoUMWUTGnEArw'
+  'pk.eyJ1IjoibGl1dmlnb25nenVvc2hpIiwiYSI6ImNrbmowaHg3dzNlaXoydm1xbDBlOHhqbTMifQ.k3sY00btPhFbuJOVIBNV_Q'
 
 export const loadMap = container => {
   mapboxgl.accessToken = accessToken
