@@ -18,9 +18,9 @@
 
 </div>
 
-**Live demo one:** [https://vue-iview-admin-template.ywbang.icu](https://vue-iview-admin-template.ywbang.icu)
+**Live demo one:** [https://vue-iview-admin-template.lvisei.icu](https://vue-iview-admin-template.lvisei.icu)
 
-**Live demo two:** [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu)
+**Live demo two:** [https://vue-iview-admin-temp.lvisei.icu](https://vue-iview-admin-temp.lvisei.icu)
 
 ## Usage
 
@@ -58,8 +58,8 @@ npm run lint
 
 ## Links
 
-- [Live demo one](https://vue-iview-admin-template.ywbang.icu)
-- [Live demo two](https://vue-iview-admin-temp.ywbang.icu)
+- [Live demo one](https://vue-iview-admin-template.lvisei.icu)
+- [Live demo two](https://vue-iview-admin-temp.lvisei.icu)
 - [Documentation](https://lvisei.github.io/vue-iview-admin-template/)
 
 ## Browsers support
