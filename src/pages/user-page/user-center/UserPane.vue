@@ -25,13 +25,13 @@
       </p>
       <p
         class="user-pane__description_item"
-        v-clipboard="'liuvigongzuoshi@foxmail.com'"
+        v-clipboard="'yunji.me@outlook.com'"
         v-clipboard:success="() => $Message.success('复制成功')"
       >
         <span class="user-pane__description_item-title">
           <i-icon type="ios-mail-outline" />
         </span>
-        <span class="user-pane__description_item-detail">liuvigongzuoshi@foxmail.com</span>
+        <span class="user-pane__description_item-detail">yunji.me@outlook.com</span>
       </p>
     </div>
     <i-divider dashed />

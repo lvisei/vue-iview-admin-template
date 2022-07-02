@@ -247,7 +247,7 @@ const syncRoutes = [
     meta: {
       title: '文档',
       icon: 'md-open',
-      href: 'https://liuvigongzuoshi.github.io/vue-iview-admin-template/'
+      href: 'https://lvisei.github.io/vue-iview-admin-template/'
     }
   }
 ]
