@@ -23,7 +23,7 @@
     "esri-loader": "^2.16.0",
     "jsencrypt": "^3.0.0-rc.1",
     "leaflet": "^1.7.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mapbox-gl": "^1.13.0",
     "mapbox-gl-controls": "^1.7.0",
     "monaco-editor": "^0.21.3",
