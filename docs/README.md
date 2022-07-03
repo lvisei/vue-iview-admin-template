@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/liuvigongzuoshi/vue-iview-admin-template">
+  <a href="https://github.com/lvisei/vue-iview-admin-template">
     <img alt="vue-iview-admin-template" width="200" src="./_media/logo.png">
   </a>
 </p>
@@ -12,21 +12,21 @@
 
 [![vue](https://img.shields.io/badge/vue-2.6.12-brightgreen.svg)](https://github.com/vuejs/vue)
 [![view-design](https://img.shields.io/badge/view_design-4.5.0-brightgreen.svg)](https://github.com/view-design/ViewUI)
-[![Build Status](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/liuvigongzuoshi/vue-iview-admin-template)
+[![Build Status](https://www.travis-ci.org/lvisei/vue-iview-admin-template.svg?branch=master)](https://www.travis-ci.org/lvisei/vue-iview-admin-template)
 [![DUB](https://img.shields.io/dub/l/vibe-d.svg)](https://opensource.org/licenses/MIT)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ca91adeb-0a21-4d43-91d1-105fb6c072a7/deploy-status)](https://app.netlify.com/sites/vue-iview-admin-temp/deploys)
 
 </div>
 
-**Live demo one:** [https://vue-iview-admin-template.ywbang.icu](https://vue-iview-admin-template.ywbang.icu)
+**Live demo one:** [https://vue-iview-admin-template.lvisei.icu](https://vue-iview-admin-template.lvisei.icu)
 
-**Live demo two:** [https://vue-iview-admin-temp.ywbang.icu](https://vue-iview-admin-temp.ywbang.icu) 
+**Live demo two:** [https://vue-iview-admin-temp.lvisei.icu](https://vue-iview-admin-temp.lvisei.icu)
 
 ## Usage
 
 ```bash
 # Clone project
-git clone https://github.com/liuvigongzuoshi/vue-iview-admin-template.git
+git clone https://github.com/lvisei/vue-iview-admin-template.git
 
 # Install dependencies
 npm install
@@ -52,14 +52,15 @@ npm run lint
 | ![](./_media/20200819-092217.png) | ![](./_media/20200819-092320.png) | ![](./_media/20200819-092416.png) |
 
 ## Related projects
-- [vue-cli-plugin-viewui-admin](https://github.com/liuvigongzuoshi/vue-cli-plugin-viewui-admin) - ViewUI(iView) admin template plugin for @vue/cli 4
-- [gin-admin-template](https://github.com/liuvigongzuoshi/gin-admin-template) - BackEnd Admin Template
+
+- [vue-cli-plugin-viewui-admin](https://github.com/lvisei/vue-cli-plugin-viewui-admin) - ViewUI(iView) admin template plugin for @vue/cli 4
+- [gin-admin-template](https://github.com/lvisei/gin-admin-template) - BackEnd Admin Template
 
 ## Links
 
-- [Live demo one](https://vue-iview-admin-template.ywbang.icu)
-- [Live demo two](https://vue-iview-admin-temp.ywbang.icu)
-- [Documentation](https://liuvigongzuoshi.github.io/vue-iview-admin-template/)
+- [Live demo one](https://vue-iview-admin-template.lvisei.icu)
+- [Live demo two](https://vue-iview-admin-temp.lvisei.icu)
+- [Documentation](https://lvisei.github.io/vue-iview-admin-template/)
 
 ## Browsers support
 
@@ -69,6 +70,6 @@ npm run lint
 
 ## License
 
-[MIT](https://github.com/liuvigongzuoshi/vue-iview-admin-template/blob/master/LICENSE)
+[MIT](https://github.com/lvisei/vue-iview-admin-template/blob/master/LICENSE)
 
-Copyright (c) 2018 liuvigongzuoshi
+Copyright (c) 2018 lvisei

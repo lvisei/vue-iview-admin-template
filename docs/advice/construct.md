@@ -93,16 +93,15 @@ module.exports = {
     node: true
   },
   plugins: [],
-  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+  extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
   parserOptions: {
-    parser: "babel-eslint"
+    parser: 'babel-eslint'
   },
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
-};
-
+}
 ```
 
 其中：
@@ -112,7 +111,8 @@ module.exports = {
 - `plugins: []`：在 ESLint 中加载插件，插件可用于配置校验规则。
 
 - `extends: [ ... ]`：在 ESLint 中使用[共享规则配置](https://cn.eslint.org/docs/developer-guide/shareable-configs)
-  - 其中 `eslint:recommended` 是 ESLint 内置的推荐校验规则配置（也被称作最佳规则实践）。`plugin:vue/essential` 是 Vue 官方推荐必须的校验 vue 语法规则配置，其依赖包为`eslint-plugin-vue`。`@vue/prettier`  是基于 Prettier 封装的代码格式规则，其依赖包为 `@vue/eslint-config-prettier`。
+
+  - 其中 `eslint:recommended` 是 ESLint 内置的推荐校验规则配置（也被称作最佳规则实践）。`plugin:vue/essential` 是 Vue 官方推荐必须的校验 vue 语法规则配置，其依赖包为`eslint-plugin-vue`。`@vue/prettier` 是基于 Prettier 封装的代码格式规则，其依赖包为 `@vue/eslint-config-prettier`。
   - `extends` 除了可以引入推荐规则，还可以以文件形式引入其它的自定义规则，然后在这些自定义规则的基础上用`rules` 去定义个别规则，从而覆盖掉 `extends` 中引入的规则。
 
 - `rules: {}`：覆写某个校验规则配置，规则有三种级别
@@ -120,8 +120,7 @@ module.exports = {
   - `warn` 或者 `1`，出现问题会有警告
   - `error` 或者 `2`，出现问题会报错
 
-
-- `env: {}`: 通过 `env` 配置需要启动的环境
+* `env: {}`: 通过 `env` 配置需要启动的环境
 
 在 package.json 中添加校验命令
 
@@ -131,7 +130,7 @@ module.exports = {
 }
 ```
 
-`vue-cli-service lint` 是基于 ESLint  的命令行接口进行格式自动修复封装而来的。
+`vue-cli-service lint` 是基于 ESLint 的命令行接口进行格式自动修复封装而来的。
 
 #### ESLint 插件
 
@@ -160,14 +159,14 @@ ESLint 的规则校验同时包含了**格式规则**和**质量规则**，但�
 
 在 ESLint 配置中已经集成脚手架封装 `@vue/prettier` 规则包了，需要说明的是脚手架集成 prettier 中会安装配置 `eslint-plugin-prettier` 与 `eslint-config-prettier`，其 [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) 用于解决 ESLint 和 Prettier 配合使用时容易产生的**格式规则**冲突问题，其作用就是关闭 ESLint 中配置的一些格式规则，除此之外还包括关闭 `eslint-plugin-babel`、`eslint-plugin-vue`、`eslint-plugin-standard` 等格式规则。而 `eslint-config-prettier` 模块实际是为 [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) 插件服务的，在 `eslint-plugin-prettier` 的源码中调用了 `eslint-config-prettier` 中相关的配置，然后执行插件中的代码。
 
-Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置的情况下使用官方默认的格式规则。
+Prettier 的格式规则，可通过 `.prettierrc` 文件进行配置，未配置的情况下使用官方默认的格式规则。
 
 ```json
 {
-	"singleQuote": true,
-	"semi": false,
-	"printWidth": 120,
-	"htmlWhitespaceSensitivity": "ignore"
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": 120,
+  "htmlWhitespaceSensitivity": "ignore"
 }
 ```
 
@@ -187,12 +186,15 @@ Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置
 
 - `.babel.config.js`
 - `@vue/cli-plugin-babel/preset`
-  - `Babel 7` 
+
+  - `Babel 7`
   - `babel-loader`
   - [@vue/babel-preset-app](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app)
+
     - [@babel/preset-env](https://new.babeljs.io/docs/en/next/babel-preset-env.html)
 
     - [@babel/plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
+
 - `.browserslistrc`
 - [@babel/preset-env](https://new.babeljs.io/docs/en/next/babel-preset-env.html)
   - [Autoprefixer](https://github.com/postcss/autoprefixer)
@@ -226,7 +228,7 @@ Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置
 配置后会产生以下一些特性：
 
 - 使用 `git cz` 代替 `git commit` 进行符合 Angular 规范的 Commit Message 信息提交
-- 代码提交之前会通过 [ghooks](https://github.com/ghooks-org/ghooks)  配合 git hook 进行提交信息校验，一旦提交信息不符合 Angular 规范，则提交会失败
+- 代码提交之前会通过 [ghooks](https://github.com/ghooks-org/ghooks) 配合 git hook 进行提交信息校验，一旦提交信息不符合 Angular 规范，则提交会失败
 - 执行 `npm run changelog` 会在根目录下自动生成 `CHANGELOG.md` 版本日志
 
 ### Lint Staged
@@ -257,17 +259,14 @@ Prettier的格式规则，可通过 `.prettierrc` 文件进行配置，未配置
 }
 ```
 
-## PART 3:  编辑器
+## PART 3: 编辑器
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - VS Code ESLint extension.
 - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)：为 Vue 框架提供语法高亮、代码片段、Emmet、格式化、代码风格检查、智能提示、调试帮助等。文档：[vetur](https://vuejs.github.io/vetur/setup.html#extensions)。
 - [Prettier Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：使用 [Prettie](https://prettier.io/) 格式化插件，支持 JavaScript、TypeScript、Vue 等文件的格式化。
 
+### 参考链接
 
-
-###  参考链接
-
-  - [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)
-- [Web 项目编码规范化工具](https://github.com/liuvigongzuoshi/blog/issues/4)
+- [Prettier your project](https://blog.souche.com/prettier-your-project/?from=timeline)
+- [Web 项目编码规范化工具](https://github.com/lvisei/blog/issues/4)
 - [从零开始配置 TypeScript 项目](https://juejin.im/post/6856410900577026061)
-

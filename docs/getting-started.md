@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/liuvigongzuoshi/vue-iview-admin-template my-project --depth=1
+git clone https://github.com/lvisei/vue-iview-admin-template my-project --depth=1
 cd my-project
 ```
 
@@ -64,8 +64,6 @@ cd my-project
 ```
 
 ###
-
-
 
 ## Stacks
 
